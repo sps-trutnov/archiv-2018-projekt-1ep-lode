@@ -10,6 +10,11 @@ namespace Lode
     {
         static void Main(string[] args)
         {
+            int[,] herniPole1 = new int[10, 10];
+            int[,] herniPole2 = new int[10, 10];
+
+            Console.CursorVisible = false;
+            Console.ReadKey(true);
         }
     }
 }
