@@ -1,200 +1,99 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lode
 {
     class Program
     {
-        // popisuje mozne stavy policka na herni plose
-        enum StavPolicka
+        static bool hrajeSeProtiAI()
         {
-            Voda, Lod, Mimo, Zasah, Potopena
+            Console.WriteLine("Chceš hrát proti počítači?");
+            Console.Write("A/n");
+
+            string odpoved = Console.ReadLine();
+
+            return (odpoved == null || odpoved.ToUpper() == "A");
         }
 
-        // popisuje dvourozmernou souradnici
-        struct Souradnice
+        static IPAddress zjistitAdresuSoupere()
         {
-            public int x;
-            public int y;
+            Console.WriteLine("Jakou IP adresu má soupeř?");
+
+            byte prvni, druhy, treti, ctvrty;
+
+            Console.Write("Zadej první oktet: ");
+            prvni = Convert.ToByte(Console.ReadLine());
+            Console.Write("Zadej druhý oktet: ");
+            druhy = Convert.ToByte(Console.ReadLine());
+            Console.Write("Zadej třetí oktet: ");
+            treti = Convert.ToByte(Console.ReadLine());
+            Console.Write("Zadej čtvrtý oktet: ");
+            ctvrty = Convert.ToByte(Console.ReadLine());
+
+            return new IPAddress(new byte[] { prvni, druhy, treti, ctvrty });
         }
 
-        // popisuje mozne typy lodi
-        enum TypLode
+        static void Main(string[] args)
         {
-            Clun, Torpedovka, Kriznik, Letadlovka
-        }
+            Souradnice tah;
+            StavPolicka vysledek;
 
-        // popisuje kazdou lod
-        struct Lod
-        {
-            public Souradnice souradnice;
-            public List<Souradnice> policka;
-        }
+            Hrac hrac = new LidskyHrac();
 
-        // popisuje mozne typy hracu
-        enum TypHrace
-        {
-            Clovek, Pocitac
-        }
-
-        // popisuje parametry hrace
-        struct Hrac
-        {
-            public TypHrace typ;
-
-            public IPAddress ipAdresa;
-            public short port;
-
-            public string jmeno;
-            public uint skore;
-
-            public List<Lod> lode;
-            public StavPolicka[,] stavHernihoPole;
-        }
-
-        // jmena pocitacovych protivniku
-        static string[] jmenaAI = new string[] { "Andy", "Boris", "Dora", "Keira", "Victor" };
-
-        // generator nahody
-        static Random nahoda = new Random();
-
-        // definice hrace
-        static Hrac definovatHrace()
-        {
-            Hrac hrac;
-
-            hrac.typ = TypHrace.Clovek;
-
-            hrac.ipAdresa = zjistitIPAdresuHrace();
-            hrac.port = (short)nahoda.Next(1024, short.MaxValue);
-
-            hrac.jmeno = ziskatJmenoHrace();
-            hrac.skore = 0;
-
-            hrac.lode = new List<Lod>();
-            hrac.stavHernihoPole = new StavPolicka[10, 10];
-
-            return hrac;
-        }
-
-        // definice protihrace
-        static Hrac definovatProtihrace()
-        {
-            Hrac protihrac;
-
-            if (zjistitProtiKomuSeHraje() == TypHrace.Pocitac)
+            if (hrajeSeProtiAI())
             {
-                protihrac.typ = TypHrace.Pocitac;
+                PocitacovyHrac protihrac = new PocitacovyHrac();
 
-                protihrac.ipAdresa = new IPAddress(new byte[] { 127, 0, 0, 1 });
-                protihrac.port = (short)nahoda.Next(1024, short.MaxValue);
+                hrac.StanovitAdresuSoupere(protihrac.VlastniPrijem.Address);
+                protihrac.StanovitAdresuSoupere(hrac.VlastniPrijem.Address);
 
-                protihrac.jmeno = jmenaAI[nahoda.Next(jmenaAI.Length)];
-                protihrac.skore = 0;
-
-                protihrac.lode = new List<Lod>();
-                protihrac.stavHernihoPole = new StavPolicka[10, 10];
+                protihrac.RozmistitLode();
+                protihrac.OddelitDoSamostatnehoVlakna();
             }
             else
             {
-                protihrac.typ = TypHrace.Clovek;
-
-                protihrac.ipAdresa = zjistitAdresuProtihrace();
-                protihrac.port = zjistitPortProtihrace();
-
-                protihrac.jmeno = zjistitJmenoProtihrace();
-                protihrac.skore = zjistitSkoreProtihrace();
-
-                protihrac.lode = zjistitStavLodiProtihrace();
-                protihrac.stavHernihoPole = zjistitStavHernihoPoleProtihrace();
+                hrac.StanovitAdresuSoupere(zjistitAdresuSoupere());
             }
 
-            return protihrac;
-        }
+            hrac.RozmistitLode();
 
-        // VSTUPNI BOD PROGRAMU
-        static void Main(string[] args)
-        {
-            Hrac hrac = definovatHrace();
-            Hrac protihrac = definovatProtihrace();
+            if (hrac.VyhravaPrvniTah())
+            {
+                tah = hrac.RozhodnoutVlastniTah();
+                vysledek = hrac.VykomunikovatVlastniTah(tah);
+                hrac.ProvestVlastniTah(tah, vysledek);
+            }
 
-            hrac.lode = rozmistitLodeHrace(hrac.lode, hrac.stavHernihoPole);
-            hrac.stavHernihoPole = aktualizovatStavHernihoPole(hrac.lode, hrac.stavHernihoPole);
+            while (!(hrac.JePorazenym() || hrac.JeVitezem() || hrac.NemuzeHrat()))
+            {
+                tah = hrac.ZjistitTahSoupere();
+                vysledek = hrac.ProvestTahSoupere(tah);
+                hrac.VykomunikovatTahSoupere(tah, vysledek);
 
-            protihrac.lode = vymenitSiNavzajemLode(hrac.lode);
-            protihrac.stavHernihoPole = vymenitSiNavzajemStavHernihoPole(hrac.stavHernihoPole);
+                if (hrac.JePorazenym() || hrac.JeVitezem() || hrac.NemuzeHrat())
+                    break;
+
+                tah = hrac.RozhodnoutVlastniTah();
+                vysledek = hrac.VykomunikovatVlastniTah(tah);
+                hrac.ProvestVlastniTah(tah, vysledek);
+            }
+
+            if (hrac.JeVitezem())
+            {
+                Console.WriteLine("Vítězství!");
+            }
+            else if (hrac.JePorazenym())
+            {
+                Console.WriteLine("Porážka...");
+            }
+            else if (hrac.NemuzeHrat())
+            {
+                Console.WriteLine("Remíza.");
+            }
 
             Console.CursorVisible = false;
             Console.ReadKey(true);
-        }
-
-        private static StavPolicka[,] vymenitSiNavzajemStavHernihoPole(StavPolicka[,] stavHernihoPole)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<Lod> vymenitSiNavzajemLode(List<Lod> lode)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static StavPolicka[,] aktualizovatStavHernihoPole(List<Lod> lode, StavPolicka[,] stavHernihoPole)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<Lod> rozmistitLodeHrace(List<Lod> lode, StavPolicka[,] stavHernihoPole)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<Lod> zjistitStavLodiProtihrace()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static StavPolicka[,] zjistitStavHernihoPoleProtihrace()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static short zjistitPortProtihrace()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static IPAddress zjistitIPAdresuHrace()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static uint zjistitSkoreProtihrace()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static string zjistitJmenoProtihrace()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static IPAddress zjistitAdresuProtihrace()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static TypHrace zjistitProtiKomuSeHraje()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static string ziskatJmenoHrace()
-        {
-            throw new NotImplementedException();
         }
     }
 }
