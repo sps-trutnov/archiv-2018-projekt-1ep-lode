@@ -4,7 +4,11 @@
     {
         static void Main(string[] args)
         {
-            new Hra().SpustitHru();
+            //new Hra().SpustitHru();
+
+            PocitacovyHrac p = new PocitacovyHrac();
+
+            p.RozhodnoutVlastniTah();
         }
     }
 }

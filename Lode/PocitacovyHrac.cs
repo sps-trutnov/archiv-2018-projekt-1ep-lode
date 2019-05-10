@@ -26,6 +26,21 @@ namespace Lode
 
         public override Souradnice RozhodnoutVlastniTah()
         {
+            int min = 1;
+            int max = 10;
+
+            Random x = new Random((int)DateTime.Now.Ticks);
+            {
+
+                Console.WriteLine(x.Next(min, max));
+
+            }
+
+            Random y = new Random((int)DateTime.Now.Ticks);
+            {
+                Console.WriteLine(y.Next(min, max));
+
+            }
             throw new NotImplementedException();
         }
     }
