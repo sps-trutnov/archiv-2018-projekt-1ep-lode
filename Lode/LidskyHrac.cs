@@ -5,7 +5,7 @@ namespace Lode
 {
     class LidskyHrac : Hrac
     {
-        public LidskyHrac() : base(Dns.GetHostEntry(Dns.GetHostName()).AddressList[0])
+        public LidskyHrac(IPAddress ipAdresa) : base(ipAdresa)
         {
 
         }
