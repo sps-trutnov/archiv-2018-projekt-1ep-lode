@@ -6,42 +6,42 @@ namespace Lode
 {
     abstract class Hrac
     {
-        public IPEndPoint VlastniOdesilani { get; protected set; }
-        public IPEndPoint VlastniPrijem { get; protected set; }
+        public IPEndPoint IpOdesilani { get; protected set; }
+        public IPEndPoint IpPrijem { get; protected set; }
 
-        public IPEndPoint OdesilaniSoupere { get; protected set; }
-        public IPEndPoint PrijemSoupere { get; protected set; }
+        public IPEndPoint IpOdesilaniSoupere { get; protected set; }
+        public IPEndPoint IpPrijemSoupere { get; protected set; }
 
         protected StavPolicka[,] HerniPole { get; set; }
         protected List<Lod> Lode { get; set; }
 
-        protected Random nahoda;
+        protected Random _nahoda;
 
         public Hrac(IPAddress vlastniAdresa)
         {
-            VlastniOdesilani = new IPEndPoint(vlastniAdresa, 10001);
-            VlastniPrijem = new IPEndPoint(vlastniAdresa, 10010);
+            IpOdesilani = new IPEndPoint(vlastniAdresa, 10001);
+            IpPrijem = new IPEndPoint(vlastniAdresa, 10010);
 
-            nahoda = new Random((int)DateTime.Now.Ticks);
+            _nahoda = new Random((int)DateTime.Now.Ticks);
 
             HerniPole = new StavPolicka[10, 10];
             Lode = new List<Lod>();
         }
         public void StanovitAdresuSoupere(IPAddress adresa)
         {
-            OdesilaniSoupere = new IPEndPoint(adresa, 10001);
-            PrijemSoupere = new IPEndPoint(adresa, 10010);
+            IpOdesilaniSoupere = new IPEndPoint(adresa, 10001);
+            IpPrijemSoupere = new IPEndPoint(adresa, 10010);
         }
 
         public int GenerovatToken()
         {
-            return nahoda.Next(int.MaxValue);
+            return _nahoda.Next(int.MaxValue);
         }
         public int VykomunikovatTokeny(int vlastniToken)
         {
             throw new System.NotImplementedException();
         }
-        public bool VyhravaPrvniTah()
+        public bool MaPravoPrvnihoTahu()
         {
             int vlastniToken = GenerovatToken();
             int tokenSoupere = VykomunikovatTokeny(vlastniToken);
@@ -52,7 +52,7 @@ namespace Lode
         public abstract void RozmistitLode();
 
         public abstract Souradnice RozhodnoutVlastniTah();
-        public StavPolicka VykomunikovatVlastniTah(Souradnice tah)
+        public StavPolicka ZjistitVysledekTahuOdProtihrace(Souradnice tah)
         {
             throw new System.NotImplementedException();
         }
