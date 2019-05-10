@@ -33,7 +33,7 @@ namespace Lode
 
             Console.Clear();
 
-            return odpoved == null || odpoved.ToUpper() == "N";
+            return odpoved != null && odpoved.ToUpper() == "A";
         }
 
         void OznamitMistniAdresu()
