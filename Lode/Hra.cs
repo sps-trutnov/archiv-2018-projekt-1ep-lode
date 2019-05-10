@@ -95,8 +95,8 @@ namespace Lode
             {
                 Souper = new PocitacovyHrac();
 
-                Hrac.NastavitAdresuSoupere(Souper.Prijimac.Address);
-                Souper.NastavitAdresuSoupere(Hrac.Prijimac.Address);
+                Hrac.NastavitAdresuSoupere(Souper.PrijimaciKoncovyBod.Address);
+                Souper.NastavitAdresuSoupere(Hrac.PrijimaciKoncovyBod.Address);
 
                 ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna();
             }
@@ -106,6 +106,7 @@ namespace Lode
                 Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
             }
 
+            Hrac.NavazatSpojeni(Souper);
             Hrac.RozmistitLode();
         }
         private void OznamitMistniAdresu()

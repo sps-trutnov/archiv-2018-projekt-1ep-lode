@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Sockets;
 
 namespace Lode
 {
@@ -11,11 +12,14 @@ namespace Lode
         #endregion
 
         #region Vlastnosti
-        public IPEndPoint Vysilac { get; protected set; }
-        public IPEndPoint Prijimac { get; protected set; }
+        public IPEndPoint VysilaciKoncovyBod { get; protected set; }
+        public IPEndPoint PrijimaciKoncovyBod { get; protected set; }
 
-        public IPEndPoint VysilacSoupere { get; protected set; }
-        public IPEndPoint PrijimacSoupere { get; protected set; }
+        protected IPEndPoint VysilaciKoncovyBodSoupere { get; set; }
+        protected IPEndPoint PrijimaciKoncovyBodSoupere { get; set; }
+
+        protected Socket VysilaciKomunikacniKanal { get; set; }
+        protected Socket PrijimaciKomunikacniKanal { get; set; }
 
         protected StavPolicka[,] HerniPole { get; set; }
         protected List<Lod> Lode { get; set; }
@@ -24,8 +28,8 @@ namespace Lode
         #region Konstruktory
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-            Vysilac = new IPEndPoint(vlastniAdresa, 10001);
-            Prijimac = new IPEndPoint(vlastniAdresa, 10010);
+            VysilaciKoncovyBod = new IPEndPoint(vlastniAdresa, 10001);
+            PrijimaciKoncovyBod = new IPEndPoint(vlastniAdresa, 10010);
 
             _nahoda = new Random((int)DateTime.Now.Ticks);
 
@@ -61,8 +65,36 @@ namespace Lode
         }
         public void NastavitAdresuSoupere(IPAddress adresa)
         {
-            VysilacSoupere = new IPEndPoint(adresa, 10001);
-            PrijimacSoupere = new IPEndPoint(adresa, 10010);
+            VysilaciKoncovyBodSoupere = new IPEndPoint(adresa, 10001);
+            PrijimaciKoncovyBodSoupere = new IPEndPoint(adresa, 10010);
+        }
+        public void NavazatSpojeni(ObecnyHrac souper)
+        {
+            bool iniciujeKomunikaci = false;
+
+            for(int i = 0; i < PrijimaciKoncovyBod.Address.GetAddressBytes().Length; i++)
+            {
+                byte vlastni = PrijimaciKoncovyBod.Address.GetAddressBytes()[i];
+                byte cizi = PrijimaciKoncovyBodSoupere.Address.GetAddressBytes()[i];
+
+                if (vlastni != cizi)
+                {
+                    iniciujeKomunikaci = vlastni < cizi;
+                    break;
+                }
+            }
+
+            VysilaciKomunikacniKanal = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            PrijimaciKomunikacniKanal = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            if (iniciujeKomunikaci)
+            {
+
+            }
+            else
+            {
+
+            }
         }
         public bool NemuzeProvestDalsiTah()
         {
