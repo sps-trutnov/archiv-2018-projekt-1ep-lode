@@ -5,7 +5,7 @@ namespace Lode
 {
     class PocitacovyHrac : Hrac
     {
-        private static string[] _jmenaAI = new string[] { "Andy", "Boris", "Dora", "Keira", "Victor" };
+        private static string[] _jmenaAI = new string[] { "Andy", "Boris", "Dora","Filip", "Keira", "Victor" };
 
         public string Jmeno { get; private set; }
 
