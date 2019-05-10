@@ -10,8 +10,12 @@ namespace Lode
 
         #region Vlastnosti
         IPAddress MistniIP { get; set; }
+
         ObecnyHrac Hrac { get; set; }
         ObecnyHrac Souper { get; set; }
+
+        Souradnice CilTahu { get; set; }
+        StavPolicka VysledekTahu { get; set; }
         #endregion
 
         #region Konstruktory
@@ -33,59 +37,11 @@ namespace Lode
         #region Verejne metody
         public void SpustitHru()
         {
-            if (HrajeSeProtiAI())
-            {
-                Souper = new PocitacovyHrac();
+            NastavitHrace();
+            HratHru();
 
-                Hrac.NastavitAdresuSoupere(Souper.Prijimac.Address);
-                Souper.NastavitAdresuSoupere(Hrac.Prijimac.Address);
-
-                Souper.RozmistitLode();
-                ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna();
-            }
-            else
-            {
-                OznamitMistniAdresu();
-
-                Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
-            }
-
-            Hrac.RozmistitLode();
-
-            if (Hrac.MaPravoPrvnihoTahu())
-            {
-                Souradnice tah;
-                StavPolicka vysledek;
-
-                tah = Hrac.RozhodnoutVlastniTah();
-                vysledek = Hrac.ZjistitVysledekTahuOdSoupere(tah);
-
-                Hrac.ProvestVlastniTah(tah, vysledek);
-            }
-
-            while (!HraKonci())
-            {
-                Souradnice tah;
-                StavPolicka vysledek;
-
-                tah = Hrac.ZjistitTahSoupere();
-
-                vysledek = Hrac.ProvestTahSoupere(tah);
-                Hrac.VykomunikovatTahSoupere(tah, vysledek);
-
-                if (Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah())
-                    break;
-
-                tah = Hrac.RozhodnoutVlastniTah();
-
-                vysledek = Hrac.ZjistitVysledekTahuOdSoupere(tah);
-                Hrac.ProvestVlastniTah(tah, vysledek);
-            }
-
-            OhlasitVysledekHry();
-
-            Console.CursorVisible = false;
-            Console.ReadKey(true);
+            VyhlasitVysledky();
+            VypnoutHru();
         }
         #endregion
 
@@ -103,11 +59,61 @@ namespace Lode
 
             return odpoved != null && odpoved.ToUpper() == "A";
         }
-        private bool HraKonci()
+        private bool HraSkoncila()
         {
             return Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah();
         }
-        private void OhlasitVysledekHry()
+        private void HratHru()
+        {
+            if (Hrac.MaPravoPrvnihoTahu())
+            {
+                CilTahu = Hrac.RozhodnoutVlastniTah();
+                VysledekTahu = Hrac.ZjistitVysledekTahu(Souper, CilTahu);
+
+                Hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
+            }
+
+            while (!HraSkoncila())
+            {
+                CilTahu = Hrac.ZjistitTahSoupere();
+                VysledekTahu = Hrac.ProvestTahSoupere(CilTahu);
+
+                Hrac.OznamitVysledekTahu(Souper, VysledekTahu);
+
+                if (HraSkoncila())
+                    break;
+
+                CilTahu = Hrac.RozhodnoutVlastniTah();
+                VysledekTahu = Hrac.ZjistitVysledekTahu(Souper, CilTahu);
+
+                Hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
+            }
+        }
+        private void NastavitHrace()
+        {
+            if (HrajeSeProtiAI())
+            {
+                Souper = new PocitacovyHrac();
+
+                Hrac.NastavitAdresuSoupere(Souper.Prijimac.Address);
+                Souper.NastavitAdresuSoupere(Hrac.Prijimac.Address);
+
+                ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna();
+            }
+            else
+            {
+                OznamitMistniAdresu();
+                Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
+            }
+
+            Hrac.RozmistitLode();
+        }
+        private void OznamitMistniAdresu()
+        {
+            Console.WriteLine("Nahlaš soupeři svoji adresu: " + MistniIP);
+            Console.WriteLine();
+        }
+        private void VyhlasitVysledky()
         {
             if (Hrac.JeVitezem())
             {
@@ -122,10 +128,15 @@ namespace Lode
                 Console.WriteLine("Remíza.");
             }
         }
-        private void OznamitMistniAdresu()
+        private void VypnoutHru()
         {
-            Console.WriteLine("Nahlaš soupeři svoji adresu: " + MistniIP);
-            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("Stiskněte klávesu pro ukončení...");
+
+            Console.CursorVisible = false;
+            Console.ReadKey(true);
+
+            Environment.Exit(0);
         }
         private IPAddress ZjistitAdresuSoupere()
         {
