@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hra.cs" />
     <Compile Include="Hrac.cs" />
     <Compile Include="LidskyHrac.cs" />
     <Compile Include="Lod.cs" />
