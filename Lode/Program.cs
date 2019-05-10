@@ -1,4 +1,5 @@
-﻿namespace Lode
+﻿
+namespace Lode
 {
     class Program
     {
@@ -8,4 +9,3 @@
         }
     }
 }
-
