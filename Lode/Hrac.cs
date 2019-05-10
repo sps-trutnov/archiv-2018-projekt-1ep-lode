@@ -87,5 +87,10 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
+
+        public bool ExistujeLod()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
