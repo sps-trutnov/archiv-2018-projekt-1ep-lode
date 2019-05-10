@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hra.cs" />
-    <Compile Include="Hrac.cs" />
+    <Compile Include="ObecnyHrac.cs" />
     <Compile Include="LidskyHrac.cs" />
     <Compile Include="Lod.cs" />
     <Compile Include="PocitacovyHrac.cs" />
@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Souradnice.cs" />
     <Compile Include="StavPolicka.cs" />
+    <Compile Include="TypLode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

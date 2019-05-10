@@ -5,9 +5,16 @@ namespace Lode
 {
     class Hra
     {
-        IPAddress MistniIP { get; set; }
-        Hrac Hrac { get; set; }
+        #region Atributy
+        #endregion
 
+        #region Vlastnosti
+        IPAddress MistniIP { get; set; }
+        ObecnyHrac Hrac { get; set; }
+        ObecnyHrac Souper { get; set; }
+        #endregion
+
+        #region Konstruktory
         public Hra()
         {
             foreach (IPAddress adr in Dns.GetHostAddresses(Dns.GetHostName()))
@@ -21,8 +28,69 @@ namespace Lode
 
             Hrac = new LidskyHrac(MistniIP);
         }
+        #endregion
 
-        bool HrajeSeProtiAI()
+        #region Verejne metody
+        public void SpustitHru()
+        {
+            if (HrajeSeProtiAI())
+            {
+                Souper = new PocitacovyHrac();
+
+                Hrac.NastavitAdresuSoupere(Souper.Prijimac.Address);
+                Souper.NastavitAdresuSoupere(Hrac.Prijimac.Address);
+
+                Souper.RozmistitLode();
+                ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna();
+            }
+            else
+            {
+                OznamitMistniAdresu();
+
+                Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
+            }
+
+            Hrac.RozmistitLode();
+
+            if (Hrac.MaPravoPrvnihoTahu())
+            {
+                Souradnice tah;
+                StavPolicka vysledek;
+
+                tah = Hrac.RozhodnoutVlastniTah();
+                vysledek = Hrac.ZjistitVysledekTahuOdSoupere(tah);
+
+                Hrac.ProvestVlastniTah(tah, vysledek);
+            }
+
+            while (!HraKonci())
+            {
+                Souradnice tah;
+                StavPolicka vysledek;
+
+                tah = Hrac.ZjistitTahSoupere();
+
+                vysledek = Hrac.ProvestTahSoupere(tah);
+                Hrac.VykomunikovatTahSoupere(tah, vysledek);
+
+                if (Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah())
+                    break;
+
+                tah = Hrac.RozhodnoutVlastniTah();
+
+                vysledek = Hrac.ZjistitVysledekTahuOdSoupere(tah);
+                Hrac.ProvestVlastniTah(tah, vysledek);
+            }
+
+            OhlasitVysledekHry();
+
+            Console.CursorVisible = false;
+            Console.ReadKey(true);
+        }
+        #endregion
+
+        #region Soukrome metody
+        private bool HrajeSeProtiAI()
         {
             Console.CursorVisible = false;
             Console.Write("Chceš hrát proti počítači?");
@@ -35,14 +103,31 @@ namespace Lode
 
             return odpoved != null && odpoved.ToUpper() == "A";
         }
-
-        void OznamitMistniAdresu()
+        private bool HraKonci()
+        {
+            return Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah();
+        }
+        private void OhlasitVysledekHry()
+        {
+            if (Hrac.JeVitezem())
+            {
+                Console.WriteLine("Vítězství!");
+            }
+            else if (Hrac.JePorazenym())
+            {
+                Console.WriteLine("Porážka...");
+            }
+            else if (Hrac.NemuzeProvestDalsiTah())
+            {
+                Console.WriteLine("Remíza.");
+            }
+        }
+        private void OznamitMistniAdresu()
         {
             Console.WriteLine("Nahlaš soupeři svoji adresu: " + MistniIP);
             Console.WriteLine();
         }
-
-        IPAddress ZjistitAdresuSoupere()
+        private IPAddress ZjistitAdresuSoupere()
         {
             Console.WriteLine("Jakou IP adresu má soupeř?");
 
@@ -70,87 +155,6 @@ namespace Lode
 
             return new IPAddress(new byte[] { prvni, druhy, treti, ctvrty });
         }
-
-        bool HraKonci()
-        {
-            return Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah();
-        }
-
-        void OhlasitVysledekHry()
-        {
-            if (Hrac.JeVitezem())
-            {
-                Console.WriteLine("Vítězství!");
-            }
-            else if (Hrac.JePorazenym())
-            {
-                Console.WriteLine("Porážka...");
-            }
-            else if (Hrac.NemuzeProvestDalsiTah())
-            {
-                Console.WriteLine("Remíza.");
-            }
-        }
-
-        public void SpustitHru()
-        {
-            if (HrajeSeProtiAI())
-            {
-                throw new NotImplementedException("Tato část dosud není vyřešena.");
-
-                /*
-                PocitacovyHrac protihrac = new PocitacovyHrac();
-
-                Hrac.StanovitAdresuSoupere(protihrac.IpPrijem.Address);
-                protihrac.StanovitAdresuSoupere(Hrac.IpPrijem.Address);
-
-                protihrac.RozmistitLode();
-                protihrac.OddelitDoSamostatnehoVlakna();
-                */
-            }
-            else
-            {
-                OznamitMistniAdresu();
-
-                Hrac.NastavitAdresuSoupere(this.ZjistitAdresuSoupere());
-            }
-
-            Hrac.RozmistitLode();
-
-            if (Hrac.MaPravoPrvnihoTahu())
-            {
-                Souradnice tah;
-                StavPolicka vysledek;
-
-                tah = Hrac.RozhodnoutVlastniTah();
-                vysledek = Hrac.ZjistitVysledekTahuOdProtihrace(tah);
-
-                Hrac.ProvestVlastniTah(tah, vysledek);
-            }
-
-            while (!HraKonci())
-            {
-                Souradnice tah;
-                StavPolicka vysledek;
-
-                tah = Hrac.ZjistitTahSoupere();
-
-                vysledek = Hrac.ProvestTahSoupere(tah);
-                Hrac.VykomunikovatTahSoupere(tah, vysledek);
-
-                if (Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah())
-                    break;
-
-                tah = Hrac.RozhodnoutVlastniTah();
-
-                vysledek = Hrac.ZjistitVysledekTahuOdProtihrace(tah);
-                Hrac.ProvestVlastniTah(tah, vysledek);
-            }
-
-            this.OhlasitVysledekHry();
-
-            Console.CursorVisible = false;
-            Console.ReadKey(true);
-        }
+        #endregion
     }
 }

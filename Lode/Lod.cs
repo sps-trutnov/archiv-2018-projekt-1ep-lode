@@ -3,24 +3,28 @@ using System.Collections.Generic;
 
 namespace Lode
 {
-    enum TypLode
-    {
-        Clun,
-        Torpedovka,
-        Kriznik,
-        Letadlovka,
-    }
-
     class Lod
     {
+        #region Atributy
+        private List<Souradnice> _policka;
+        #endregion
+
+        #region Vlastnosti
         public Souradnice Souradnice { get; private set; }
         public TypLode Typ { get; private set; }
+        #endregion
 
-        private List<Souradnice> _policka;
+        #region Konstruktory
+        #endregion
 
+        #region Verejne metody
         public bool ZasahujeNaPolicko(Souradnice policko)
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region Soukrome metody
+        #endregion
     }
 }

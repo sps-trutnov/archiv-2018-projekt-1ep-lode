@@ -2,6 +2,10 @@
 {
     enum StavPolicka
     {
-        Voda, Lod, Mimo, Zasah, Potopena
+        Voda,
+        Lod,
+        Mimo,
+        Zasah,
+        Potopena,
     }
 }
