@@ -12,14 +12,16 @@ namespace Lode
         #endregion
 
         #region Vlastnosti
-        public IPEndPoint VysilaciKoncovyBod { get; protected set; }
-        public IPEndPoint PrijimaciKoncovyBod { get; protected set; }
+        public IPAddress VlastniAdresa { get; protected set; }
+        public IPAddress AdresaSoupere { get; protected set; }
 
-        protected IPEndPoint VysilaciKoncovyBodSoupere { get; set; }
-        protected IPEndPoint PrijimaciKoncovyBodSoupere { get; set; }
+        protected short VysilaciPort { get; set; } = 11011;
+        protected short PrijimaciPort { get; set; } = 10001;
 
         protected Socket VysilaciKomunikacniKanal { get; set; }
         protected Socket PrijimaciKomunikacniKanal { get; set; }
+
+        protected bool ZahajujeKomunikaci;
 
         protected StavPolicka[,] HerniPole { get; set; }
         protected List<Lod> Lode { get; set; }
@@ -28,8 +30,7 @@ namespace Lode
         #region Konstruktory
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-            VysilaciKoncovyBod = new IPEndPoint(vlastniAdresa, 10001);
-            PrijimaciKoncovyBod = new IPEndPoint(vlastniAdresa, 10010);
+            VlastniAdresa = vlastniAdresa;
 
             _nahoda = new Random((int)DateTime.Now.Ticks);
 
@@ -61,25 +62,25 @@ namespace Lode
             int vlastniToken = GenerovatToken();
             int tokenSoupere = VymenitSiTokenSeSouperem(vlastniToken);
 
+            Console.WriteLine("Vygenerovaný token: " + vlastniToken);
+            Console.WriteLine("Obdržený token: " + tokenSoupere);
+
             return vlastniToken < tokenSoupere;
         }
-        public void NastavitAdresuSoupere(IPAddress adresa)
+        public void NastavitAdresuSoupere(IPAddress adresaSoupere)
         {
-            VysilaciKoncovyBodSoupere = new IPEndPoint(adresa, 10001);
-            PrijimaciKoncovyBodSoupere = new IPEndPoint(adresa, 10010);
+            AdresaSoupere = adresaSoupere;
         }
         public void NavazatSpojeni(ObecnyHrac souper)
         {
-            bool iniciujeKomunikaci = false;
-
-            for(int i = 0; i < PrijimaciKoncovyBod.Address.GetAddressBytes().Length; i++)
+            for (int i = 0; i < VlastniAdresa.GetAddressBytes().Length; i++)
             {
-                byte vlastni = PrijimaciKoncovyBod.Address.GetAddressBytes()[i];
-                byte cizi = PrijimaciKoncovyBodSoupere.Address.GetAddressBytes()[i];
+                byte vlastni = VlastniAdresa.GetAddressBytes()[i];
+                byte cizi = AdresaSoupere.GetAddressBytes()[i];
 
                 if (vlastni != cizi)
                 {
-                    iniciujeKomunikaci = vlastni < cizi;
+                    ZahajujeKomunikaci = vlastni < cizi;
                     break;
                 }
             }
@@ -87,13 +88,33 @@ namespace Lode
             VysilaciKomunikacniKanal = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             PrijimaciKomunikacniKanal = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            if (iniciujeKomunikaci)
+            if (ZahajujeKomunikaci)
             {
+                Console.WriteLine("Zahajuje komunikaci");
 
+                VysilaciKomunikacniKanal.Connect(AdresaSoupere, PrijimaciPort);
+
+                Console.WriteLine("Čekání na spojení...");
+                while (!VysilaciKomunikacniKanal.Connected)
+                    Console.Write(".");
+                Console.WriteLine("spojeno!");
+
+                PrijimaciKomunikacniKanal.Bind(new IPEndPoint(VlastniAdresa, PrijimaciPort));
+                PrijimaciKomunikacniKanal.Listen(10);
             }
             else
             {
+                Console.WriteLine("Čeká na komunikaci");
 
+                PrijimaciKomunikacniKanal.Bind(new IPEndPoint(VlastniAdresa, PrijimaciPort));
+                PrijimaciKomunikacniKanal.Listen(10);
+
+                VysilaciKomunikacniKanal.Connect(AdresaSoupere, PrijimaciPort);
+
+                Console.WriteLine("Čekání na spojení...");
+                while (!VysilaciKomunikacniKanal.Connected)
+                    Console.Write(".");
+                Console.WriteLine("spojeno!");
             }
         }
         public bool NemuzeProvestDalsiTah()
@@ -114,7 +135,20 @@ namespace Lode
         }
         public int VymenitSiTokenSeSouperem(int vlastniToken)
         {
-            throw new System.NotImplementedException();
+            byte[] data = new byte[1024];
+
+            if(ZahajujeKomunikaci)
+            {
+                VysilaciKomunikacniKanal.Send(BitConverter.GetBytes(vlastniToken));
+                PrijimaciKomunikacniKanal.Receive(data);
+            }
+            else
+            {
+                PrijimaciKomunikacniKanal.Receive(data);
+                VysilaciKomunikacniKanal.Send(BitConverter.GetBytes(vlastniToken));
+            }
+
+            return Convert.ToInt32(data);
         }
         public Souradnice ZjistitTahSoupere()
         {
