@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading;
 
 namespace Lode
 {
@@ -46,7 +47,7 @@ namespace Lode
         #endregion
 
         #region Soukrome metody
-        private bool HrajeSeProtiAI()
+        private bool HrajeSeProtiPocitaci()
         {
             Console.CursorVisible = false;
             Console.Write("Chceš hrát proti počítači?");
@@ -89,20 +90,27 @@ namespace Lode
                 Hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
             }
         }
+        private void HratJakoPocitac(object protiKomu)
+        {
+            ObecnyHrac souper = (ObecnyHrac)protiKomu;
+
+            // TO DO
+        }
         private void NastavitHrace()
         {
-            if (HrajeSeProtiAI())
+            if (HrajeSeProtiPocitaci())
             {
                 Souper = new PocitacovyHrac();
 
                 Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
                 Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
 
-                ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna();
+                ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna(HratJakoPocitac, Hrac);
             }
             else
             {
                 OznamitMistniAdresu();
+
                 Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
             }
 
