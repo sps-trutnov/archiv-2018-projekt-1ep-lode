@@ -88,34 +88,13 @@ namespace Lode
             VysilaciKomunikacniKanal = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             PrijimaciKomunikacniKanal = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            if (ZahajujeKomunikaci)
-            {
-                Console.WriteLine("Zahajuje komunikaci");
+            PrijimaciKomunikacniKanal.Bind(new IPEndPoint(VlastniAdresa, PrijimaciPort));
+            PrijimaciKomunikacniKanal.Listen(10);
 
-                VysilaciKomunikacniKanal.Connect(AdresaSoupere, PrijimaciPort);
-
-                Console.WriteLine("Čekání na spojení...");
-                while (!VysilaciKomunikacniKanal.Connected)
-                    Console.Write(".");
-                Console.WriteLine("spojeno!");
-
-                PrijimaciKomunikacniKanal.Bind(new IPEndPoint(VlastniAdresa, PrijimaciPort));
-                PrijimaciKomunikacniKanal.Listen(10);
-            }
-            else
-            {
-                Console.WriteLine("Čeká na komunikaci");
-
-                PrijimaciKomunikacniKanal.Bind(new IPEndPoint(VlastniAdresa, PrijimaciPort));
-                PrijimaciKomunikacniKanal.Listen(10);
-
-                VysilaciKomunikacniKanal.Connect(AdresaSoupere, PrijimaciPort);
-
-                Console.WriteLine("Čekání na spojení...");
-                while (!VysilaciKomunikacniKanal.Connected)
-                    Console.Write(".");
-                Console.WriteLine("spojeno!");
-            }
+            VysilaciKomunikacniKanal.Connect(AdresaSoupere, PrijimaciPort);
+            Console.Write("Čekání na spojení se soupeřem...");
+            PrijimaciKomunikacniKanal = PrijimaciKomunikacniKanal.Accept();
+            Console.WriteLine("spojeno!");
         }
         public bool NemuzeProvestDalsiTah()
         {
@@ -148,7 +127,7 @@ namespace Lode
                 VysilaciKomunikacniKanal.Send(BitConverter.GetBytes(vlastniToken));
             }
 
-            return Convert.ToInt32(data);
+            return BitConverter.ToInt32(data, 0);
         }
         public Souradnice ZjistitTahSoupere()
         {

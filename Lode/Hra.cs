@@ -107,7 +107,7 @@ namespace Lode
             }
 
             Hrac.NavazatSpojeni(Souper);
-            Hrac.RozmistitLode();
+            //Hrac.RozmistitLode();
         }
         private void OznamitMistniAdresu()
         {
