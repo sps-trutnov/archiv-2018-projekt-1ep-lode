@@ -54,14 +54,14 @@ namespace Lode
         {
             Console.CursorVisible = false;
             Console.Write("Chceš hrát proti počítači?");
-            Console.Write(" (a / N)");
+            Console.Write(" (A / n)");
 
-            string odpoved = Console.ReadLine();
+            ConsoleKeyInfo reakce = Console.ReadKey(true);
+
             Console.CursorVisible = true;
-
             Console.Clear();
 
-            return odpoved != null && odpoved.ToUpper() == "A";
+            return reakce.Key == ConsoleKey.Enter || reakce.Key == ConsoleKey.A;
         }
         private bool HraSkoncila()
         {

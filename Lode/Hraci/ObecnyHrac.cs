@@ -30,12 +30,21 @@ namespace Lode
         #region Konstruktory
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-            VlastniAdresa = vlastniAdresa;
-
             _nahoda = new Random((int)DateTime.Now.Ticks);
 
+            VlastniAdresa = vlastniAdresa;
             HerniPole = new StavPolicka[10, 10];
+
             Lode = new List<Lod>();
+
+            for (int i = 0; i < 4; i++)
+                Lode.Add(new Lod(TypLode.Clun));
+            for (int i = 0; i < 3; i++)
+                Lode.Add(new Lod(TypLode.Torpedovka));
+            for (int i = 0; i < 2; i++)
+                Lode.Add(new Lod(TypLode.Letadlovka));
+            for (int i = 0; i < 1; i++)
+                Lode.Add(new Lod(TypLode.Kriznik));
         }
         #endregion
 
@@ -116,7 +125,7 @@ namespace Lode
         {
             byte[] data = new byte[1024];
 
-            if(ZahajujeKomunikaci)
+            if (ZahajujeKomunikaci)
             {
                 VysilaciKomunikacniKanal.Send(BitConverter.GetBytes(vlastniToken));
                 PrijimaciKomunikacniKanal.Receive(data);
