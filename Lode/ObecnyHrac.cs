@@ -71,7 +71,7 @@ namespace Lode
         {
             AdresaSoupere = adresaSoupere;
         }
-        public void NavazatSpojeni(ObecnyHrac souper)
+        public void NavazatSpojeniSeSouperem()
         {
             for (int i = 0; i < VlastniAdresa.GetAddressBytes().Length; i++)
             {
@@ -100,15 +100,15 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
+        public void OznamitVysledekTahuSouperi(StavPolicka vysledek)
+        {
+            throw new NotImplementedException();
+        }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {
             throw new System.NotImplementedException();
         }
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
-        {
-            throw new NotImplementedException();
-        }
-        public void OznamitVysledekTahu(ObecnyHrac souper, StavPolicka vysledek)
         {
             throw new NotImplementedException();
         }
@@ -133,7 +133,7 @@ namespace Lode
         {
             throw new System.NotImplementedException();
         }
-        public StavPolicka ZjistitVysledekTahu(ObecnyHrac souper, Souradnice tah)
+        public StavPolicka ZjistitVysledekTahuOdSoupere(Souradnice tah)
         {
             throw new System.NotImplementedException();
         }

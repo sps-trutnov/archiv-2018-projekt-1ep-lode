@@ -6,6 +6,9 @@ namespace Lode
 {
     class Hra
     {
+        delegate void HerniAlgoritmus(object hrac);
+        Thread VlaknoProAI { get; set; }
+
         #region Atributy
         #endregion
 
@@ -13,7 +16,7 @@ namespace Lode
         IPAddress MistniIP { get; set; }
 
         ObecnyHrac Hrac { get; set; }
-        ObecnyHrac Souper { get; set; }
+        PocitacovyHrac PocitacovySouper { get; set; }
 
         Souradnice CilTahu { get; set; }
         StavPolicka VysledekTahu { get; set; }
@@ -39,7 +42,7 @@ namespace Lode
         public void SpustitHru()
         {
             NastavitHrace();
-            HratHru();
+            HratHru(Hrac);
 
             VyhlasitVysledky();
             VypnoutHru();
@@ -47,7 +50,7 @@ namespace Lode
         #endregion
 
         #region Soukrome metody
-        private bool HrajeSeProtiPocitaci()
+        private bool BudeSeHratProtiPocitaci()
         {
             Console.CursorVisible = false;
             Console.Write("Chceš hrát proti počítači?");
@@ -64,48 +67,48 @@ namespace Lode
         {
             return Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah();
         }
-        private void HratHru()
+        private void HratHru(object hrajiciHrac)
         {
-            if (Hrac.MaPravoPrvnihoTahu())
-            {
-                CilTahu = Hrac.RozhodnoutVlastniTah();
-                VysledekTahu = Hrac.ZjistitVysledekTahu(Souper, CilTahu);
+            ObecnyHrac hrac = (ObecnyHrac)hrajiciHrac;
 
-                Hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
+            hrac.NavazatSpojeniSeSouperem();
+            hrac.RozmistitLode();
+
+            if (hrac.MaPravoPrvnihoTahu())
+            {
+                CilTahu = hrac.RozhodnoutVlastniTah();
+                VysledekTahu = hrac.ZjistitVysledekTahuOdSoupere(CilTahu);
+
+                hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
             }
 
             while (!HraSkoncila())
             {
-                CilTahu = Hrac.ZjistitTahSoupere();
-                VysledekTahu = Hrac.ProvestTahSoupere(CilTahu);
+                CilTahu = hrac.ZjistitTahSoupere();
+                VysledekTahu = hrac.ProvestTahSoupere(CilTahu);
 
-                Hrac.OznamitVysledekTahu(Souper, VysledekTahu);
+                hrac.OznamitVysledekTahuSouperi(VysledekTahu);
 
                 if (HraSkoncila())
                     break;
 
-                CilTahu = Hrac.RozhodnoutVlastniTah();
-                VysledekTahu = Hrac.ZjistitVysledekTahu(Souper, CilTahu);
+                CilTahu = hrac.RozhodnoutVlastniTah();
+                VysledekTahu = hrac.ZjistitVysledekTahuOdSoupere(CilTahu);
 
-                Hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
+                hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
             }
-        }
-        private void HratJakoPocitac(object protiKomu)
-        {
-            ObecnyHrac souper = (ObecnyHrac)protiKomu;
-
-            // TO DO
         }
         private void NastavitHrace()
         {
-            if (HrajeSeProtiPocitaci())
+            if (BudeSeHratProtiPocitaci())
             {
-                Souper = new PocitacovyHrac();
+                PocitacovySouper = new PocitacovyHrac();
 
-                Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
-                Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
+                PocitacovySouper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
+                Hrac.NastavitAdresuSoupere(PocitacovySouper.VlastniAdresa);
 
-                ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna(HratJakoPocitac, Hrac);
+                VlaknoProAI = OddelitDoSamostatnehoVlakna(HratHru);
+                VlaknoProAI.Start(PocitacovySouper);
             }
             else
             {
@@ -113,14 +116,20 @@ namespace Lode
 
                 Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
             }
-
-            Hrac.NavazatSpojeni(Souper);
-            //Hrac.RozmistitLode();
         }
-        private void OznamitMistniAdresu()
+        private Thread OddelitDoSamostatnehoVlakna(HerniAlgoritmus algoritmus)
+        {
+            Thread vlaknoProAI = new Thread(new ParameterizedThreadStart(algoritmus));
+            vlaknoProAI.IsBackground = true;
+
+            return vlaknoProAI;
+        }
+        private IPAddress OznamitMistniAdresu()
         {
             Console.WriteLine("Nahlaš soupeři svoji adresu: " + MistniIP);
             Console.WriteLine();
+
+            return MistniIP;
         }
         private void VyhlasitVysledky()
         {
@@ -139,6 +148,9 @@ namespace Lode
         }
         private void VypnoutHru()
         {
+            if(VlaknoProAI != null && VlaknoProAI.IsAlive)
+                VlaknoProAI.Join();
+
             Console.Clear();
             Console.WriteLine("Stiskněte klávesu pro ukončení...");
 
