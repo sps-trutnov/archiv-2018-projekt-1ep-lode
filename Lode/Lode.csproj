@@ -54,6 +54,8 @@
     <Compile Include="Policka\Souradnice.cs" />
     <Compile Include="Policka\StavPolicka.cs" />
     <Compile Include="Lode\TypLode.cs" />
+    <Compile Include="Rozhrani\IRozhrani.cs" />
+    <Compile Include="Rozhrani\TextoveRozhrani.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

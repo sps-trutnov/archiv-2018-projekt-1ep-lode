@@ -30,6 +30,7 @@ namespace Lode
         {
             List<Lod> umisteneLode;
             NatoceniLode natoceni;
+
             int x, y, iterace;
 
             do
@@ -60,37 +61,7 @@ namespace Lode
                 }
             } while (umisteneLode.Count != Lode.Count);
 
-            Console.WriteLine("Počítačový hráč má rozmístěné lodě!");
-
-            #region Kontrolni vypis herniho pole
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
-
-            for (y = HerniPole.GetLength(1) - 1; y >= 0; y--)
-            {
-                for (x = 0; x < HerniPole.GetLength(1); x++)
-                {
-                    foreach (Lod lod in Lode)
-                    {
-                        if (lod.ZasahujeNaPolicko(new Souradnice() { X = x, Y = y }))
-                        {
-                            HerniPole[x, y] = StavPolicka.Lod;
-                            break;
-                        }
-
-                        HerniPole[x, y] = StavPolicka.Voda;
-                    }
-
-                    if (HerniPole[x, y] == StavPolicka.Lod)
-                        Console.Write(" # ");
-                    else
-                        Console.Write("   ");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-            Console.ResetColor();
-            #endregion
+            PripravitHerniPole();
         }
         #endregion
 

@@ -23,8 +23,8 @@ namespace Lode
 
         protected bool ZahajujeKomunikaci;
 
-        protected StavPolicka[,] HerniPole { get; set; }
-        protected List<Lod> Lode { get; set; }
+        public  StavPolicka[,] HerniPole { get; protected set; }
+        public List<Lod> Lode { get; protected set; }
         #endregion
 
         #region Konstruktory
@@ -112,6 +112,18 @@ namespace Lode
         public void OznamitVysledekTahuSouperi(StavPolicka vysledek)
         {
             throw new NotImplementedException();
+        }
+        public void PripravitHerniPole()
+        {
+            for (int x = 0; x < HerniPole.GetLength(0); x++)
+                for (int y = 0; y < HerniPole.GetLength(1); y++)
+                    HerniPole[x, y] = StavPolicka.Voda;
+
+            for (int x = 0; x < HerniPole.GetLength(0); x++)
+                for (int y = 0; y < HerniPole.GetLength(1); y++)
+                    foreach (Lod lod in Lode)
+                        if (lod.ZasahujeNaPolicko(new Souradnice() { X = x, Y = y }))
+                            HerniPole[x, y] = StavPolicka.Lod;
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {

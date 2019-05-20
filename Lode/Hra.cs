@@ -7,24 +7,27 @@ namespace Lode
     class Hra
     {
         delegate void HerniAlgoritmus(object hrac);
-        Thread VlaknoProAI { get; set; }
 
         #region Atributy
         #endregion
 
         #region Vlastnosti
+        IRozhrani Rozhrani { get; set; }
         IPAddress MistniIP { get; set; }
+        Thread VlaknoProAI { get; set; }
 
         ObecnyHrac Hrac { get; set; }
-        PocitacovyHrac PocitacovySouper { get; set; }
+        ObecnyHrac Souper { get; set; }
 
         Souradnice CilTahu { get; set; }
         StavPolicka VysledekTahu { get; set; }
         #endregion
 
         #region Konstruktory
-        public Hra()
+        public Hra(IRozhrani rozhrani)
         {
+            Rozhrani = rozhrani;
+
             foreach (IPAddress adr in Dns.GetHostAddresses(Dns.GetHostName()))
             {
                 if (adr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
@@ -52,16 +55,7 @@ namespace Lode
         #region Soukrome metody
         private bool BudeSeHratProtiPocitaci()
         {
-            Console.CursorVisible = false;
-            Console.Write("Chceš hrát proti počítači?");
-            Console.Write(" (A / n)");
-
-            ConsoleKeyInfo reakce = Console.ReadKey(true);
-
-            Console.CursorVisible = true;
-            Console.Clear();
-
-            return reakce.Key == ConsoleKey.Enter || reakce.Key == ConsoleKey.A;
+            return Rozhrani.PolozitOtazkuAnoNe("Chceš hrát proti počítači? (A / n)", "To nebyla platná odpověď!", true);
         }
         private bool HraSkoncila()
         {
@@ -73,6 +67,9 @@ namespace Lode
 
             hrac.NavazatSpojeniSeSouperem();
             hrac.RozmistitLode();
+
+            Rozhrani.VykreslitHlaseni("Počítačový hráč má rozmístěné lodě!");
+            Rozhrani.VykreslitHerniPole(hrac.HerniPole);
 
             if (hrac.MaPravoPrvnihoTahu())
             {
@@ -102,13 +99,13 @@ namespace Lode
         {
             if (BudeSeHratProtiPocitaci())
             {
-                PocitacovySouper = new PocitacovyHrac();
+                Souper = new PocitacovyHrac();
 
-                PocitacovySouper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
-                Hrac.NastavitAdresuSoupere(PocitacovySouper.VlastniAdresa);
+                Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
+                Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
 
                 VlaknoProAI = OddelitDoSamostatnehoVlakna(HratHru);
-                VlaknoProAI.Start(PocitacovySouper);
+                VlaknoProAI.Start(Souper);
             }
             else
             {
