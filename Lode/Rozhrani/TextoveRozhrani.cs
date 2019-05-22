@@ -4,7 +4,11 @@ namespace Lode
 {
     class TextoveRozhrani : IRozhrani
     {
-        public bool PolozitOtazkuAnoNe(string otazka, string chyboveHlaseni, bool defaultniOdpoved)
+        public void SmazatObrazovku()
+        {
+            Console.Clear();
+        }
+        public bool ZiskatOdpovedAnoNe(string otazka, string chyboveHlaseni, bool defaultniOdpoved)
         {
             bool? obdrzenaOdpoved = null;
             bool viditelnostKurzoru = Console.CursorVisible;
@@ -32,7 +36,40 @@ namespace Lode
 
             return (bool)obdrzenaOdpoved;
         }
-        public void VykreslitHerniPole(StavPolicka[,] herniPole)
+        public byte ZiskatOktet(string vyzva, string chyboveHlaseni)
+        {
+            byte? ziskanaData = null;
+            bool dataBylaZiskana = false;
+
+            do
+            {
+                Console.Write(vyzva + " ");
+
+                try
+                {
+                    ziskanaData = Convert.ToByte(Console.ReadLine());
+                    dataBylaZiskana = true;
+                }
+                catch
+                {
+                    Console.WriteLine(chyboveHlaseni);
+                }
+            } while (!dataBylaZiskana);
+
+            return (byte)ziskanaData;
+        }
+        public string ZiskatText(string vyzva, bool ukoncitRadek)
+        {
+            Console.Write(vyzva);
+
+            if (ukoncitRadek)
+                Console.Write("\n");
+            else
+                Console.Write(" ");
+
+            return Console.ReadLine();
+        }
+        public void ZobrazitHerniPole(StavPolicka[,] herniPole)
         {
             for (int y = herniPole.GetLength(1) - 1; y >= 0; y--)
             {
@@ -55,9 +92,16 @@ namespace Lode
             Console.WriteLine();
             Console.ResetColor();
         }
-        public void VykreslitHlaseni(string hlaseni)
+        public void ZobrazitHlaseni(string hlaseni, bool potvrditPrecteni)
         {
             Console.WriteLine(hlaseni);
+
+            if (potvrditPrecteni)
+            {
+                Console.CursorVisible = false;
+                Console.ReadKey(true);
+                Console.CursorVisible = true;
+            }
         }
     }
 }

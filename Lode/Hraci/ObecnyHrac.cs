@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 
@@ -71,9 +72,6 @@ namespace Lode
             int vlastniToken = GenerovatToken();
             int tokenSoupere = VymenitSiTokenSeSouperem(vlastniToken);
 
-            Console.WriteLine("Vygenerovaný token: " + vlastniToken);
-            Console.WriteLine("Obdržený token: " + tokenSoupere);
-
             return vlastniToken < tokenSoupere;
         }
         public void NastavitAdresuSoupere(IPAddress adresaSoupere)
@@ -101,9 +99,9 @@ namespace Lode
             PrijimaciKomunikacniKanal.Listen(10);
 
             VysilaciKomunikacniKanal.Connect(AdresaSoupere, PrijimaciPort);
-            Console.Write("Čekání na spojení se soupeřem...");
+            Debug.Write("Čekání na spojení se soupeřem...");
             PrijimaciKomunikacniKanal = PrijimaciKomunikacniKanal.Accept();
-            Console.WriteLine("spojeno!");
+            Debug.WriteLine("spojeno!");
         }
         public bool NemuzeProvestDalsiTah()
         {
@@ -122,7 +120,7 @@ namespace Lode
             for (int x = 0; x < HerniPole.GetLength(0); x++)
                 for (int y = 0; y < HerniPole.GetLength(1); y++)
                     foreach (Lod lod in Lode)
-                        if (lod.ZasahujeNaPolicko(new Souradnice() { X = x, Y = y }))
+                        if (lod.ZasahujeNaPolicko(x, y))
                             HerniPole[x, y] = StavPolicka.Lod;
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lode
+﻿namespace Lode
 {
     interface IRozhrani
     {
-        bool PolozitOtazkuAnoNe(string otazka, string chyboveHlaseni, bool defaultniOdpoved);
-        void VykreslitHerniPole(StavPolicka[,] herniPole);
-        void VykreslitHlaseni(string hlaseni);
+        void SmazatObrazovku();
+        bool ZiskatOdpovedAnoNe(string otazka, string chyboveHlaseni, bool defaultniOdpoved);
+        byte ZiskatOktet(string vyzva, string chyboveHlaseni);
+        string ZiskatText(string vyzva, bool ukoncitRadek);
+        void ZobrazitHerniPole(StavPolicka[,] herniPole);
+        void ZobrazitHlaseni(string hlaseni, bool potvrditPrecteni = true);
     }
 }

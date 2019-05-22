@@ -21,7 +21,7 @@ namespace Lode
 
             _policka = new List<Souradnice>();
 
-            switch(typ)
+            switch (typ)
             {
                 case TypLode.Clun:
                     _policka.Add(new Souradnice() { X = 0, Y = 0 });
@@ -57,7 +57,7 @@ namespace Lode
         #region Verejne metody
         public bool JeUmistenaSpravne(Souradnice rozmerHernihoPole, List<Lod> ostatniLode)
         {
-            foreach(Souradnice policko in _policka)
+            foreach (Souradnice policko in _policka)
             {
                 if (policko.X + Souradnice.X < 0 || policko.Y + Souradnice.Y < 0)
                     return false;
@@ -85,11 +85,11 @@ namespace Lode
             Souradnice = souradnice;
             Natoceni = natoceni;
 
-            for(int i = 0; i < _policka.Count; i++)
+            for (int i = 0; i < _policka.Count; i++)
             {
                 int x, y;
 
-                switch(Natoceni)
+                switch (Natoceni)
                 {
                     case NatoceniLode.Stupnu0:
                         _policka[i].X *= +1;
@@ -118,9 +118,13 @@ namespace Lode
                 }
             }
         }
+        public bool ZasahujeNaPolicko(int x, int y)
+        {
+            return ZasahujeNaPolicko(new Souradnice() { X = x, Y = y });
+        }
         public bool ZasahujeNaPolicko(Souradnice policko)
         {
-            foreach(Souradnice polickoLode in _policka)
+            foreach (Souradnice polickoLode in _policka)
                 if (Souradnice.X + polickoLode.X == policko.X && Souradnice.Y + polickoLode.Y == policko.Y)
                     return true;
 

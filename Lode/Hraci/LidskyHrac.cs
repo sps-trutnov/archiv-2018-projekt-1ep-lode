@@ -25,9 +25,6 @@ namespace Lode
         }
         public override void RozmistitLode()
         {
-            Console.WriteLine("Lidský hráč si musí rozmístit lodě!");
-            Console.ReadKey(true);
-
             throw new NotImplementedException();
         }
         #endregion

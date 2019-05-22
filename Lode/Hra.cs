@@ -55,7 +55,7 @@ namespace Lode
         #region Soukrome metody
         private bool BudeSeHratProtiPocitaci()
         {
-            return Rozhrani.PolozitOtazkuAnoNe("Chceš hrát proti počítači? (A / n)", "To nebyla platná odpověď!", true);
+            return Rozhrani.ZiskatOdpovedAnoNe("Chceš hrát proti počítači? (A / n)", "To nebyla platná odpověď!", true);
         }
         private bool HraSkoncila()
         {
@@ -68,8 +68,8 @@ namespace Lode
             hrac.NavazatSpojeniSeSouperem();
             hrac.RozmistitLode();
 
-            Rozhrani.VykreslitHlaseni("Počítačový hráč má rozmístěné lodě!");
-            Rozhrani.VykreslitHerniPole(hrac.HerniPole);
+            Rozhrani.ZobrazitHlaseni("Počítačový hráč má rozmístěné lodě!");
+            Rozhrani.ZobrazitHerniPole(hrac.HerniPole);
 
             if (hrac.MaPravoPrvnihoTahu())
             {
@@ -123,8 +123,7 @@ namespace Lode
         }
         private IPAddress OznamitMistniAdresu()
         {
-            Console.WriteLine("Nahlaš soupeři svoji adresu: " + MistniIP);
-            Console.WriteLine();
+            Rozhrani.ZobrazitHlaseni("Nahlaš soupeři svoji adresu: " + MistniIP + "\n");
 
             return MistniIP;
         }
@@ -132,15 +131,15 @@ namespace Lode
         {
             if (Hrac.JeVitezem())
             {
-                Console.WriteLine("Vítězství!");
+                Rozhrani.ZobrazitHlaseni("Vítězství!");
             }
             else if (Hrac.JePorazenym())
             {
-                Console.WriteLine("Porážka...");
+                Rozhrani.ZobrazitHlaseni("Porážka...");
             }
             else if (Hrac.NemuzeProvestDalsiTah())
             {
-                Console.WriteLine("Remíza.");
+                Rozhrani.ZobrazitHlaseni("Remíza.");
             }
         }
         private void VypnoutHru()
@@ -148,39 +147,24 @@ namespace Lode
             if(VlaknoProAI != null && VlaknoProAI.IsAlive)
                 VlaknoProAI.Join();
 
-            Console.Clear();
-            Console.WriteLine("Stiskněte klávesu pro ukončení...");
-
-            Console.CursorVisible = false;
-            Console.ReadKey(true);
+            Rozhrani.SmazatObrazovku();
+            Rozhrani.ZobrazitHlaseni("Stiskněte klávesu pro ukončení...");
 
             Environment.Exit(0);
         }
         private IPAddress ZjistitAdresuSoupere()
         {
-            Console.WriteLine("Jakou IP adresu má soupeř?");
+            Rozhrani.ZobrazitHlaseni("Jakou IP adresu má soupeř?", false);
 
             byte prvni, druhy, treti, ctvrty;
 
-            Console.Write("Zadej první oktet: ");
-            prvni = Convert.ToByte(Console.ReadLine());
-            Console.Write("Zadej druhý oktet: ");
-            druhy = Convert.ToByte(Console.ReadLine());
-            Console.Write("Zadej třetí oktet: ");
-            treti = Convert.ToByte(Console.ReadLine());
-            Console.Write("Zadej čtvrtý oktet: ");
-            ctvrty = Convert.ToByte(Console.ReadLine());
+            prvni = Rozhrani.ZiskatOktet("Zadej první oktet:", "Hodnota musí být celé číslo v rozsahu 0-255!");
+            druhy = Rozhrani.ZiskatOktet("Zadej druhý oktet:", "Hodnota musí být celé číslo v rozsahu 0-255!");
+            treti = Rozhrani.ZiskatOktet("Zadej třetí oktet:", "Hodnota musí být celé číslo v rozsahu 0-255!");
+            ctvrty = Rozhrani.ZiskatOktet("Zadej čtvrtý oktet:", "Hodnota musí být celé číslo v rozsahu 0-255!");
 
-            Console.WriteLine();
-            Console.Write("Zadal jsi adresu: ");
-            Console.WriteLine(prvni + "." + druhy + "." + treti + "." + ctvrty);
-
-            Console.WriteLine();
-            Console.WriteLine("Pokračuj stiskem klávesy...");
-
-            Console.CursorVisible = false;
-            Console.ReadKey(true);
-            Console.CursorVisible = true;
+            Rozhrani.ZobrazitHlaseni("\n" + "Zadal jsi adresu: " + prvni + "." + druhy + "." + treti + "." + ctvrty, false);
+            Rozhrani.ZobrazitHlaseni("\n" + "Pokračuj stiskem klávesy...");
 
             return new IPAddress(new byte[] { prvni, druhy, treti, ctvrty });
         }
