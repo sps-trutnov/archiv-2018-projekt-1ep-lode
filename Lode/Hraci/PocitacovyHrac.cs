@@ -33,6 +33,10 @@ namespace Lode
 
             int x, y, iterace;
 
+            for (x = 0; x < HerniPole.GetLength(0); x++)
+                for (y = 0; y < HerniPole.GetLength(1); y++)
+                    HerniPole[x, y] = StavPolicka.Voda;
+
             do
             {
                 umisteneLode = new List<Lod>();
@@ -61,7 +65,11 @@ namespace Lode
                 }
             } while (umisteneLode.Count != Lode.Count);
 
-            PripravitHerniPole();
+            for (x = 0; x < HerniPole.GetLength(0); x++)
+                for (y = 0; y < HerniPole.GetLength(1); y++)
+                    foreach (Lod lod in Lode)
+                        if (lod.ZasahujeNaPolicko(x, y))
+                            HerniPole[x, y] = StavPolicka.Lod;
         }
         #endregion
 

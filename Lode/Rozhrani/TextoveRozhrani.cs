@@ -71,6 +71,9 @@ namespace Lode
         }
         public void ZobrazitHerniPole(StavPolicka[,] herniPole)
         {
+            int l = Console.CursorLeft;
+            int t = Console.CursorTop;
+
             for (int y = herniPole.GetLength(1) - 1; y >= 0; y--)
             {
                 for (int x = 0; x < herniPole.GetLength(0); x++)
@@ -87,9 +90,12 @@ namespace Lode
                         Console.Write("   ");
                     }
                 }
-                Console.WriteLine();
+                Console.CursorLeft = l;
+                Console.CursorTop = ++t;
             }
-            Console.WriteLine();
+            Console.CursorLeft = l;
+            Console.CursorTop = ++t;
+
             Console.ResetColor();
         }
         public void ZobrazitHlaseni(string hlaseni, bool potvrditPrecteni)

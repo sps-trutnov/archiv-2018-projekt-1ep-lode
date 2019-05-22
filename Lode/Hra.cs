@@ -65,11 +65,9 @@ namespace Lode
         {
             ObecnyHrac hrac = (ObecnyHrac)hrajiciHrac;
 
+            hrac.PripojitRozhrani(Rozhrani);
             hrac.NavazatSpojeniSeSouperem();
             hrac.RozmistitLode();
-
-            Rozhrani.ZobrazitHlaseni("Počítačový hráč má rozmístěné lodě!");
-            Rozhrani.ZobrazitHerniPole(hrac.HerniPole);
 
             if (hrac.MaPravoPrvnihoTahu())
             {

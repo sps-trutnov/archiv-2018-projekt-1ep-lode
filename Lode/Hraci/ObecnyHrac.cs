@@ -13,6 +13,8 @@ namespace Lode
         #endregion
 
         #region Vlastnosti
+        public IRozhrani Rozhrani { get; protected set; }
+
         public IPAddress VlastniAdresa { get; protected set; }
         public IPAddress AdresaSoupere { get; protected set; }
 
@@ -111,17 +113,9 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        public void PripravitHerniPole()
+        public void PripojitRozhrani(IRozhrani rozhrani)
         {
-            for (int x = 0; x < HerniPole.GetLength(0); x++)
-                for (int y = 0; y < HerniPole.GetLength(1); y++)
-                    HerniPole[x, y] = StavPolicka.Voda;
-
-            for (int x = 0; x < HerniPole.GetLength(0); x++)
-                for (int y = 0; y < HerniPole.GetLength(1); y++)
-                    foreach (Lod lod in Lode)
-                        if (lod.ZasahujeNaPolicko(x, y))
-                            HerniPole[x, y] = StavPolicka.Lod;
+            Rozhrani = rozhrani;
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {
