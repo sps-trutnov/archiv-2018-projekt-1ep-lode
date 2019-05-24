@@ -5,7 +5,8 @@ namespace Lode
 {
     class Lod
     {
-        public readonly List<Souradnice> _policka;
+        private readonly List<Souradnice> _policka;
+        private int _zasahy = 0;
 
         public NatoceniLode Natoceni { get; set; }
         public Souradnice Souradnice { get; set; }
@@ -49,6 +50,10 @@ namespace Lode
             }
         }
 
+        public bool JePotopena()
+        {
+            return _zasahy == _policka.Count;
+        }
         public bool JeUmistenaSpravne(Souradnice rozmerHernihoPole, List<Lod> ostatniLode)
         {
             for (int x = -1; x <= rozmerHernihoPole.X; x++)
@@ -99,6 +104,10 @@ namespace Lode
         {
             Souradnice = souradnice;
             Natoceni = natoceni;
+        }
+        public void Zasahnout()
+        {
+            _zasahy += 1;
         }
         public bool ZasahujeNaPolicko(int x, int y)
         {

@@ -38,6 +38,7 @@ namespace Lode
         {
             NastavitHrace();
             HratHru(Hrac);
+            SkoncitHru();
 
             VyhlasitVysledky();
             VypnoutHru();
@@ -49,8 +50,7 @@ namespace Lode
         }
         private bool HraSkoncila()
         {
-            return false;
-            return Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah();
+            return Hrac.JePorazenym() || Hrac.NemuzeProvestDalsiTah() || Souper.JePorazenym() || Souper.NemuzeProvestDalsiTah();
         }
         private void HratHru(object hrajiciHrac)
         {
@@ -116,26 +116,28 @@ namespace Lode
 
             return MistniIP;
         }
+        private void SkoncitHru()
+        {
+            if (VlaknoProAI != null && VlaknoProAI.IsAlive)
+                VlaknoProAI.Join();
+        }
         private void VyhlasitVysledky()
         {
-            if (Hrac.JeVitezem())
+            if (Hrac.JePorazenym() && !Souper.JePorazenym())
             {
-                Rozhrani.ZobrazitHlaseni("Vítězství!");
+                Rozhrani.ZobrazitHlaseni("Porážka...", true);
             }
-            else if (Hrac.JePorazenym())
+            else if (Souper.JePorazenym() && !Hrac.JePorazenym())
             {
-                Rozhrani.ZobrazitHlaseni("Porážka...");
+                Rozhrani.ZobrazitHlaseni("Vítězství!", true);
             }
-            else if (Hrac.NemuzeProvestDalsiTah())
+            else
             {
-                Rozhrani.ZobrazitHlaseni("Remíza.");
+                Rozhrani.ZobrazitHlaseni("Remíza.", true);
             }
         }
         private void VypnoutHru()
         {
-            if(VlaknoProAI != null && VlaknoProAI.IsAlive)
-                VlaknoProAI.Join();
-
             Rozhrani.SmazatObrazovku();
             Rozhrani.ZobrazitHlaseni("Stiskněte klávesu pro ukončení...", true);
 

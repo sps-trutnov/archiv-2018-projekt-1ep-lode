@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 
@@ -59,11 +58,11 @@ namespace Lode
         }
         public bool JePorazenym()
         {
-            throw new NotImplementedException();
-        }
-        public bool JeVitezem()
-        {
-            throw new NotImplementedException();
+            foreach (Lod lod in Lode)
+                if (!lod.JePotopena())
+                    return false;
+
+            return true;
         }
         public bool MaPravoPrvnihoTahu()
         {
@@ -113,7 +112,12 @@ namespace Lode
         }
         public bool NemuzeProvestDalsiTah()
         {
-            throw new NotImplementedException();
+            for (int x = 0; x < HerniPoleSoupere.GetLength(0); x++)
+                for (int y = 0; y < HerniPoleSoupere.GetLength(1); y++)
+                    if (HerniPoleSoupere[x, y] == StavPolicka.Neznamo)
+                        return false;
+
+            return true;
         }
         public void OznamitVysledekTahuSouperi(StavPolicka vysledek)
         {
@@ -128,6 +132,10 @@ namespace Lode
             switch(HerniPole[tah.X, tah.Y])
             {
                 case StavPolicka.Lod:
+                    foreach (Lod lod in Lode)
+                        if (lod.ZasahujeNaPolicko(tah.X, tah.Y))
+                            lod.Zasahnout();
+
                     HerniPole[tah.X, tah.Y] = StavPolicka.Zasah;
                     break;
                 case StavPolicka.Voda:
