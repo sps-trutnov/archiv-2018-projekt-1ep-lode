@@ -15,7 +15,6 @@ namespace Lode
         public IPAddress VlastniAdresa { get; protected set; }
         public IPAddress AdresaSoupere { get; protected set; }
 
-        protected short VysilaciPort { get; set; } = 11011;
         protected short PrijimaciPort { get; set; } = 10001;
 
         protected Socket VysilaciKomunikacniKanal { get; set; }
@@ -23,7 +22,8 @@ namespace Lode
 
         protected bool ZahajujeKomunikaci;
 
-        public  StavPolicka[,] HerniPole { get; protected set; }
+        public StavPolicka[,] HerniPole { get; protected set; }
+        public StavPolicka[,] HerniPoleSoupere { get; protected set; }
         public List<Lod> Lode { get; protected set; }
 
         public ObecnyHrac(IPAddress vlastniAdresa)
@@ -33,16 +33,21 @@ namespace Lode
             VlastniAdresa = vlastniAdresa;
             HerniPole = new StavPolicka[10, 10];
 
+            HerniPoleSoupere = new StavPolicka[10, 10];
+            NaplnitHerniPoleSoupereHodnotou(StavPolicka.Neznamo);
+
             Lode = new List<Lod>();
 
             for (int i = 0; i < 1; i++)
                 Lode.Add(new Lod(TypLode.Kriznik));
+            /*
             for (int i = 0; i < 2; i++)
                 Lode.Add(new Lod(TypLode.Letadlovka));
             for (int i = 0; i < 3; i++)
                 Lode.Add(new Lod(TypLode.Torpedovka));
             for (int i = 0; i < 4; i++)
                 Lode.Add(new Lod(TypLode.Clun));
+            */
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();
@@ -67,11 +72,17 @@ namespace Lode
 
             return vlastniToken < tokenSoupere;
         }
-        public void NaplnitHerniPoleVodou()
+        public void NaplnitHerniPoleHodnotou(StavPolicka hodnota)
         {
             for (int x = 0; x < HerniPole.GetLength(0); x++)
                 for (int y = 0; y < HerniPole.GetLength(1); y++)
-                    HerniPole[x, y] = StavPolicka.Voda;
+                    HerniPole[x, y] = hodnota;
+        }
+        public void NaplnitHerniPoleSoupereHodnotou(StavPolicka hodnota)
+        {
+            for (int x = 0; x < HerniPoleSoupere.GetLength(0); x++)
+                for (int y = 0; y < HerniPoleSoupere.GetLength(1); y++)
+                    HerniPoleSoupere[x, y] = hodnota;
         }
         public void NastavitAdresuSoupere(IPAddress adresaSoupere)
         {
@@ -98,9 +109,7 @@ namespace Lode
             PrijimaciKomunikacniKanal.Listen(10);
 
             VysilaciKomunikacniKanal.Connect(AdresaSoupere, PrijimaciPort);
-            Debug.Write("Čekání na spojení se soupeřem...");
             PrijimaciKomunikacniKanal = PrijimaciKomunikacniKanal.Accept();
-            Debug.WriteLine("spojeno!");
         }
         public bool NemuzeProvestDalsiTah()
         {
@@ -108,7 +117,7 @@ namespace Lode
         }
         public void OznamitVysledekTahuSouperi(StavPolicka vysledek)
         {
-            throw new NotImplementedException();
+            VysilaciKomunikacniKanal.Send(BitConverter.GetBytes((int)vysledek));
         }
         public void PripojitRozhrani(IRozhrani rozhrani)
         {
@@ -116,11 +125,21 @@ namespace Lode
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {
-            throw new System.NotImplementedException();
+            switch(HerniPole[tah.X, tah.Y])
+            {
+                case StavPolicka.Lod:
+                    HerniPole[tah.X, tah.Y] = StavPolicka.Zasah;
+                    break;
+                case StavPolicka.Voda:
+                    HerniPole[tah.X, tah.Y] = StavPolicka.Mimo;
+                    break;
+            }
+
+            return HerniPole[tah.X, tah.Y];
         }
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
         {
-            throw new NotImplementedException();
+            HerniPoleSoupere[tah.X, tah.Y] = vysledek;
         }
         public void UmistitLodeDoHernihoPole()
         {
@@ -149,11 +168,25 @@ namespace Lode
         }
         public Souradnice ZjistitTahSoupere()
         {
-            throw new System.NotImplementedException();
+            byte[] data = new byte[1024];
+
+            PrijimaciKomunikacniKanal.Receive(data);
+            int x = BitConverter.ToInt32(data, 0);
+            PrijimaciKomunikacniKanal.Receive(data);
+            int y = BitConverter.ToInt32(data, 0);
+
+            return new Souradnice() { X = x, Y = y };
         }
         public StavPolicka ZjistitVysledekTahuOdSoupere(Souradnice tah)
         {
-            throw new System.NotImplementedException();
+            byte[] data = new byte[1024];
+
+            VysilaciKomunikacniKanal.Send(BitConverter.GetBytes(tah.X));
+            VysilaciKomunikacniKanal.Send(BitConverter.GetBytes(tah.Y));
+
+            PrijimaciKomunikacniKanal.Receive(data);
+
+            return (StavPolicka)BitConverter.ToInt32(data, 0);
         }
     }
 }

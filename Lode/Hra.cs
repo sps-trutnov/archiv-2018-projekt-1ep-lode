@@ -49,6 +49,7 @@ namespace Lode
         }
         private bool HraSkoncila()
         {
+            return false;
             return Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah();
         }
         private void HratHru(object hrajiciHrac)
@@ -111,7 +112,7 @@ namespace Lode
         }
         private IPAddress OznamitMistniAdresu()
         {
-            Rozhrani.ZobrazitHlaseni("Nahlaš soupeři svoji adresu: " + MistniIP + "\n");
+            Rozhrani.ZobrazitHlaseni("Nahlaš soupeři svoji adresu: " + MistniIP + "\n", true);
 
             return MistniIP;
         }
@@ -136,13 +137,13 @@ namespace Lode
                 VlaknoProAI.Join();
 
             Rozhrani.SmazatObrazovku();
-            Rozhrani.ZobrazitHlaseni("Stiskněte klávesu pro ukončení...");
+            Rozhrani.ZobrazitHlaseni("Stiskněte klávesu pro ukončení...", true);
 
             Environment.Exit(0);
         }
         private IPAddress ZjistitAdresuSoupere()
         {
-            Rozhrani.ZobrazitHlaseni("Jakou IP adresu má soupeř?", false);
+            Rozhrani.ZobrazitHlaseni("Jakou IP adresu má soupeř?");
 
             byte prvni, druhy, treti, ctvrty;
 
@@ -151,8 +152,8 @@ namespace Lode
             treti = Rozhrani.ZiskatOktet("Zadej třetí oktet:", "Hodnota musí být celé číslo v rozsahu 0-255!");
             ctvrty = Rozhrani.ZiskatOktet("Zadej čtvrtý oktet:", "Hodnota musí být celé číslo v rozsahu 0-255!");
 
-            Rozhrani.ZobrazitHlaseni("\n" + "Zadal jsi adresu: " + prvni + "." + druhy + "." + treti + "." + ctvrty, false);
-            Rozhrani.ZobrazitHlaseni("\n" + "Pokračuj stiskem klávesy...");
+            Rozhrani.ZobrazitHlaseni("\n" + "Zadal jsi adresu: " + prvni + "." + druhy + "." + treti + "." + ctvrty);
+            Rozhrani.ZobrazitHlaseni("\n" + "Pokračuj stiskem klávesy...", true);
 
             return new IPAddress(new byte[] { prvni, druhy, treti, ctvrty });
         }

@@ -51,25 +51,21 @@ namespace Lode
 
         public bool JeUmistenaSpravne(Souradnice rozmerHernihoPole, List<Lod> ostatniLode)
         {
-            foreach (Souradnice policko in _policka)
+            for (int x = -1; x <= rozmerHernihoPole.X; x++)
             {
-                if (policko.X + Souradnice.X < 0 || policko.Y + Souradnice.Y < 0)
-                    return false;
-                if (policko.X + Souradnice.X >= rozmerHernihoPole.X || policko.Y + Souradnice.Y >= rozmerHernihoPole.Y)
-                    return false;
+                for (int y = -1; y <= rozmerHernihoPole.Y; y++)
+                {
+                    Souradnice policko = new Souradnice() { X = x, Y = y };
 
-                foreach (Lod jinaLod in ostatniLode)
-                    foreach (Souradnice polickoJineLode in jinaLod._policka)
-                        if (Souradnice.X + policko.X == jinaLod.Souradnice.X + polickoJineLode.X && Souradnice.Y + policko.Y == jinaLod.Souradnice.Y + polickoJineLode.Y)
+                    if (ZasahujeNaPolicko(policko) && (x == -1 || y == -1))
+                        return false;
+                    if (ZasahujeNaPolicko(policko) && (x == rozmerHernihoPole.X || y == rozmerHernihoPole.Y))
+                        return false;
+
+                    foreach (Lod lod in ostatniLode)
+                        if (ZasahujeNaPolicko(policko) && lod.ZasahujeNaPolicko(policko))
                             return false;
-                        else if (Souradnice.X + policko.X + 1 == jinaLod.Souradnice.X + polickoJineLode.X && Souradnice.Y + policko.Y == jinaLod.Souradnice.Y + polickoJineLode.Y)
-                            return false;
-                        else if (Souradnice.X + policko.X - 1 == jinaLod.Souradnice.X + polickoJineLode.X && Souradnice.Y + policko.Y == jinaLod.Souradnice.Y + polickoJineLode.Y)
-                            return false;
-                        else if (Souradnice.X + policko.X == jinaLod.Souradnice.X + polickoJineLode.X && Souradnice.Y + policko.Y + 1 == jinaLod.Souradnice.Y + polickoJineLode.Y)
-                            return false;
-                        else if (Souradnice.X + policko.X == jinaLod.Souradnice.X + polickoJineLode.X && Souradnice.Y + policko.Y - 1 == jinaLod.Souradnice.Y + polickoJineLode.Y)
-                            return false;
+                }
             }
 
             return true;
@@ -138,10 +134,7 @@ namespace Lode
                         break;
                 }
 
-                x += Souradnice.X;
-                y += Souradnice.Y;
-
-                if (x == policko.X && y == policko.Y)
+                if (x + Souradnice.X == policko.X && y + Souradnice.Y == policko.Y)
                     return true;
             }
 

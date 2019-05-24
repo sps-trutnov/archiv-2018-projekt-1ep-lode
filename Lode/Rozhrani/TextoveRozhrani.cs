@@ -102,16 +102,40 @@ namespace Lode
                     Console.CursorLeft = l + 3 * x;
                     Console.CursorTop = t + herniPole.GetLength(1) - 1 - y;
 
-                    if (herniPole[x, y] == StavPolicka.Lod)
+                    switch (herniPole[x, y])
                     {
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.Write(" # ");
-                    }
-                    else if (herniPole[x, y] == StavPolicka.Voda)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Cyan;
-                        Console.Write("   ");
+                        case StavPolicka.Lod:
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.Write(" # ");
+                            break;
+                        case StavPolicka.Zasah:
+                            Console.BackgroundColor = ConsoleColor.Magenta;
+                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                            Console.Write(" x ");
+                            Console.CursorLeft -= " x ".Length;
+                            break;
+                        case StavPolicka.Potopena:
+                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.Write(" X ");
+                            Console.CursorLeft -= " X ".Length;
+                            break;
+                        case StavPolicka.Voda:
+                            Console.BackgroundColor = ConsoleColor.Cyan;
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            Console.Write("   ");
+                            break;
+                        case StavPolicka.Mimo:
+                            Console.BackgroundColor = ConsoleColor.Cyan;
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            Console.Write(" . ");
+                            break;
+                        case StavPolicka.Neznamo:
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.Write(" ? ");
+                            break;
                     }
                 }
             }
@@ -152,9 +176,15 @@ namespace Lode
                                 Console.ForegroundColor = ConsoleColor.DarkGray;
                                 Console.Write(" # ");
                                 break;
-                            case StavPolicka.Potopena:
+                            case StavPolicka.Zasah:
                                 Console.BackgroundColor = ConsoleColor.Magenta;
                                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                                Console.Write(" x ");
+                                Console.CursorLeft -= " x ".Length;
+                                break;
+                            case StavPolicka.Potopena:
+                                Console.BackgroundColor = ConsoleColor.Red;
+                                Console.ForegroundColor = ConsoleColor.DarkRed;
                                 Console.Write(" X ");
                                 Console.CursorLeft -= " X ".Length;
                                 break;

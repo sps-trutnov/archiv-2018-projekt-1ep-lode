@@ -2,6 +2,7 @@
 {
     enum StavPolicka
     {
+        Neznamo,
         Voda,
         Lod,
         Mimo,
