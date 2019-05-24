@@ -8,11 +8,8 @@ namespace Lode
 {
     abstract class ObecnyHrac
     {
-        #region Atributy
         protected Random _nahoda;
-        #endregion
 
-        #region Vlastnosti
         public IRozhrani Rozhrani { get; protected set; }
 
         public IPAddress VlastniAdresa { get; protected set; }
@@ -28,9 +25,7 @@ namespace Lode
 
         public  StavPolicka[,] HerniPole { get; protected set; }
         public List<Lod> Lode { get; protected set; }
-        #endregion
 
-        #region Konstruktory
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
             _nahoda = new Random((int)DateTime.Now.Ticks);
@@ -40,23 +35,19 @@ namespace Lode
 
             Lode = new List<Lod>();
 
-            for (int i = 0; i < 4; i++)
-                Lode.Add(new Lod(TypLode.Clun));
-            for (int i = 0; i < 3; i++)
-                Lode.Add(new Lod(TypLode.Torpedovka));
-            for (int i = 0; i < 2; i++)
-                Lode.Add(new Lod(TypLode.Letadlovka));
             for (int i = 0; i < 1; i++)
                 Lode.Add(new Lod(TypLode.Kriznik));
+            for (int i = 0; i < 2; i++)
+                Lode.Add(new Lod(TypLode.Letadlovka));
+            for (int i = 0; i < 3; i++)
+                Lode.Add(new Lod(TypLode.Torpedovka));
+            for (int i = 0; i < 4; i++)
+                Lode.Add(new Lod(TypLode.Clun));
         }
-        #endregion
 
-        #region Abstraktni metody
         public abstract Souradnice RozhodnoutVlastniTah();
         public abstract void RozmistitLode();
-        #endregion
 
-        #region Verejne metody
         public int GenerovatToken()
         {
             return _nahoda.Next(int.MaxValue);
@@ -75,6 +66,12 @@ namespace Lode
             int tokenSoupere = VymenitSiTokenSeSouperem(vlastniToken);
 
             return vlastniToken < tokenSoupere;
+        }
+        public void NaplnitHerniPoleVodou()
+        {
+            for (int x = 0; x < HerniPole.GetLength(0); x++)
+                for (int y = 0; y < HerniPole.GetLength(1); y++)
+                    HerniPole[x, y] = StavPolicka.Voda;
         }
         public void NastavitAdresuSoupere(IPAddress adresaSoupere)
         {
@@ -125,6 +122,14 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
+        public void UmistitLodeDoHernihoPole()
+        {
+            for (int x = 0; x < HerniPole.GetLength(0); x++)
+                for (int y = 0; y < HerniPole.GetLength(1); y++)
+                    foreach (Lod lod in Lode)
+                        if (lod.ZasahujeNaPolicko(x, y))
+                            HerniPole[x, y] = StavPolicka.Lod;
+        }
         public int VymenitSiTokenSeSouperem(int vlastniToken)
         {
             byte[] data = new byte[1024];
@@ -150,9 +155,5 @@ namespace Lode
         {
             throw new System.NotImplementedException();
         }
-        #endregion
-
-        #region Soukrome metody
-        #endregion
     }
 }

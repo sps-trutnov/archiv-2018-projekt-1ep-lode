@@ -8,10 +8,6 @@ namespace Lode
     {
         delegate void HerniAlgoritmus(object hrac);
 
-        #region Atributy
-        #endregion
-
-        #region Vlastnosti
         IRozhrani Rozhrani { get; set; }
         IPAddress MistniIP { get; set; }
         Thread VlaknoProAI { get; set; }
@@ -21,9 +17,7 @@ namespace Lode
 
         Souradnice CilTahu { get; set; }
         StavPolicka VysledekTahu { get; set; }
-        #endregion
 
-        #region Konstruktory
         public Hra(IRozhrani rozhrani)
         {
             Rozhrani = rozhrani;
@@ -39,9 +33,7 @@ namespace Lode
 
             Hrac = new LidskyHrac(MistniIP);
         }
-        #endregion
 
-        #region Verejne metody
         public void SpustitHru()
         {
             NastavitHrace();
@@ -50,9 +42,7 @@ namespace Lode
             VyhlasitVysledky();
             VypnoutHru();
         }
-        #endregion
 
-        #region Soukrome metody
         private bool BudeSeHratProtiPocitaci()
         {
             return Rozhrani.ZiskatOdpovedAnoNe("Chceš hrát proti počítači? (A / n)", "To nebyla platná odpověď!", true);
@@ -166,6 +156,5 @@ namespace Lode
 
             return new IPAddress(new byte[] { prvni, druhy, treti, ctvrty });
         }
-        #endregion
     }
 }

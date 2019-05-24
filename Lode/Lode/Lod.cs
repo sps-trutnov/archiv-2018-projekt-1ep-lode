@@ -1,20 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Lode
 {
     class Lod
     {
-        #region Atributy
-        private readonly List<Souradnice> _policka;
-        #endregion
+        public readonly List<Souradnice> _policka;
 
-        #region Vlastnosti
-        public NatoceniLode Natoceni { get; private set; }
-        public Souradnice Souradnice { get; private set; }
+        public NatoceniLode Natoceni { get; set; }
+        public Souradnice Souradnice { get; set; }
         public TypLode Typ { get; private set; }
-        #endregion
 
-        #region Konstruktory
         public Lod(TypLode typ)
         {
             Typ = typ;
@@ -52,9 +48,7 @@ namespace Lode
                     break;
             }
         }
-        #endregion
 
-        #region Verejne metody
         public bool JeUmistenaSpravne(Souradnice rozmerHernihoPole, List<Lod> ostatniLode)
         {
             foreach (Souradnice policko in _policka)
@@ -80,43 +74,35 @@ namespace Lode
 
             return true;
         }
-        public void Umistit(Souradnice souradnice, NatoceniLode natoceni)
+        public void Otocit(NatoceniLode uhel)
+        {
+            Natoceni += (int)uhel;
+
+            if ((int)Natoceni >= Enum.GetValues(typeof(NatoceniLode)).Length)
+                Natoceni -= Enum.GetValues(typeof(NatoceniLode)).Length;
+        }
+        public void Posunout(int dx, int dy, Souradnice rozsahPohybu)
+        {
+            Souradnice.X += dx;
+            Souradnice.Y += dy;
+
+            if (Souradnice.X < 0)
+                Souradnice.X = 0;
+            if (Souradnice.Y < 0)
+                Souradnice.Y = 0;
+            if (Souradnice.X >= rozsahPohybu.X)
+                Souradnice.X = rozsahPohybu.X - 1;
+            if (Souradnice.Y >= rozsahPohybu.Y)
+                Souradnice.Y = rozsahPohybu.Y - 1;
+        }
+        public void Premistit(int x, int y, NatoceniLode natoceni)
+        {
+            Premistit(new Souradnice() { X = x, Y = y }, natoceni);
+        }
+        public void Premistit(Souradnice souradnice, NatoceniLode natoceni)
         {
             Souradnice = souradnice;
             Natoceni = natoceni;
-
-            for (int i = 0; i < _policka.Count; i++)
-            {
-                int x, y;
-
-                switch (Natoceni)
-                {
-                    case NatoceniLode.Stupnu0:
-                        _policka[i].X *= +1;
-                        _policka[i].Y *= +1;
-                        break;
-                    case NatoceniLode.Stupnu90:
-                        x = _policka[i].X;
-                        y = _policka[i].Y;
-
-                        _policka[i].X = y * -1;
-                        _policka[i].Y = x * +1;
-                        break;
-                    case NatoceniLode.Stupnu180:
-                        _policka[i].X *= -1;
-                        _policka[i].Y *= -1;
-                        break;
-                    case NatoceniLode.Stupnu270:
-                        x = _policka[i].X;
-                        y = _policka[i].Y;
-
-                        _policka[i].X = y * +1;
-                        _policka[i].Y = x * -1;
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
         public bool ZasahujeNaPolicko(int x, int y)
         {
@@ -124,15 +110,42 @@ namespace Lode
         }
         public bool ZasahujeNaPolicko(Souradnice policko)
         {
-            foreach (Souradnice polickoLode in _policka)
-                if (Souradnice.X + polickoLode.X == policko.X && Souradnice.Y + polickoLode.Y == policko.Y)
+            for (int i = 0; i < _policka.Count; i++)
+            {
+                int x, y;
+
+                switch (Natoceni)
+                {
+                    case NatoceniLode.Stupnu0:
+                        x = _policka[i].X * (+1);
+                        y = _policka[i].Y * (+1);
+                        break;
+                    case NatoceniLode.Stupnu90:
+                        x = _policka[i].Y * (-1);
+                        y = _policka[i].X * (+1);
+                        break;
+                    case NatoceniLode.Stupnu180:
+                        x = _policka[i].X * (-1);
+                        y = _policka[i].Y * (-1);
+                        break;
+                    case NatoceniLode.Stupnu270:
+                        x = _policka[i].Y * (+1);
+                        y = _policka[i].X * (-1);
+                        break;
+                    default:
+                        x = 0;
+                        y = 0;
+                        break;
+                }
+
+                x += Souradnice.X;
+                y += Souradnice.Y;
+
+                if (x == policko.X && y == policko.Y)
                     return true;
+            }
 
             return false;
         }
-        #endregion
-
-        #region Soukrome metody
-        #endregion
     }
 }
