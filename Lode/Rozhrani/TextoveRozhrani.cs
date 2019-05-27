@@ -8,6 +8,27 @@ namespace Lode
         {
             Console.Clear();
         }
+        public TypAkce ZiskatAkci()
+        {
+            while (true)
+            {
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.Spacebar:
+                        return TypAkce.Otoceni;
+                    case ConsoleKey.DownArrow:
+                        return TypAkce.PosunDolu;
+                    case ConsoleKey.UpArrow:
+                        return TypAkce.PosunNahoru;
+                    case ConsoleKey.LeftArrow:
+                        return TypAkce.PosunVlevo;
+                    case ConsoleKey.RightArrow:
+                        return TypAkce.PosunVpravo;
+                    case ConsoleKey.Enter:
+                        return TypAkce.Umisteni;
+                }
+            }
+        }
         public bool ZiskatOdpovedAnoNe(string otazka, string chyboveHlaseni, bool defaultniOdpoved)
         {
             bool? obdrzenaOdpoved = null;
@@ -57,27 +78,6 @@ namespace Lode
             } while (!dataBylaZiskana);
 
             return (byte)ziskanaData;
-        }
-        public TypAkce ZiskatAkci()
-        {
-            while (true)
-            {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.Spacebar:
-                        return TypAkce.Otoceni;
-                    case ConsoleKey.DownArrow:
-                        return TypAkce.PosunDolu;
-                    case ConsoleKey.UpArrow:
-                        return TypAkce.PosunNahoru;
-                    case ConsoleKey.LeftArrow:
-                        return TypAkce.PosunVlevo;
-                    case ConsoleKey.RightArrow:
-                        return TypAkce.PosunVpravo;
-                    case ConsoleKey.Enter:
-                        return TypAkce.Umisteni;
-                }
-            }
         }
         public string ZiskatText(string vyzva, bool ukoncitRadek)
         {
@@ -144,7 +144,7 @@ namespace Lode
             Console.CursorTop = t;
             Console.ResetColor();
         }
-        public void ZobrazitHlaseni(string hlaseni, bool potvrditPrecteni)
+        public void ZobrazitHlaseni(string hlaseni, bool potvrditPrecteni = false)
         {
             Console.WriteLine(hlaseni);
 
@@ -196,6 +196,23 @@ namespace Lode
             Console.CursorLeft = l;
             Console.CursorTop = t;
             Console.ResetColor();
+        }
+        public void ZobrazitStavHry(StavPolicka[,] vlastniHerniPole, StavPolicka[,] souperovoHerniPole)
+        {
+            ZobrazitHlaseni("Vlastní herní pole:");
+            Console.CursorTop += 1;
+            Console.CursorLeft = 0;
+            ZobrazitHerniPole(vlastniHerniPole);
+
+            Console.CursorTop -= 2;
+            Console.CursorLeft = 45;
+            ZobrazitHlaseni("Soupeřovo herní pole:");
+            Console.CursorLeft = 45;
+            Console.CursorTop += 1;
+            ZobrazitHerniPole(souperovoHerniPole);
+
+            Console.CursorTop += 11;
+            Console.CursorLeft = 0;
         }
     }
 }

@@ -21,20 +21,7 @@ namespace Lode
             Rozhrani.ZobrazitHlaseni("Hraje počítač");
             Console.CursorTop += 1;
 
-            Rozhrani.ZobrazitHlaseni("Vlastní herní pole:");
-            Console.CursorTop += 1;
-            Console.CursorLeft = 0;
-            Rozhrani.ZobrazitHerniPole(HerniPole);
-
-            Console.CursorTop -= 2;
-            Console.CursorLeft = 45;
-            Rozhrani.ZobrazitHlaseni("Soupeřovo herní pole:");
-            Console.CursorTop += 1;
-            Console.CursorLeft = 45;
-            Rozhrani.ZobrazitHerniPole(HerniPoleSoupere);
-
-            Console.CursorTop += 11;
-            Console.CursorLeft = 0;
+            Rozhrani.ZobrazitStavHry(HerniPole, HerniPoleSoupere);
 
             List<Souradnice> mozneTahy = new List<Souradnice>();
 
@@ -43,10 +30,12 @@ namespace Lode
                     if (HerniPoleSoupere[x, y] == StavPolicka.Neznamo)
                         mozneTahy.Add(new Souradnice() { X = x, Y = y });
 
+            /*
             Souradnice zvolenyTah = mozneTahy[_nahoda.Next(mozneTahy.Count)];
             Rozhrani.ZobrazitHlaseni("Zvolený tah: [" + zvolenyTah.X + ", " + zvolenyTah.Y + "]", true);
 
             return zvolenyTah;
+            */
 
             return mozneTahy[_nahoda.Next(mozneTahy.Count)];
         }

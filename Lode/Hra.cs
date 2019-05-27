@@ -123,6 +123,10 @@ namespace Lode
         }
         private void VyhlasitVysledky()
         {
+            Rozhrani.SmazatObrazovku();
+            Rozhrani.ZobrazitHlaseni("Hra skončila...\n");
+            Rozhrani.ZobrazitStavHry(Hrac.HerniPole, Souper.HerniPole);
+
             if (Hrac.JePorazenym() && !Souper.JePorazenym())
             {
                 Rozhrani.ZobrazitHlaseni("Porážka...", true);

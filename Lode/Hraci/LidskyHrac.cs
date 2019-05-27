@@ -17,20 +17,7 @@ namespace Lode
             Rozhrani.ZobrazitHlaseni("Hraje člověk");
             Console.CursorTop += 1;
 
-            Rozhrani.ZobrazitHlaseni("Vlastní herní pole:");
-            Console.CursorTop += 1;
-            Console.CursorLeft = 0;
-            Rozhrani.ZobrazitHerniPole(HerniPole);
-
-            Console.CursorTop -= 2;
-            Console.CursorLeft = 45;
-            Rozhrani.ZobrazitHlaseni("Soupeřovo herní pole:");
-            Console.CursorLeft = 45;
-            Console.CursorTop += 1;
-            Rozhrani.ZobrazitHerniPole(HerniPoleSoupere);
-
-            Console.CursorTop += 11;
-            Console.CursorLeft = 0;
+            Rozhrani.ZobrazitStavHry(HerniPole, HerniPoleSoupere);
 
             List<Souradnice> mozneTahy = new List<Souradnice>();
 
