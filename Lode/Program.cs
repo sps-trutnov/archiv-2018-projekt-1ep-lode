@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            new Hra().SpustitHru();
+            new Hra(new TextoveRozhrani()).SpustitHru();
         }
     }
 }
