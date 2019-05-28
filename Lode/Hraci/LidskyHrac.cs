@@ -23,8 +23,8 @@ namespace Lode
             do
             {
                 Rozhrani.SmazatObrazovku();
-                Rozhrani.ZobrazitHlaseni("Hraje člověk");
-                Console.CursorTop += 1;
+                Rozhrani.ZobrazitNadpis("Potop nepřátelskou flotilu!");
+                Rozhrani.ZobrazitHlaseni("\n(šipky - míření, Enter / mezerník - střelba)\n");
 
                 Rozhrani.ZobrazitStavHry(HerniPole, HerniPoleSoupere);
                 Rozhrani.ZobrazitZamerovac(PoziceZamerovace, new Souradnice() { X = HerniPoleSoupere.GetLength(0), Y = HerniPoleSoupere.GetLength(1) }, StavPolicka.StrelbaPovolena);
@@ -70,6 +70,9 @@ namespace Lode
                 while (!rozmisteneLode.Contains(lod))
                 {
                     Rozhrani.SmazatObrazovku();
+                    Rozhrani.ZobrazitNadpis("Rozmísti svou flotilu!");
+                    Rozhrani.ZobrazitHlaseni("\n(šipky - posouvání, mezerník - otáčení, Enter - umístění)\n");
+
                     Rozhrani.ZobrazitHerniPole(HerniPole);
 
                     foreach (Lod rozmistenaLod in rozmisteneLode)

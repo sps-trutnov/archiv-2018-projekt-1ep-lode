@@ -46,7 +46,10 @@ namespace Lode
 
         private bool BudeSeHratProtiPocitaci()
         {
-            return Rozhrani.ZiskatOdpovedAnoNe("Chceš hrát proti počítači? (A / n)", "To nebyla platná odpověď!", true);
+            Rozhrani.SmazatObrazovku();
+            Rozhrani.ZobrazitNadpis("Vyber si svého soupeře!");
+
+            return Rozhrani.ZiskatOdpovedAnoNe("\nChceš hrát proti počítači? (A / n)", "To nebyla platná odpověď!", true);
         }
         private bool HraSkoncila()
         {
@@ -124,26 +127,25 @@ namespace Lode
         private void VyhlasitVysledky()
         {
             Rozhrani.SmazatObrazovku();
-            Rozhrani.ZobrazitHlaseni("Hra skončila...\n");
+            Rozhrani.ZobrazitNadpis("Hra končí!");
+            Rozhrani.ZobrazitHlaseni();
+
             Rozhrani.ZobrazitStavHry(Hrac.HerniPole, Souper.HerniPole);
 
             if (Hrac.JePorazenym() && !Souper.JePorazenym())
-            {
-                Rozhrani.ZobrazitHlaseni("Porážka...", true);
-            }
+                Rozhrani.ZobrazitHlaseni("Prohráváš", true);
             else if (Souper.JePorazenym() && !Hrac.JePorazenym())
-            {
-                Rozhrani.ZobrazitHlaseni("Vítězství!", true);
-            }
+                Rozhrani.ZobrazitHlaseni("Vítězíš!", true);
             else
-            {
-                Rozhrani.ZobrazitHlaseni("Remíza.", true);
-            }
+                Rozhrani.ZobrazitHlaseni("Remizuješ...", true);
+
+            Rozhrani.ZobrazitHlaseni("\nStiskni Basckspace pro pokračování...");
+            Rozhrani.CekatDoStiskuKlavesy(ConsoleKey.Backspace);
         }
         private void VypnoutHru()
         {
             Rozhrani.SmazatObrazovku();
-            Rozhrani.ZobrazitHlaseni("Stiskněte klávesu pro ukončení...", true);
+            Rozhrani.ZobrazitHlaseni("Pro ukončení stiskni libovolnou klávesu ...", true);
 
             Environment.Exit(0);
         }

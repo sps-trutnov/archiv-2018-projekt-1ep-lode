@@ -5,9 +5,9 @@ namespace Lode
 {
     class Lod
     {
-        private readonly List<Souradnice> _policka;
         private int _zasahy = 0;
 
+        public List<Souradnice> Policka { get; private set; }
         public NatoceniLode Natoceni { get; set; }
         public Souradnice Souradnice { get; set; }
         public TypLode Typ { get; private set; }
@@ -16,43 +16,60 @@ namespace Lode
         {
             Typ = typ;
 
-            _policka = new List<Souradnice>();
+            Policka = new List<Souradnice>();
 
             switch (typ)
             {
                 case TypLode.Clun:
-                    _policka.Add(new Souradnice() { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice() { X = 0, Y = 0 });
                     break;
                 case TypLode.Torpedovka:
-                    _policka.Add(new Souradnice() { X = 0, Y = 0 });
-                    _policka.Add(new Souradnice() { X = +1, Y = 0 });
-                    _policka.Add(new Souradnice() { X = -1, Y = 0 });
-                    _policka.Add(new Souradnice() { X = 0, Y = +1 });
+                    Policka.Add(new Souradnice() { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice() { X = +1, Y = 0 });
+                    Policka.Add(new Souradnice() { X = -1, Y = 0 });
+                    Policka.Add(new Souradnice() { X = 0, Y = +1 });
                     break;
                 case TypLode.Letadlovka:
-                    _policka.Add(new Souradnice() { X = 0, Y = 0 });
-                    _policka.Add(new Souradnice() { X = -2, Y = 0 });
-                    _policka.Add(new Souradnice() { X = -1, Y = 0 });
-                    _policka.Add(new Souradnice() { X = +1, Y = 0 });
-                    _policka.Add(new Souradnice() { X = 0, Y = +1 });
+                    Policka.Add(new Souradnice() { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice() { X = -2, Y = 0 });
+                    Policka.Add(new Souradnice() { X = -1, Y = 0 });
+                    Policka.Add(new Souradnice() { X = +1, Y = 0 });
+                    Policka.Add(new Souradnice() { X = 0, Y = +1 });
                     break;
                 case TypLode.Kriznik:
-                    _policka.Add(new Souradnice() { X = 0, Y = 0 });
-                    _policka.Add(new Souradnice() { X = -2, Y = 0 });
-                    _policka.Add(new Souradnice() { X = -1, Y = 0 });
-                    _policka.Add(new Souradnice() { X = +1, Y = 0 });
-                    _policka.Add(new Souradnice() { X = +2, Y = 0 });
-                    _policka.Add(new Souradnice() { X = -1, Y = +1 });
-                    _policka.Add(new Souradnice() { X = +1, Y = +1 });
-                    break;
-                default:
+                    Policka.Add(new Souradnice() { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice() { X = -2, Y = 0 });
+                    Policka.Add(new Souradnice() { X = -1, Y = 0 });
+                    Policka.Add(new Souradnice() { X = +1, Y = 0 });
+                    Policka.Add(new Souradnice() { X = +2, Y = 0 });
+                    Policka.Add(new Souradnice() { X = -1, Y = +1 });
+                    Policka.Add(new Souradnice() { X = +1, Y = +1 });
                     break;
             }
         }
 
+        public bool BlokujePolicko(Souradnice souradnice)
+        {
+            return BlokujePolicko(souradnice.X, souradnice.Y);
+        }
+        public bool BlokujePolicko(int x, int y)
+        {
+            if (ZasahujeNaPolicko(x, y))
+                return true;
+            if (ZasahujeNaPolicko(x + 1, y))
+                return true;
+            if (ZasahujeNaPolicko(x - 1, y))
+                return true;
+            if (ZasahujeNaPolicko(x, y + 1))
+                return true;
+            if (ZasahujeNaPolicko(x, y - 1))
+                return true;
+
+            return false;
+        }
         public bool JePotopena()
         {
-            return _zasahy == _policka.Count;
+            return _zasahy == Policka.Count;
         }
         public bool JeUmistenaSpravne(Souradnice rozmerHernihoPole, List<Lod> ostatniLode)
         {
@@ -68,7 +85,9 @@ namespace Lode
                         return false;
 
                     foreach (Lod lod in ostatniLode)
-                        if (ZasahujeNaPolicko(policko) && lod.ZasahujeNaPolicko(policko))
+                        if (ZasahujeNaPolicko(policko) && lod.BlokujePolicko(policko))
+                            return false;
+                        else if (BlokujePolicko(policko) && lod.ZasahujeNaPolicko(policko))
                             return false;
                 }
             }
@@ -115,27 +134,27 @@ namespace Lode
         }
         public bool ZasahujeNaPolicko(Souradnice policko)
         {
-            for (int i = 0; i < _policka.Count; i++)
+            for (int i = 0; i < Policka.Count; i++)
             {
                 int x, y;
 
                 switch (Natoceni)
                 {
                     case NatoceniLode.Stupnu0:
-                        x = _policka[i].X * (+1);
-                        y = _policka[i].Y * (+1);
+                        x = Policka[i].X * (+1);
+                        y = Policka[i].Y * (+1);
                         break;
                     case NatoceniLode.Stupnu90:
-                        x = _policka[i].Y * (-1);
-                        y = _policka[i].X * (+1);
+                        x = Policka[i].Y * (-1);
+                        y = Policka[i].X * (+1);
                         break;
                     case NatoceniLode.Stupnu180:
-                        x = _policka[i].X * (-1);
-                        y = _policka[i].Y * (-1);
+                        x = Policka[i].X * (-1);
+                        y = Policka[i].Y * (-1);
                         break;
                     case NatoceniLode.Stupnu270:
-                        x = _policka[i].Y * (+1);
-                        y = _policka[i].X * (-1);
+                        x = Policka[i].Y * (+1);
+                        y = Policka[i].X * (-1);
                         break;
                     default:
                         x = 0;

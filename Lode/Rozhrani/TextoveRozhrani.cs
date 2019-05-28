@@ -6,6 +6,15 @@ namespace Lode
     {
         private Souradnice ReferencePoslednihoZobrazenehoHernihoPole { get; set; } = new Souradnice();
 
+        public TextoveRozhrani()
+        {
+            Console.CursorVisible = false;
+        }
+
+        public void CekatDoStiskuKlavesy(ConsoleKey klavesa)
+        {
+            while (Console.ReadKey(true).Key != klavesa) ;
+        }
         public void SmazatObrazovku()
         {
             Console.Clear();
@@ -34,9 +43,7 @@ namespace Lode
         public bool ZiskatOdpovedAnoNe(string otazka, string chyboveHlaseni, bool defaultniOdpoved)
         {
             bool? obdrzenaOdpoved = null;
-            bool viditelnostKurzoru = Console.CursorVisible;
 
-            Console.CursorVisible = false;
             do
             {
                 Console.Write(otazka);
@@ -53,7 +60,6 @@ namespace Lode
                     Console.WriteLine("\n" + chyboveHlaseni);
 
             } while (!obdrzenaOdpoved.HasValue);
-            Console.CursorVisible = viditelnostKurzoru;
 
             Console.WriteLine();
 
@@ -151,11 +157,7 @@ namespace Lode
             Console.WriteLine(hlaseni);
 
             if (potvrditPrecteni)
-            {
-                Console.CursorVisible = false;
                 Console.ReadKey(true);
-                Console.CursorVisible = true;
-            }
         }
         public void ZobrazitLod(Lod lod, Souradnice rozsahZobrazeni, StavPolicka zpusobZobrazeni)
         {
@@ -198,6 +200,15 @@ namespace Lode
             Console.CursorLeft = l;
             Console.CursorTop = t;
             Console.ResetColor();
+        }
+        public void ZobrazitNadpis(string nadpis)
+        {
+            ConsoleColor puvodniBarva = Console.ForegroundColor;
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(nadpis);
+
+            Console.ForegroundColor = puvodniBarva;
         }
         public void ZobrazitStavHry(StavPolicka[,] vlastniHerniPole, StavPolicka[,] souperovoHerniPole)
         {

@@ -17,11 +17,7 @@ namespace Lode
 
         public override Souradnice RozhodnoutVlastniTah()
         {
-            Rozhrani.SmazatObrazovku();
-            Rozhrani.ZobrazitHlaseni("Hraje počítač");
-            Console.CursorTop += 1;
-
-            Rozhrani.ZobrazitStavHry(HerniPole, HerniPoleSoupere);
+            System.Threading.Thread.Sleep(100);
 
             List<Souradnice> mozneTahy = new List<Souradnice>();
 
@@ -29,13 +25,6 @@ namespace Lode
                 for (int y = 0; y < HerniPoleSoupere.GetLength(1); y++)
                     if (HerniPoleSoupere[x, y] == StavPolicka.Neznamo)
                         mozneTahy.Add(new Souradnice() { X = x, Y = y });
-
-            /*
-            Souradnice zvolenyTah = mozneTahy[_nahoda.Next(mozneTahy.Count)];
-            Rozhrani.ZobrazitHlaseni("Zvolený tah: [" + zvolenyTah.X + ", " + zvolenyTah.Y + "]", true);
-
-            return zvolenyTah;
-            */
 
             return mozneTahy[_nahoda.Next(mozneTahy.Count)];
         }

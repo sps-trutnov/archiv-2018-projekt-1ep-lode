@@ -39,14 +39,12 @@ namespace Lode
 
             for (int i = 0; i < 1; i++)
                 Lode.Add(new Lod(TypLode.Kriznik));
-            /*
             for (int i = 0; i < 2; i++)
                 Lode.Add(new Lod(TypLode.Letadlovka));
             for (int i = 0; i < 3; i++)
                 Lode.Add(new Lod(TypLode.Torpedovka));
             for (int i = 0; i < 4; i++)
                 Lode.Add(new Lod(TypLode.Clun));
-            */
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();
@@ -129,14 +127,26 @@ namespace Lode
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {
-            switch(HerniPole[tah.X, tah.Y])
+            switch (HerniPole[tah.X, tah.Y])
             {
                 case StavPolicka.Lod:
                     foreach (Lod lod in Lode)
+                    {
                         if (lod.ZasahujeNaPolicko(tah.X, tah.Y))
+                        {
                             lod.Zasahnout();
 
-                    HerniPole[tah.X, tah.Y] = StavPolicka.Zasah;
+                            HerniPole[tah.X, tah.Y] = StavPolicka.Zasah;
+
+                            if (lod.JePotopena())
+                            {
+                                for (int x = 0; x < HerniPole.GetLength(0); x++)
+                                    for (int y = 0; y < HerniPole.GetLength(1); y++)
+                                        if (lod.ZasahujeNaPolicko(x, y))
+                                            HerniPole[x, y] = StavPolicka.Potopena;
+                            }
+                        }
+                    }
                     break;
                 case StavPolicka.Voda:
                     HerniPole[tah.X, tah.Y] = StavPolicka.Mimo;
@@ -148,6 +158,18 @@ namespace Lode
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
         {
             HerniPoleSoupere[tah.X, tah.Y] = vysledek;
+
+            if (vysledek == StavPolicka.Potopena)
+            {
+                if (tah.X + 1 < HerniPoleSoupere.GetLength(0) && HerniPoleSoupere[tah.X + 1, tah.Y] == StavPolicka.Zasah)
+                    ProvestVlastniTah(new Souradnice() { X = tah.X + 1, Y = tah.Y }, StavPolicka.Potopena);
+                if (tah.X - 1 >= 0 && HerniPoleSoupere[tah.X - 1, tah.Y] == StavPolicka.Zasah)
+                    ProvestVlastniTah(new Souradnice() { X = tah.X - 1, Y = tah.Y }, StavPolicka.Potopena);
+                if (tah.Y + 1 < HerniPoleSoupere.GetLength(1) && HerniPoleSoupere[tah.X, tah.Y + 1] == StavPolicka.Zasah)
+                    ProvestVlastniTah(new Souradnice() { X = tah.X, Y = tah.Y + 1 }, StavPolicka.Potopena);
+                if (tah.Y - 1 >= 0 && HerniPoleSoupere[tah.X, tah.Y - 1] == StavPolicka.Zasah)
+                    ProvestVlastniTah(new Souradnice() { X = tah.X, Y = tah.Y - 1 }, StavPolicka.Potopena);
+            }
         }
         public void UmistitLodeDoHernihoPole()
         {
