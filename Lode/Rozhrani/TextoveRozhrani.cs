@@ -4,6 +4,8 @@ namespace Lode
 {
     class TextoveRozhrani : IRozhrani
     {
+        private Souradnice ReferencePoslednihoZobrazenehoHernihoPole { get; set; } = new Souradnice();
+
         public void SmazatObrazovku()
         {
             Console.Clear();
@@ -92,8 +94,8 @@ namespace Lode
         }
         public void ZobrazitHerniPole(StavPolicka[,] herniPole)
         {
-            int l = Console.CursorLeft;
-            int t = Console.CursorTop;
+            int l = ReferencePoslednihoZobrazenehoHernihoPole.X = Console.CursorLeft;
+            int t = ReferencePoslednihoZobrazenehoHernihoPole.Y = Console.CursorTop;
 
             for (int y = 0; y < herniPole.GetLength(1); y++)
             {
@@ -213,6 +215,32 @@ namespace Lode
 
             Console.CursorTop += 11;
             Console.CursorLeft = 0;
+        }
+        public void ZobrazitZamerovac(Souradnice souradnice, Souradnice rozsahZobrazeni, StavPolicka zpusobZobrazeni)
+        {
+            int l = Console.CursorLeft;
+            int t = Console.CursorTop;
+
+            Console.CursorLeft = ReferencePoslednihoZobrazenehoHernihoPole.X + souradnice.X * 3;
+            Console.CursorTop = ReferencePoslednihoZobrazenehoHernihoPole.Y + rozsahZobrazeni.Y - 1 - souradnice.Y;
+
+            switch (zpusobZobrazeni)
+            {
+                case StavPolicka.StrelbaPovolena:
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write(" X ");
+                    break;
+                case StavPolicka.StrelbaZakazana:
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write(" X ");
+                    break;
+            }
+
+            Console.CursorLeft = l;
+            Console.CursorTop = t;
+            Console.ResetColor();
         }
     }
 }

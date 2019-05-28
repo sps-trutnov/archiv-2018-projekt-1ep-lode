@@ -8,5 +8,7 @@
         Mimo,
         Zasah,
         Potopena,
+        StrelbaPovolena,
+        StrelbaZakazana,
     }
 }

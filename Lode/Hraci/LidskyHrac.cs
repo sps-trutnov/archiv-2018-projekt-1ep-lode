@@ -6,6 +6,8 @@ namespace Lode
 {
     class LidskyHrac : ObecnyHrac
     {
+        private Souradnice PoziceZamerovace { get; set; }
+
         public LidskyHrac(IPAddress ipAdresa) : base(ipAdresa)
         {
 
@@ -13,24 +15,47 @@ namespace Lode
 
         public override Souradnice RozhodnoutVlastniTah()
         {
-            Rozhrani.SmazatObrazovku();
-            Rozhrani.ZobrazitHlaseni("Hraje člověk");
-            Console.CursorTop += 1;
+            if (PoziceZamerovace == null)
+                PoziceZamerovace = new Souradnice() { X = HerniPoleSoupere.GetLength(0) / 2, Y = HerniPoleSoupere.GetLength(1) / 2 };
 
-            Rozhrani.ZobrazitStavHry(HerniPole, HerniPoleSoupere);
+            bool strelbaPotvrzena = false;
 
-            List<Souradnice> mozneTahy = new List<Souradnice>();
+            do
+            {
+                Rozhrani.SmazatObrazovku();
+                Rozhrani.ZobrazitHlaseni("Hraje člověk");
+                Console.CursorTop += 1;
 
-            for (int x = 0; x < HerniPoleSoupere.GetLength(0); x++)
-                for (int y = 0; y < HerniPoleSoupere.GetLength(1); y++)
-                    if (HerniPoleSoupere[x, y] == StavPolicka.Neznamo)
-                        mozneTahy.Add(new Souradnice() { X = x, Y = y });
+                Rozhrani.ZobrazitStavHry(HerniPole, HerniPoleSoupere);
+                Rozhrani.ZobrazitZamerovac(PoziceZamerovace, new Souradnice() { X = HerniPoleSoupere.GetLength(0), Y = HerniPoleSoupere.GetLength(1) }, StavPolicka.StrelbaPovolena);
 
-            Souradnice zvolenyTah = mozneTahy[_nahoda.Next(mozneTahy.Count)];
-            Rozhrani.ZobrazitHlaseni("Zvolený tah: [" + zvolenyTah.X + ", " + zvolenyTah.Y + "]", true);
-            return zvolenyTah;
+                switch (Rozhrani.ZiskatAkci())
+                {
+                    case TypAkce.PosunDolu:
+                        if (PoziceZamerovace.Y - 1 >= 0)
+                            PoziceZamerovace.Y -= 1;
+                        break;
+                    case TypAkce.PosunNahoru:
+                        if (PoziceZamerovace.Y +1 < HerniPoleSoupere.GetLength(1))
+                            PoziceZamerovace.Y += 1;
+                        break;
+                    case TypAkce.PosunVlevo:
+                        if (PoziceZamerovace.X - 1 >= 0)
+                            PoziceZamerovace.X -= 1;
+                        break;
+                    case TypAkce.PosunVpravo:
+                        if (PoziceZamerovace.X + 1 < HerniPoleSoupere.GetLength(0))
+                            PoziceZamerovace.X += 1;
+                        break;
+                    case TypAkce.Umisteni:
+                    case TypAkce.Otoceni:
+                        if (HerniPoleSoupere[PoziceZamerovace.X, PoziceZamerovace.Y] == StavPolicka.Neznamo)
+                            strelbaPotvrzena = true;
+                        break;
+                }
+            } while (!strelbaPotvrzena);
 
-            return mozneTahy[_nahoda.Next(mozneTahy.Count)];
+            return PoziceZamerovace;
         }
         public override void RozmistitLode()
         {
