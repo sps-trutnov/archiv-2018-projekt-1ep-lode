@@ -11,9 +11,9 @@ namespace Lode
             Console.CursorVisible = false;
         }
 
-        public void CekatDoStiskuKlavesy(ConsoleKey klavesa)
+        public void PockatNaUkonceniHry()
         {
-            while (Console.ReadKey(true).Key != klavesa) ;
+            while (Console.ReadKey(true).Key != ConsoleKey.Backspace) ;
         }
         public void SmazatObrazovku()
         {

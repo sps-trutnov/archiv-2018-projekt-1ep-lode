@@ -140,7 +140,7 @@ namespace Lode
                 Rozhrani.ZobrazitHlaseni("Remizuješ...", true);
 
             Rozhrani.ZobrazitHlaseni("\nStiskni Basckspace pro pokračování...");
-            Rozhrani.CekatDoStiskuKlavesy(ConsoleKey.Backspace);
+            Rozhrani.PockatNaUkonceniHry();
         }
         private void VypnoutHru()
         {

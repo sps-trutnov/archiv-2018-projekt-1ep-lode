@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 
 namespace Lode
@@ -36,7 +35,7 @@ namespace Lode
                             PoziceZamerovace.Y -= 1;
                         break;
                     case TypAkce.PosunNahoru:
-                        if (PoziceZamerovace.Y +1 < HerniPoleSoupere.GetLength(1))
+                        if (PoziceZamerovace.Y + 1 < HerniPoleSoupere.GetLength(1))
                             PoziceZamerovace.Y += 1;
                         break;
                     case TypAkce.PosunVlevo:

@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Lode
+﻿namespace Lode
 {
     interface IRozhrani
     {
-        void CekatDoStiskuKlavesy(ConsoleKey klavesa);
+        void PockatNaUkonceniHry();
         void SmazatObrazovku();
         TypAkce ZiskatAkci();
         bool ZiskatOdpovedAnoNe(string otazka, string chyboveHlaseni, bool defaultniOdpoved);

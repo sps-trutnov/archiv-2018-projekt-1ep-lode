@@ -22,11 +22,34 @@ namespace Lode
             List<Souradnice> mozneTahy = new List<Souradnice>();
 
             for (int x = 0; x < HerniPoleSoupere.GetLength(0); x++)
+            {
                 for (int y = 0; y < HerniPoleSoupere.GetLength(1); y++)
-                    if (HerniPoleSoupere[x, y] == StavPolicka.Neznamo)
-                        mozneTahy.Add(new Souradnice() { X = x, Y = y });
+                {
+                    if (HerniPoleSoupere[x, y] != StavPolicka.Neznamo)
+                        continue;
+                    else if (x + 1 < HerniPoleSoupere.GetLength(0) && HerniPoleSoupere[x + 1, y] == StavPolicka.Potopena)
+                        continue;
+                    else if (x - 1 >= 0 && HerniPoleSoupere[x - 1, y] == StavPolicka.Potopena)
+                        continue;
+                    else if (y + 1 < HerniPoleSoupere.GetLength(1) && HerniPoleSoupere[x, y + 1] == StavPolicka.Potopena)
+                        continue;
+                    else if (y - 1 >= 0 && HerniPoleSoupere[x, y - 1] == StavPolicka.Potopena)
+                        continue;
 
-            return mozneTahy[_nahoda.Next(mozneTahy.Count)];
+                    if (x + 1 < HerniPoleSoupere.GetLength(0) && HerniPoleSoupere[x + 1, y] == StavPolicka.Zasah)
+                        mozneTahy.Insert(0, new Souradnice() { X = x, Y = y });
+                    if (x - 1 >= 0 && HerniPoleSoupere[x - 1, y] == StavPolicka.Zasah)
+                        mozneTahy.Insert(0, new Souradnice() { X = x, Y = y });
+                    if (y + 1 < HerniPoleSoupere.GetLength(1) && HerniPoleSoupere[x, y + 1] == StavPolicka.Zasah)
+                        mozneTahy.Insert(0, new Souradnice() { X = x, Y = y });
+                    if (y - 1 >= 0 && HerniPoleSoupere[x, y - 1] == StavPolicka.Zasah)
+                        mozneTahy.Insert(0, new Souradnice() { X = x, Y = y });
+                    else
+                        mozneTahy.Add(new Souradnice() { X = x, Y = y });
+                }
+            }
+
+            return mozneTahy[0];
         }
         public override void RozmistitLode()
         {
