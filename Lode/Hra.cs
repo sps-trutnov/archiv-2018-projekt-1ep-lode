@@ -125,7 +125,12 @@ namespace Lode
         }
         private void VypnoutHru()
         {
-            throw new NotImplementedException();
+            Rozhrani.SmazatObrazovku();
+            Rozhrani.ZobrazitHlaseni("(C) Ikonu vytvořil Freepik z webu www.flaticon.com");
+            Rozhrani.ZobrazitHlaseni();
+            Rozhrani.ZobrazitHlaseni("Pro ukončení stiskni libovolnou klávesu ...", true);
+
+            Environment.Exit(0);
         }
         private IPAddress ZjistitAdresuSoupere()
         {
