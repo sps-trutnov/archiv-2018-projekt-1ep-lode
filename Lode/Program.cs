@@ -31,6 +31,7 @@ namespace Lode
                     Console.ReadKey(true);
                 }
                 
+            new Hra(new TextoveRozhrani()).SpustitHru();
         }
             
     }
