@@ -27,6 +27,7 @@ namespace Lode
                 else
                 {
                     Console.WriteLine(StavPolicka.Mimo);
+                    Console.WriteLine("Konec");
                     Console.ReadKey(true);
                 }
                 
