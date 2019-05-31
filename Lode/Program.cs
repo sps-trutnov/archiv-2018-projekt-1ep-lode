@@ -5,7 +5,6 @@ namespace Lode
     {
         static void Main(string[] args)
         {
-            //new Hra().SpustitHru();
             //ZACATEK 
             var policko = Console.ReadLine();
             //bool testovniString = true;
@@ -31,7 +30,7 @@ namespace Lode
                     Console.ReadKey(true);
                 }
                 
-            new Hra(new TextoveRozhrani()).SpustitHru();
+            //new Hra(new TextoveRozhrani()).SpustitHru();
         }
             
     }
