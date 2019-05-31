@@ -14,6 +14,7 @@ namespace Lode
             while (policko.Contains(ZakazanaPismena))
             {
                 Console.WriteLine("Tak to teda ne.");
+                Console.WriteLine("Ty spino");
                 Console.WriteLine("Zkus to znovu");
                 policko = Console.ReadLine();
                 
