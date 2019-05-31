@@ -8,7 +8,7 @@ namespace Lode
             //ZACATEK 
             var policko = Console.ReadLine();
             //bool testovniString = true;
-            string ZakazanaPismena = "KLMNOPQRSTUVWXYZ";
+            string ZakazanaPismena = "K";
              
             string Zasah = "A4"; // Policko vybrano hracem
             while (policko.Contains(ZakazanaPismena))
