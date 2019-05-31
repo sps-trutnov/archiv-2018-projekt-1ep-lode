@@ -18,7 +18,7 @@ namespace Lode
             throw new NotImplementedException();
         }
         public override void RozmistitLode()
-            //synek
+            // Synek
             // Springer
         {
             throw new NotImplementedException();
