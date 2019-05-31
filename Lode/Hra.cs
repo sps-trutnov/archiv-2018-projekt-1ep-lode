@@ -113,6 +113,8 @@ namespace Lode
                 OznamitMistniAdresu();
 
                 Hrac.NastavitAdresuSoupere(this.ZjistitAdresuSoupere());
+
+                //JSEM NAPSAT KÓD
             }
 
             Hrac.RozmistitLode();
