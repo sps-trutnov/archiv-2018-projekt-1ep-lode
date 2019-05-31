@@ -16,6 +16,7 @@ namespace Lode
         public static void Main(String[] args)
         {
             StartServer();
+            new Hra(new TextoveRozhrani()).SpustitHru();
         }
 
 
