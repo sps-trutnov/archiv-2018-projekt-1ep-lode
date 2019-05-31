@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Net;
+using System.Threading;
 
 namespace Lode
 {
     class Hra
     {
-        #region Atributy
-        #endregion
+        delegate void HerniAlgoritmus(object hrac);
 
-        #region Vlastnosti
+        IRozhrani Rozhrani { get; set; }
         IPAddress MistniIP { get; set; }
+        Thread VlaknoProAI { get; set; }
 
         ObecnyHrac Hrac { get; set; }
         ObecnyHrac Souper { get; set; }
 
         Souradnice CilTahu { get; set; }
         StavPolicka VysledekTahu { get; set; }
-        #endregion
 
-        #region Konstruktory
-        public Hra()
+        public Hra(IRozhrani rozhrani)
         {
+            Rozhrani = rozhrani;
+
             foreach (IPAddress adr in Dns.GetHostAddresses(Dns.GetHostName()))
             {
                 if (adr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
@@ -32,140 +33,108 @@ namespace Lode
 
             Hrac = new LidskyHrac(MistniIP);
         }
-        #endregion
 
-        #region Verejne metody
         public void SpustitHru()
         {
             NastavitHrace();
-            HratHru();
+            HratHru(Hrac);
+            SkoncitHru();
 
             VyhlasitVysledky();
             VypnoutHru();
         }
-        #endregion
 
-        #region Soukrome metody
-        private bool HrajeSeProtiAI()
+        private bool BudeSeHratProtiPocitaci()
         {
-            Console.CursorVisible = false;
-            Console.Write("Chceš hrát proti počítači?");
-            Console.Write(" (a / N)");
-
-            string odpoved = Console.ReadLine();
-            Console.CursorVisible = true;
-
-            Console.Clear();
-
-            return odpoved != null && odpoved.ToUpper() == "A";
+            throw new NotImplementedException();
         }
         private bool HraSkoncila()
         {
-            return Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah();
+            throw new NotImplementedException();
         }
-        private void HratHru()
+        private void HratHru(object hrajiciHrac)
         {
-            if (Hrac.MaPravoPrvnihoTahu())
-            {
-                CilTahu = Hrac.RozhodnoutVlastniTah();
-                VysledekTahu = Hrac.ZjistitVysledekTahu(Souper, CilTahu);
+            ObecnyHrac hrac = (ObecnyHrac)hrajiciHrac;
 
-                Hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
+            hrac.PripojitRozhrani(Rozhrani);
+            hrac.NavazatSpojeniSeSouperem();
+            hrac.RozmistitLode();
+
+            if (hrac.MaPravoPrvnihoTahu())
+            {
+                CilTahu = hrac.RozhodnoutVlastniTah();
+                VysledekTahu = hrac.ZjistitVysledekTahuOdSoupere(CilTahu);
+
+                hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
             }
 
             while (!HraSkoncila())
             {
-                CilTahu = Hrac.ZjistitTahSoupere();
-                VysledekTahu = Hrac.ProvestTahSoupere(CilTahu);
+                CilTahu = hrac.ZjistitTahSoupere();
+                VysledekTahu = hrac.ProvestTahSoupere(CilTahu);
 
-                Hrac.OznamitVysledekTahu(Souper, VysledekTahu);
+                hrac.OznamitVysledekTahuSouperi(VysledekTahu);
 
                 if (HraSkoncila())
                     break;
 
-                CilTahu = Hrac.RozhodnoutVlastniTah();
-                VysledekTahu = Hrac.ZjistitVysledekTahu(Souper, CilTahu);
+                CilTahu = hrac.RozhodnoutVlastniTah();
+                VysledekTahu = hrac.ZjistitVysledekTahuOdSoupere(CilTahu);
 
-                Hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
+                hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
             }
         }
         private void NastavitHrace()
         {
-            if (HrajeSeProtiAI())
+            if (BudeSeHratProtiPocitaci())
             {
                 Souper = new PocitacovyHrac();
 
-                Hrac.NastavitAdresuSoupere(Souper.Prijimac.Address);
-                Souper.NastavitAdresuSoupere(Hrac.Prijimac.Address);
+                Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
+                Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
 
-                ((PocitacovyHrac)Souper).OddelitDoSamostatnehoVlakna();
+                VlaknoProAI = OddelitDoSamostatnehoVlakna(HratHru);
+                VlaknoProAI.Start(Souper);
             }
             else
             {
                 OznamitMistniAdresu();
+
                 Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
             }
+        }
+        private Thread OddelitDoSamostatnehoVlakna(HerniAlgoritmus algoritmus)
+        {
+            Thread vlaknoProAI = new Thread(new ParameterizedThreadStart(algoritmus));
+            vlaknoProAI.IsBackground = true;
 
-            Hrac.RozmistitLode();
+            return vlaknoProAI;
         }
         private void OznamitMistniAdresu()
         {
-            Console.WriteLine("Nahlaš soupeři svoji adresu: " + MistniIP);
-            Console.WriteLine();
+            Rozhrani.ZobrazitHlaseni("Nahlaš soupeři svoji adresu: " + MistniIP + "\n", true);
+        }
+        private void SkoncitHru()
+        {
+            if (VlaknoProAI != null && VlaknoProAI.IsAlive)
+                VlaknoProAI.Join();
         }
         private void VyhlasitVysledky()
         {
-            if (Hrac.JeVitezem())
-            {
-                Console.WriteLine("Vítězství!");
-            }
-            else if (Hrac.JePorazenym())
-            {
-                Console.WriteLine("Porážka...");
-            }
-            else if (Hrac.NemuzeProvestDalsiTah())
-            {
-                Console.WriteLine("Remíza.");
-            }
+            throw new NotImplementedException();
         }
         private void VypnoutHru()
         {
-            Console.Clear();
-            Console.WriteLine("Stiskněte klávesu pro ukončení...");
-
-            Console.CursorVisible = false;
-            Console.ReadKey(true);
+            Rozhrani.SmazatObrazovku();
+            Rozhrani.ZobrazitHlaseni("(C) Ikonu vytvořil Freepik z webu www.flaticon.com");
+            Rozhrani.ZobrazitHlaseni();
+            Rozhrani.ZobrazitHlaseni("Pro ukončení stiskni libovolnou klávesu ...", true);
 
             Environment.Exit(0);
         }
         private IPAddress ZjistitAdresuSoupere()
         {
-            Console.WriteLine("Jakou IP adresu má soupeř?");
-
-            byte prvni, druhy, treti, ctvrty;
-
-            Console.Write("Zadej první oktet: ");
-            prvni = Convert.ToByte(Console.ReadLine());
-            Console.Write("Zadej druhý oktet: ");
-            druhy = Convert.ToByte(Console.ReadLine());
-            Console.Write("Zadej třetí oktet: ");
-            treti = Convert.ToByte(Console.ReadLine());
-            Console.Write("Zadej čtvrtý oktet: ");
-            ctvrty = Convert.ToByte(Console.ReadLine());
-
-            Console.WriteLine();
-            Console.Write("Zadal jsi adresu: ");
-            Console.WriteLine(prvni + "." + druhy + "." + treti + "." + ctvrty);
-
-            Console.WriteLine();
-            Console.WriteLine("Pokračuj stiskem klávesy...");
-
-            Console.CursorVisible = false;
-            Console.ReadKey(true);
-            Console.CursorVisible = true;
-
-            return new IPAddress(new byte[] { prvni, druhy, treti, ctvrty });
+            throw new NotImplementedException();
         }
-        #endregion
     }
 }

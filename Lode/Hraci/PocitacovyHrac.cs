@@ -1,24 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace Lode
 {
-    class LidskyHrac : ObecnyHrac
+    class PocitacovyHrac : ObecnyHrac
     {
-        #region Atributy
-        #endregion
+        readonly private static string[] _jmenaAI = new string[] { "Andy", "Boris", "Dora", "Keira", "Victor" };
 
-        #region Vlastnosti
-        #endregion
+        public string Jmeno { get; private set; }
 
-        #region Konstruktory
-        public LidskyHrac(IPAddress ipAdresa) : base(ipAdresa)
+        public PocitacovyHrac() : base(new IPAddress(new byte[] { 127, 0, 0, 1 }))
         {
             
         }
-        #endregion
 
-        #region Verejne metody
         public override Souradnice RozhodnoutVlastniTah()
         {
             throw new NotImplementedException();
@@ -27,9 +23,5 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        #endregion
-
-        #region Soukrome metody
-        #endregion
     }
 }
