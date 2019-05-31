@@ -55,7 +55,7 @@ namespace Lode
         public bool MaPravoPrvnihoTahu()
         {
             int vlastniToken = GenerovatToken();
-            int tokenSoupere = VymenitSiTokenSeSouperem(vlastniToken);
+            int tokenSoupere = VymenitSiTokenSesouperem(vlastniToken);
 
             return vlastniToken < tokenSoupere;
         }
@@ -76,11 +76,11 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        public void OznamitVysledekTahu(ObecnyHrac souper, StavPolicka vysledek)
+        public void VykomunikovatTahSoupere(Souradnice tah, StavPolicka vysledek)
         {
             throw new NotImplementedException();
         }
-        public int VymenitSiTokenSeSouperem(int vlastniToken)
+        public int VymenitSiTokenSesouperem(int vlastniToken)
         {
             throw new System.NotImplementedException();
         }
@@ -88,7 +88,7 @@ namespace Lode
         {
             throw new System.NotImplementedException();
         }
-        public StavPolicka ZjistitVysledekTahu(ObecnyHrac souper, Souradnice tah)
+        public StavPolicka ZjistitVysledekTahuOdSoupere(Souradnice tah)
         {
             throw new System.NotImplementedException();
         }
