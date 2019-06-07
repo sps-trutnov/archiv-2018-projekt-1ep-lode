@@ -17,7 +17,6 @@ namespace Lode
 
         Souradnice CilTahu { get; set; }
         StavPolicka VysledekTahu { get; set; }
-        #endregion
 
         public Hra(IRozhrani rozhrani)
         {
@@ -69,17 +68,14 @@ namespace Lode
                 hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
             }
 
-            while (!HraKonci())
+            while (!HraSkoncila())
             {
                 CilTahu = hrac.ZjistitTahSoupere();
                 VysledekTahu = hrac.ProvestTahSoupere(CilTahu);
 
                 hrac.OznamitVysledekTahuSouperi(VysledekTahu);
 
-                vysledek = Hrac.ProvestTahSoupere(tah);
-                Hrac.VykomunikovatTahSoupere(tah, vysledek);
-
-                if (Hrac.JePorazenym() || Hrac.JeVitezem() || Hrac.NemuzeProvestDalsiTah())
+                if (HraSkoncila())
                     break;
 
                 CilTahu = hrac.RozhodnoutVlastniTah();
@@ -87,16 +83,8 @@ namespace Lode
 
                 hrac.ProvestVlastniTah(CilTahu, VysledekTahu);
             }
-
-            OhlasitVysledekHry();
-
-            Console.CursorVisible = false;
-            Console.ReadKey(true);
         }
-        #endregion
-
-        #region Soukrome metody
-        private bool HrajeSeProtiAI()
+        private void NastavitHrace()
         {
             if (BudeSeHratProtiPocitaci())
             {
@@ -122,7 +110,7 @@ namespace Lode
 
             return vlaknoProAI;
         }
-        private bool HraKonci()
+        private void OznamitMistniAdresu()
         {
             Rozhrani.ZobrazitHlaseni("Nahlaš soupeři svoji adresu: " + MistniIP + "\n", true);
         }
@@ -135,7 +123,7 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        private void OznamitMistniAdresu()
+        private void VypnoutHru()
         {
             Rozhrani.SmazatObrazovku();
             Rozhrani.ZobrazitHlaseni("(C) Ikonu vytvořil Freepik z webu www.flaticon.com");
