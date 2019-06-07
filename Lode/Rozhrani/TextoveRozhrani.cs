@@ -19,6 +19,7 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
+
         public TypAkce ZiskatAkci()
         {
             throw new NotImplementedException();
@@ -31,10 +32,7 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        public string ZiskatText(string vyzva, bool ukoncitRadek)
-        {
-            throw new NotImplementedException();
-        }
+
         public void ZobrazitHerniPole(StavPolicka[,] herniPole)
         {
             throw new NotImplementedException();
