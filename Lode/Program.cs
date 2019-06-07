@@ -14,6 +14,7 @@ namespace Lode
             while (policko.Contains(ZakazanaPismena))
             {
                 Console.WriteLine("Tak to teda ne.");
+                Console.WriteLine("Ty spino");
                 Console.WriteLine("Zkus to znovu");
                 policko = Console.ReadLine();
                 
@@ -28,6 +29,7 @@ namespace Lode
                     Console.WriteLine(StavPolicka.Mimo);
                     Console.WriteLine("Konec");
                     Console.ReadKey(true);
+                // byl jsem tu
                 }
                 
             //new Hra(new TextoveRozhrani()).SpustitHru();
