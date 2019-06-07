@@ -1,4 +1,6 @@
-﻿namespace Lode
+﻿using System;
+
+namespace Lode
 {
     class Program
     {
