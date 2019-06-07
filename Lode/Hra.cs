@@ -8,15 +8,15 @@ namespace Lode
     {
         delegate void HerniAlgoritmus(object hrac);
 
-        IRozhrani Rozhrani { get; set; }
-        IPAddress MistniIP { get; set; }
-        Thread VlaknoProAI { get; set; }
+        private IRozhrani Rozhrani { get; set; }
+        private IPAddress MistniIP { get; set; }
+        private Thread VlaknoProAI { get; set; }
 
-        ObecnyHrac Hrac { get; set; }
-        ObecnyHrac Souper { get; set; }
+        private ObecnyHrac Hrac { get; set; }
+        private ObecnyHrac Souper { get; set; }
 
-        Souradnice CilTahu { get; set; }
-        StavPolicka VysledekTahu { get; set; }
+        private Souradnice CilTahu { get; set; }
+        private StavPolicka VysledekTahu { get; set; }
 
         public Hra(IRozhrani rozhrani)
         {
@@ -32,16 +32,6 @@ namespace Lode
             }
 
             Hrac = new LidskyHrac(MistniIP);
-        }
-
-        public void SpustitHru()
-        {
-            NastavitHrace();
-            HratHru(Hrac);
-            SkoncitHru();
-
-            VyhlasitVysledky();
-            VypnoutHru();
         }
 
         private bool BudeSeHratProtiPocitaci()
@@ -100,7 +90,7 @@ namespace Lode
             {
                 OznamitMistniAdresu();
 
-                Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
+                Hrac.NastavitAdresuSoupere(ZjistitAdresuLidskehoSoupere());
             }
         }
         private Thread OddelitDoSamostatnehoVlakna(HerniAlgoritmus algoritmus)
@@ -132,9 +122,19 @@ namespace Lode
 
             Environment.Exit(0);
         }
-        private IPAddress ZjistitAdresuSoupere()
+        private IPAddress ZjistitAdresuLidskehoSoupere()
         {
             throw new NotImplementedException();
+        }
+
+        public void SpustitHru()
+        {
+            NastavitHrace();
+            HratHru(Hrac);
+            SkoncitHru();
+
+            VyhlasitVysledky();
+            VypnoutHru();
         }
     }
 }
