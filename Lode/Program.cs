@@ -46,7 +46,7 @@ namespace Lode
                     for (int l = 0; l < 10; l++)
                     {
                         Console.SetCursorPosition(l, i);
-                        Console.Write(" ");
+                        Console.Write("*");
                     }
                 }
             }
