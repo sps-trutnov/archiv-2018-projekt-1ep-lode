@@ -5,35 +5,34 @@ namespace Lode
     {
         static void Main(string[] args)
         {
-            //ZACATEK 
-            var policko = Console.ReadLine();
-            //bool testovniString = true;
-            string ZakazanaPismena = "KLMNOPQRSTUVWXYZ";
-             
-            string Zasah = "A4"; // Policko vybrano hracem
-            while (policko.Contains(ZakazanaPismena))
+            int Vystrel = 1;
+            bool Trefa = false;
+
+
+            Lod clun;
+            clun.JePotopen = false;
+            clun.Zasazen = 0000f;
+            clun.PocetZasahu = 0;
+            clun.PocetZivotu = 4;
+            if (clun.JePotopen == true)
             {
-                Console.WriteLine("Tak to teda ne.");
-                Console.WriteLine("Ty spino");
-                Console.WriteLine("Zkus to znovu");
-                policko = Console.ReadLine();
-                
+                Console.WriteLine("...");
             }
-                if (policko == Zasah)
-                {
-                    System.Console.WriteLine(StavPolicka.Zasah);
-                    System.Console.ReadKey(true);
-                }
-                else
-                {
-                    Console.WriteLine(StavPolicka.Mimo);
-                    Console.WriteLine("Konec");
-                    Console.ReadKey(true);
-                // byl jsem tu
-                }
-                
+            Console.ReadKey(true);
+
+            
+
             //new Hra(new TextoveRozhrani()).SpustitHru();
         }
-            
+
+        struct Lod
+        {
+            public int PocetZasahu;
+            public int PocetZivotu;
+            public float Zasazen;
+            public bool JePotopen;
+        }
+
+        
     }
 }
