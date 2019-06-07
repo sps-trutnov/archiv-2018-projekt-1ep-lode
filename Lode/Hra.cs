@@ -90,8 +90,8 @@ namespace Lode
             {
                 Souper = new PocitacovyHrac();
 
-                Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
-                Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
+                Souper.NastavitAdresuSoupere(Hrac);
+                Hrac.NastavitAdresuSoupere(Souper);
 
                 VlaknoProAI = OddelitDoSamostatnehoVlakna(HratHru);
                 VlaknoProAI.Start(Souper);

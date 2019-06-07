@@ -17,15 +17,15 @@ namespace Lode
 
         public override Souradnice RozhodnoutVlastniTah()
         {
-
             Random x = new Random();
             int souradniceX = x.Next(1, 10);
+
             System.Threading.Thread.Sleep(1000);
+
             Random y = new Random();
             int souradniceY = y.Next(1, 10);
 
-            return new Souradnice() { X = souradniceX, Y = souradniceY };
-
+            return new Souradnice(souradniceX, souradniceY);
         }
         public override void RozmistitLode()
         {
