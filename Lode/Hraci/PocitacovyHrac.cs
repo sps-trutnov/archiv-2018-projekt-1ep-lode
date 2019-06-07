@@ -12,12 +12,20 @@ namespace Lode
 
         public PocitacovyHrac() : base(new IPAddress(new byte[] { 127, 0, 0, 1 }))
         {
-            
+
         }
 
         public override Souradnice RozhodnoutVlastniTah()
         {
-            throw new NotImplementedException();
+
+            Random x = new Random();
+            int souradniceX = x.Next(1, 10);
+            System.Threading.Thread.Sleep(1000);
+            Random y = new Random();
+            int souradniceY = y.Next(1, 10);
+
+            return new Souradnice() { X = souradniceX, Y = souradniceY };
+
         }
         public override void RozmistitLode()
         {
