@@ -7,7 +7,8 @@
 
         public Souradnice()
         {
-
+            X = 0;
+            Y = 0;
         }
         public Souradnice(int x, int y)
         {
