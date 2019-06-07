@@ -8,6 +8,8 @@ namespace Lode
     {
         delegate void HerniAlgoritmus(object hrac);
 
+
+
         IRozhrani Rozhrani { get; set; }
         IPAddress MistniIP { get; set; }
         Thread VlaknoProAI { get; set; }
