@@ -36,6 +36,8 @@ namespace Lode
 
         public void SpustitHru()
         {
+
+
             NastavitHrace();
             HratHru(Hrac);
             SkoncitHru();

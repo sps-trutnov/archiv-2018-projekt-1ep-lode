@@ -33,16 +33,19 @@ namespace Lode
             Console.WriteLine("                      CO CHCETE UDĚLAT?");
             string odpoved = Console.ReadLine();
 
-            if (odpoved.ToUpper() == "HRÁT") ;
+            Hra novaHra;
+        
+            if (odpoved.ToUpper() == "HRÁT")
             {
-                Hra;
+                novaHra = new Hra();
+                novaHra.SpustitHru();
 
             }
-            else if(odpoved.ToUpper() == "NASTAVENÍ");
+            else if(odpoved.ToUpper() == "NASTAVENÍ")
             {
                 new NastaveniHry().MenuNastaveni();
             }
-            else if (odpoved.ToUpper() == "KONEC") ;
+            else if (odpoved.ToUpper() == "KONEC")
             {
                 Environment.Exit(0);
             }

@@ -10,7 +10,7 @@ namespace Lode
     {
         public void MenuNastaveni();
         {
-            
+            Console.WriteLine("Jakou chcete barvu pozadi?")
         }
     }
 }
