@@ -12,7 +12,7 @@ namespace Lode
         IPAddress MistniIP { get; set; }
         Thread VlaknoProAI { get; set; }
 
-        ObecnyHrac Hrac { get; set; }
+        public ObecnyHrac Hrac { get; set; }
         ObecnyHrac Souper { get; set; }
 
         Souradnice CilTahu { get; set; }
@@ -36,7 +36,7 @@ namespace Lode
 
         public void SpustitHru()
         {
-
+            Rozhrani.ZobrazitMenu(this);
 
             NastavitHrace();
             HratHru(Hrac);
@@ -46,7 +46,7 @@ namespace Lode
             VypnoutHru();
         }
 
-        private bool BudeSeHratProtiPocitaci()
+        public bool BudeSeHratProtiPocitaci()
         {
             throw new NotImplementedException();
         }
@@ -54,7 +54,7 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        private void HratHru(object hrajiciHrac)
+        public void HratHru(object hrajiciHrac)
         {
             ObecnyHrac hrac = (ObecnyHrac)hrajiciHrac;
 
@@ -88,10 +88,10 @@ namespace Lode
         }
         private void NastavitHrace()
         {
-            if (BudeSeHratProtiPocitaci())
+            if (((TextoveRozhrani)Rozhrani).Menu.HraProtiPocitaci)
             {
                 Souper = new PocitacovyHrac();
-
+                
                 Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
                 Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
 

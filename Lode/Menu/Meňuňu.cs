@@ -8,7 +8,9 @@ namespace Lode
 {
     class Meňuňu
     {
-        public void UvodniMenu()
+        public bool HraProtiPocitaci { get; private set; }
+
+        public void UvodniMenu(Hra hraSeKterouSePracuje)
         {
             Console.SetWindowSize(120, 35);
             Console.WriteLine("## # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##");
@@ -24,22 +26,28 @@ namespace Lode
             Console.WriteLine();
             Console.WriteLine(" ## # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##");
             Console.WriteLine("## # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##");
-            Console.ReadKey();
-
-            Console.WriteLine("                                               HRÁT ");
-            Console.WriteLine("                                            NASTAVENÍ");
-            Console.WriteLine("                                              KONEC");
+            Console.WriteLine();
+            Console.WriteLine("              HRÁT PROTI PC");
+            Console.WriteLine();
+            Console.WriteLine("               MULTIPLAYER");
+            Console.WriteLine();
+            Console.WriteLine("                NASTAVENÍ");
+            Console.WriteLine();
+            Console.WriteLine("                  KONEC");
             Console.WriteLine(" ");
-            Console.WriteLine("                      CO CHCETE UDĚLAT?");
+            Console.WriteLine("CO CHCETE UDĚLAT?");
             string odpoved = Console.ReadLine();
 
-            Hra novaHra;
+            HraProtiPocitaci = false;
         
-            if (odpoved.ToUpper() == "HRÁT")
+            if (odpoved.ToUpper() == "HRÁT PROTI PC")
             {
-                novaHra = new Hra();
-                novaHra.SpustitHru();
-
+                HraProtiPocitaci = true;
+                hraSeKterouSePracuje.BudeSeHratProtiPocitaci();
+            }
+            else if(odpoved.ToUpper() == "MULTIPLAYER")
+            {
+                hraSeKterouSePracuje.HratHru(hraSeKterouSePracuje.Hrac);
             }
             else if(odpoved.ToUpper() == "NASTAVENÍ")
             {

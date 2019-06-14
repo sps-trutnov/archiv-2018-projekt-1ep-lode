@@ -6,9 +6,11 @@ namespace Lode
     {
         private Souradnice ReferencePoslednihoZobrazenehoHernihoPole { get; set; } = new Souradnice();
 
+        public Meňuňu Menu { get; private set; }
+
         public TextoveRozhrani()
         {
-            
+            Menu = new Meňuňu();
         }
 
         public void PockatNaUkonceniHry()
@@ -58,6 +60,11 @@ namespace Lode
         public void ZobrazitZamerovac(Souradnice souradnice, Souradnice rozsahZobrazeni, StavPolicka zpusobZobrazeni)
         {
             throw new NotImplementedException();
+        }
+
+        public void ZobrazitMenu(Hra ktereHry)
+        {
+            Menu.UvodniMenu(ktereHry);
         }
     }
 }
