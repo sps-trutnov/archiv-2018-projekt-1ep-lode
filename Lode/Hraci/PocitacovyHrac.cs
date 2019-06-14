@@ -29,7 +29,9 @@ namespace Lode
         }
         public override void RozmistitLode()
         {
-            throw new NotImplementedException();
+            this.HerniPole = new StavPolicka[10, 10];
+
+
         }
     }
 }
