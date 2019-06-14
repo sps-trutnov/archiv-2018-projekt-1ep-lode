@@ -20,10 +20,16 @@ namespace Lode
         {
 
             Random x = new Random();
-            int souradniceX = x.Next(1, 10);
+            int souradniceX = x.Next(0, HerniPoleSoupere.GetLength(0));
             System.Threading.Thread.Sleep(1000);
             Random y = new Random();
-            int souradniceY = y.Next(1, 10);
+            int souradniceY = y.Next(0, HerniPoleSoupere.GetLength(1));
+
+            while (HerniPoleSoupere[souradniceX,souradniceY] != StavPolicka.Neznamo)
+            {
+                souradniceX = x.Next(0, HerniPoleSoupere.GetLength(0));
+                souradniceY = y.Next(0, HerniPoleSoupere.GetLength(1));
+            }
 
             Console.WriteLine(souradniceX);
             Console.WriteLine(souradniceY);
