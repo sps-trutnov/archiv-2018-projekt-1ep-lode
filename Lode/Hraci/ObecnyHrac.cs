@@ -67,11 +67,48 @@ namespace Lode
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {
-            throw new NotImplementedException();
+            if (HerniPole[tah.X, tah.Y] == StavPolicka.Lod)
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.Zasah;
+                return StavPolicka.Zasah;
+            }
+            else if (HerniPole[tah.X, tah.Y] == StavPolicka.Voda)
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.Mimo;
+                return StavPolicka.Mimo;
+            }
+            else if (HerniPole[tah.X, tah.Y] > HerniPole[9, 9])
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.Neznamo;
+                return StavPolicka.Neznamo;
+            }
+            else if (HerniPole[tah.X, tah.Y] == StavPolicka.Zasah)
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.StrelbaZakazana;
+                return StavPolicka.StrelbaZakazana;
+            }
+            
+            /*if (HerniPole[tah.X, tah.Y] == StavPolicka.Lod)
+            {
+                return StavPolicka.Zasah;
+                if (HerniPole[tah.X, tah.Y] == StavPolicka.Potopena)
+                {
+
+                }
+            }
+            else if (HerniPole[tah.X, tah.Y] == StavPolicka.Voda)
+            {
+
+            }
+            else
+            {
+                return StavPolicka.Neznamo;
+            }
+            */
         }
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException;
         }
         public int VymenitSiTokenSeSouperem(int vlastniToken)
         {

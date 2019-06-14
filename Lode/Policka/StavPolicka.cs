@@ -1,22 +1,14 @@
 ﻿namespace Lode
-{   class ProvestTah
-    {
-        static void ProvedeniTahu(string[] args)
-        { 
-        int souradniceX = 0;
-        int souradniceY = 0;
-            }
-    }
-
+{
     enum StavPolicka
     {
-        Neznamo,
-        Voda,
+        Neznamo, // Done
+        Voda, 
         Lod,
-        Mimo,
-        Zasah,
-        Potopena,
-        StrelbaPovolena,
-        StrelbaZakazana,
+        Mimo, // Done
+        Zasah, // Done
+        Potopena, //
+        StrelbaPovolena, // Done?
+        StrelbaZakazana, // Done
     }
 }
