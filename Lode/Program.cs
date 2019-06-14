@@ -1,51 +1,80 @@
 ﻿using System;
+using System.Threading;
 namespace Lode
 {
     class Program
     {
         static void Main(string[] args)
         {
+            
             bool jeNaTahu = true;
-            int y = 1;
-            int x = 1;
+
             int[] herniPoleX = new int[10];
             int[] herniPoleY = new int[10];
+            Souradnice sour = new Souradnice();
+            sour.X = 1;
+            sour.Y = 1;
             //new Hra(new TextoveRozhrani()).SpustitHru();
             while (jeNaTahu)
             {
-                Console.CursorVisible = false;
-                if (Console.ReadKey(true).KeyChar == 'd' && x <= 10-1)
+                switch (Console.ReadKey(true).KeyChar)
                 {
-                    x++;
                     
-                    Console.Clear();
+                    case 'd' :
+                        if (sour.X <= 10 - 3)
+                        {
+                            sour.X++;
+                            Console.Clear();
+                        }
+                    break;
+
+                    case 's':
+                        if (sour.Y <= 10 - 2)
+                        {
+                            sour.Y++;
+                            Console.Clear();
+                        }
+                    break;
+
+                    case 'w':
+                        if (sour.Y > 1 || sour.Y == 10 - 2)
+                        {
+                            sour.Y--;
+                            Console.Clear();
+                        }
+                    break;
+
+                    case 'a':
+                        if (sour.X > 1 || sour.X == 10 - 2)
+                        {
+                            sour.X--;
+                            Console.Clear();
+                        }
+                    break;
+                    case 'e':
+
+                    break;
                 }
 
-                else if (Console.ReadKey(true).KeyChar == 's' && y <= 10-1 )
-                {
-                    y++;
-                    Console.Clear();
-                }
-                else if (Console.ReadKey(true).KeyChar == 'w' && y > 1 || y == 10-1)
-                {
-                    y--;
-                    Console.Clear();
-                }
-                else if (Console.ReadKey(true).KeyChar == 'a' && x > 1 || x == 10-1)
-                {
-                    x--;
-                    Console.Clear();
-                }
+                Console.CursorVisible = false;
+
                 nakresliPole();
-                Console.SetCursorPosition(x, y);
-                Console.Write('X');
-                Console.SetCursorPosition(x - 1, y);
-                Console.Write('X');
-                Console.SetCursorPosition(x + 1, y);
-                Console.Write('X');
-                Console.SetCursorPosition(x, y - 1);
-                Console.Write('X');
+                vykresliLod(0);
 
+            }
+            void vykresliLod(int typ)
+            {
+                if (typ == (int)TypLode.Clun)
+                {
+                    Console.SetCursorPosition(sour.X, sour.Y);
+                    Console.Write('X');
+                    Console.SetCursorPosition(sour.X - 1, sour.Y);
+                    Console.Write('X');
+                    Console.SetCursorPosition(sour.X + 1, sour.Y);
+                    Console.Write('X');
+                    Console.SetCursorPosition(sour.X, sour.Y - 1);
+                    Console.Write('X');
+                }
             }
             void nakresliPole()
             {
