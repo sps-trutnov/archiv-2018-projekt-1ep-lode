@@ -9,8 +9,10 @@ namespace Lode
         public Meňuňu Menu { get; private set; }
 
         public TextoveRozhrani()
+        
         {
             Menu = new Meňuňu();
+            Console.SetWindowSize(120, 35);
         }
 
         public void PockatNaUkonceniHry()
