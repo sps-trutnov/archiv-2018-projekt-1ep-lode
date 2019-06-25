@@ -2,13 +2,13 @@
 {
     enum StavPolicka
     {
-        Neznamo, // Done
+        Neznamo,
         Voda, 
         Lod,
-        Mimo, // Done
-        Zasah, // Done
-        Potopena, //
-        StrelbaPovolena, // Done?
-        StrelbaZakazana, // Done
+        Mimo,
+        Zasah,
+        Potopena,
+        StrelbaPovolena,
+        StrelbaZakazana, 
     }
 }
