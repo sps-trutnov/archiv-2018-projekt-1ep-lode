@@ -5,7 +5,7 @@ namespace Lode
     class Program
     {
         static bool jeNaTahu = true;
-        static int typLode = 2;
+        static int typLode = 1;
         static int rotace = 0;
 
         static int[] herniPoleX = new int[10];
@@ -22,7 +22,7 @@ namespace Lode
             {
                 Console.CursorVisible = false;
                 pohybLode(typLode, rotace);
-                nakresliPole();
+                nakresliPole(herniPoleX.Length,herniPoleY.Length);
                 vykresliLod(typLode, rotace);
             }
 
@@ -266,13 +266,9 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (rotace == 2 && sour.Y + 1 == 10)
+                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length)
                             {
-                                rotace = 1;
-                            }
-                            else if (rotace == 1 && sour.Y + 1 == 10)
-                            {
-                                rotace = 0;
+                                rotace--;
                             }
                             break;
                     }
@@ -309,7 +305,7 @@ namespace Lode
                         break;
 
                     case 'a':
-                        if (sour.X > 0 || sour.X ==herniPoleX.Length)
+                        if (sour.X > 0 || sour.X == herniPoleX.Length)
                         {
                             sour.X--;
                             Console.Clear();
@@ -322,24 +318,127 @@ namespace Lode
                         {
                             rotace = 0;
                         }
-                        if (rotace == 2 && sour.Y + 1 == 10)
+                        if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
                         {
-                            rotace = 1;
+                            rotace--;
                         }
-                        else if (rotace == 1 && sour.Y + 1 == 10)
-                        {
-                            rotace = 0;
-                        }
+
                         break;
                 }
             }
+                if (rot == 2)
+                {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 3)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 3)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'w':
+
+                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 2)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'a':
+                            if (sour.X > 1 || sour.X == herniPoleX.Length)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'e':
+                            rotace++;
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            {
+                                rotace--;
+                            }
+
+                            break;
+                    }
+                }
+            if (rot == 3)
+            {
+                switch (Console.ReadKey(true).KeyChar)
+                {
+
+                    case 'd':
+                        if (sour.X <= herniPoleX.Length - 2)
+                        {
+                            sour.X++;
+                            Console.Clear();
+                        }
+                        break;
+
+                    case 's':
+                        if (sour.Y <= herniPoleY.Length - 3)
+                        {
+                            sour.Y++;
+                            Console.Clear();
+                        }
+                        break;
+
+                    case 'w':
+
+                        if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                        {
+                            sour.Y--;
+                            Console.Clear();
+                        }
+                        break;
+
+                    case 'a':
+                        if (sour.X > 1 || sour.X == herniPoleX.Length)
+                        {
+                            sour.X--;
+                            Console.Clear();
+                        }
+                        break;
+
+                    case 'e':
+                        rotace++;
+                        if (rotace >= 4)
+                        {
+                            rotace = 0;
+                        }
+                        if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
+                        {
+                            rotace--;
+                        }
+
+                        break;
+                }
+            }
+
+
         }
 
-        static void nakresliPole()
+        static void nakresliPole(int x, int y)
         {
-            for (int i = 0; i < herniPoleY.Length; i++)
+            for (int i = 0; i < y; i++)
             {
-                for (int l = 0; l < herniPoleX.Length; l++)
+                for (int l = 0; l < x; l++)
                 {
                     Console.SetCursorPosition(l, i);
                     Console.Write("*");
