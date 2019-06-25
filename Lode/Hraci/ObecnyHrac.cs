@@ -27,7 +27,7 @@ namespace Lode
 
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-
+    
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();

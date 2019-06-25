@@ -18,6 +18,8 @@ namespace Lode
         public override Souradnice RozhodnoutVlastniTah()
         {
 
+        while(true)
+            {
             Random x = new Random();
             int souradniceX = x.Next(0, HerniPoleSoupere.GetLength(0));
             System.Threading.Thread.Sleep(1000);
@@ -74,11 +76,16 @@ namespace Lode
 
             }
 
-            Console.WriteLine(souradniceX);
+
+
+                Console.WriteLine(souradniceX);
             Console.WriteLine(souradniceY);
 
            
                 return new Souradnice() { X = souradniceX, Y = souradniceY };
+            }
+
+            
             
                
 
@@ -107,7 +114,7 @@ namespace Lode
                 Console.WriteLine(vlevoOdCentra);
                 Console.WriteLine(nahoreOdCentra);
                 Console.WriteLine(vpravoOdCentra);
-
+                
 
 
             }
