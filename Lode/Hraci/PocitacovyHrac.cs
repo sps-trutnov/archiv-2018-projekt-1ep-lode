@@ -34,21 +34,42 @@ namespace Lode
             {
                 Random zasahy = new Random();
                 int souradniceStran = zasahy.Next(0, 4);
-                if (souradniceStran == 0)
+
+                if (souradniceStran == 0 & HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Neznamo)
                 {
                     souradniceY = souradniceY + 1;
+
+                    if (HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Neznamo)
+                    {
+                        return new Souradnice() { X = souradniceX, Y = souradniceY };
+                    }
                 }
-                else if (souradniceStran == 1)
+                else if (souradniceStran == 1 & HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Neznamo)
                 {
                     souradniceX = souradniceX + 1;
+
+                    if (HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Neznamo)
+                    {
+                        return new Souradnice() { X = souradniceX, Y = souradniceY };
+                    }
                 }
-                else if (souradniceStran == 2)
+                else if (souradniceStran == 2 & HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Neznamo)
                 {
                     souradniceY = souradniceY - 1;
+
+                    if(HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Neznamo)
+                    {
+                        return new Souradnice() { X = souradniceX, Y = souradniceY };
+                    }
                 }
                 else if (souradniceStran == 3)
                 {
                     souradniceX = souradniceX - 1;
+
+                    if (HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Neznamo)
+                    {
+                        return new Souradnice() { X = souradniceX, Y = souradniceY };
+                    }        
                 }
 
             }
@@ -56,7 +77,10 @@ namespace Lode
             Console.WriteLine(souradniceX);
             Console.WriteLine(souradniceY);
 
-            return new Souradnice() { X = souradniceX, Y = souradniceY };
+           
+                return new Souradnice() { X = souradniceX, Y = souradniceY };
+            
+               
 
 
         }
