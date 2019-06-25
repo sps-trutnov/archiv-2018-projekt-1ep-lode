@@ -5,7 +5,7 @@ namespace Lode
     class Program
     {
         static bool jeNaTahu = true;
-        static int typLode = 1;
+        static int typLode = 0;
         static int rotace = 0;
 
         static int[] herniPoleX = new int[10];
@@ -221,7 +221,7 @@ namespace Lode
         static void pohybLode(int typ, int rot)
         {
             if (typ == (int)TypLode.Torpedovka)
-
+            {
                 if (rot == 0)
                 {
                     switch (Console.ReadKey(true).KeyChar)
@@ -274,58 +274,58 @@ namespace Lode
                     }
                 }
 
-            if (rot == 1)
-            {
-                switch (Console.ReadKey(true).KeyChar)
+                if (rot == 1)
                 {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
 
-                    case 'd':
-                        if (sour.X <= herniPoleX.Length - 3)
-                        {
-                            sour.X++;
-                            Console.Clear();
-                        }
-                        break;
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 3)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 's':
-                        if (sour.Y <= herniPoleY.Length - 3)
-                        {
-                            sour.Y++;
-                            Console.Clear();
-                        }
-                        break;
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 3)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 'w':
+                        case 'w':
 
-                        if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
-                        {
-                            sour.Y--;
-                            Console.Clear();
-                        }
-                        break;
+                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 'a':
-                        if (sour.X > 0 || sour.X == herniPoleX.Length)
-                        {
-                            sour.X--;
-                            Console.Clear();
-                        }
-                        break;
+                        case 'a':
+                            if (sour.X > 0 || sour.X == herniPoleX.Length)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 'e':
-                        rotace++;
-                        if (rotace >= 4)
-                        {
-                            rotace = 0;
-                        }
-                        if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
-                        {
-                            rotace--;
-                        }
+                        case 'e':
+                            rotace++;
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            {
+                                rotace--;
+                            }
 
-                        break;
+                            break;
+                    }
                 }
-            }
                 if (rot == 2)
                 {
                     switch (Console.ReadKey(true).KeyChar)
@@ -378,56 +378,268 @@ namespace Lode
                             break;
                     }
                 }
-            if (rot == 3)
-            {
-                switch (Console.ReadKey(true).KeyChar)
+                if (rot == 3)
                 {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
 
-                    case 'd':
-                        if (sour.X <= herniPoleX.Length - 2)
-                        {
-                            sour.X++;
-                            Console.Clear();
-                        }
-                        break;
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 2)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 's':
-                        if (sour.Y <= herniPoleY.Length - 3)
-                        {
-                            sour.Y++;
-                            Console.Clear();
-                        }
-                        break;
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 3)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 'w':
+                        case 'w':
 
-                        if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
-                        {
-                            sour.Y--;
-                            Console.Clear();
-                        }
-                        break;
+                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 'a':
-                        if (sour.X > 1 || sour.X == herniPoleX.Length)
-                        {
-                            sour.X--;
-                            Console.Clear();
-                        }
-                        break;
+                        case 'a':
+                            if (sour.X > 1 || sour.X == herniPoleX.Length)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
 
-                    case 'e':
-                        rotace++;
+                        case 'e':
+                            rotace++;
 
-                        if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
-                        {
-                            rotace--;
-                        }
-                        if (rotace >= 4)
-                        {
-                            rotace = 0;
-                        }
-                        break;
+                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
+                            {
+                                rotace--;
+                            }
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            if (typ == (int)TypLode.Clun)
+            {
+                if (rot == 0)
+                {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 3)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 1)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'w':
+
+                            if (sour.Y > 0 || sour.Y == herniPoleY.Length -1)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'a':
+                            if (sour.X > 1 || sour.X == herniPoleX.Length - 1)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'e':
+                            rotace++;
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            {
+                                rotace--;
+                            }
+                            break;
+                    }
+                }
+
+                if (rot == 1)
+                {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 2)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 3)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'w':
+
+                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 1)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'a':
+                            if (sour.X > 0 || sour.X == herniPoleX.Length)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'e':
+                            rotace++;
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            {
+                                rotace--;
+                            }
+
+                            break;
+                    }
+                }
+                if (rot == 2)
+                {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 3)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 1)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'w':
+
+                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 1)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'a':
+                            if (sour.X > 1 || sour.X == herniPoleX.Length - 1)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'e':
+                            rotace++;
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            {
+                                rotace--;
+                            }
+                            break;
+                    }
+                }
+                if (rot == 3)
+                {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 2)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 1)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'w':
+
+                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'a':
+                            if (sour.X > 1 || sour.X == herniPoleX.Length)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'e':
+                            rotace++;
+
+                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
+                            {
+                                rotace--;
+                            }
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            break;
+                    }
                 }
             }
 
@@ -438,8 +650,9 @@ namespace Lode
         {
             for (int i = 0; i < y; i++)
             {
-                for (int l = 0; l < x; l++)
+                for (int l = 0; l < x; )
                 {
+
                     Console.SetCursorPosition(l, i);
                     Console.Write("*");
                 }
