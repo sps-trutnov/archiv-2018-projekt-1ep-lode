@@ -27,7 +27,14 @@ namespace Lode
 
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-    
+            Lode = new List<Lod>();
+            Lode.Add(new Lod(TypLode.Clun));
+            Lode.Add(new Lod(TypLode.Clun));
+            Lode.Add(new Lod(TypLode.Clun));
+            Lode.Add(new Lod(TypLode.Torpedovka));
+            Lode.Add(new Lod(TypLode.Torpedovka));
+            Lode.Add(new Lod(TypLode.Letadlovka));
+            Lode.Add(new Lod(TypLode.Kriznik));
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();

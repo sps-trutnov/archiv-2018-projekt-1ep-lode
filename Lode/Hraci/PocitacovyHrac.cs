@@ -68,31 +68,32 @@ namespace Lode
         }
         public override void RozmistitLode()
         {
+
+
+
             this.HerniPole = new StavPolicka[10, 10];
 
-            Random x = new Random();
-            int souradniceX = x.Next(1, 10);
-            System.Threading.Thread.Sleep(1000);
-            Random y = new Random();
-            int souradniceY = y.Next(1, 10);
+            Random rozmisteniCentra = new Random();
+            int souradniceX = rozmisteniCentra.Next(0, HerniPole.GetLength(0));
+            int souradniceY = rozmisteniCentra.Next(0, HerniPole.GetLength(1));
 
-            TypLode MojeLod = TypLode.Torpedovka;
-            NatoceniLode Nulovy_Stupen = NatoceniLode.Stupnu0;
-            Souradnice centrum = new Souradnice() { X = souradniceX, Y = souradniceY };
+            Random natoceniLode = new Random();
+            
+             
 
-            if ((MojeLod == TypLode.Torpedovka) && (Nulovy_Stupen == NatoceniLode.Stupnu0))
+    
+
+
+                if (HerniPole[souradniceX, souradniceY] == StavPolicka.Lod)
             {
-                Souradnice vlevoOdCentra = new Souradnice() { X = souradniceX - 1, Y = souradniceY };
-                Souradnice nahoreOdCentra = new Souradnice() { X = souradniceX, Y = souradniceY + 1 };
-                Souradnice vpravoOdCentra = new Souradnice() { X = souradniceX + 1, Y = souradniceY };
-
-                Console.WriteLine(vlevoOdCentra);
-                Console.WriteLine(nahoreOdCentra);
-                Console.WriteLine(vpravoOdCentra);
-
-
+                RozmistitLode();
 
             }
+
+
+
+
+
             Console.ReadLine();
         }
     }

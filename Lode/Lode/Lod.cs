@@ -14,6 +14,7 @@ namespace Lode
 
         public Lod(TypLode typ)
         {
+            Typ = typ;
             Policka = new List<Souradnice>();
 
             if (Typ == TypLode.Clun)

@@ -14,7 +14,7 @@ namespace Lode
             // new Hra(new TextoveRozhrani()).SpustitHru();
 
             PocitacovyHrac ai = new PocitacovyHrac();
-
+            ai.RozmistitLode();
         }
     }
 }
