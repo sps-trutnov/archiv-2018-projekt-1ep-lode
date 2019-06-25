@@ -448,7 +448,7 @@ namespace Lode
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 1)
+                            if (sour.Y <= herniPoleY.Length - 2)
                             {
                                 sour.Y++;
                                 Console.Clear();
@@ -465,7 +465,7 @@ namespace Lode
                             break;
 
                         case 'a':
-                            if (sour.X > 1 || sour.X == herniPoleX.Length - 1)
+                            if (sour.X > 0 || sour.X == herniPoleX.Length - 1)
                             {
                                 sour.X--;
                                 Console.Clear();
@@ -478,7 +478,7 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length )
                             {
                                 rotace--;
                             }
@@ -530,7 +530,7 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
                             {
                                 rotace--;
                             }
@@ -552,7 +552,7 @@ namespace Lode
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 1)
+                            if (sour.Y <= herniPoleY.Length - 2)
                             {
                                 sour.Y++;
                                 Console.Clear();
@@ -569,7 +569,7 @@ namespace Lode
                             break;
 
                         case 'a':
-                            if (sour.X > 1 || sour.X == herniPoleX.Length - 1)
+                            if (sour.X > 0 || sour.X == herniPoleX.Length - 1)
                             {
                                 sour.X--;
                                 Console.Clear();
@@ -582,7 +582,7 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
                             {
                                 rotace--;
                             }
@@ -603,7 +603,7 @@ namespace Lode
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 1)
+                            if (sour.Y <= herniPoleY.Length - 3)
                             {
                                 sour.Y++;
                                 Console.Clear();
@@ -612,7 +612,7 @@ namespace Lode
 
                         case 'w':
 
-                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 2)
                             {
                                 sour.Y--;
                                 Console.Clear();
@@ -620,7 +620,7 @@ namespace Lode
                             break;
 
                         case 'a':
-                            if (sour.X > 1 || sour.X == herniPoleX.Length)
+                            if (sour.X > 0 || sour.X == herniPoleX.Length)
                             {
                                 sour.X--;
                                 Console.Clear();
@@ -650,7 +650,7 @@ namespace Lode
         {
             for (int i = 0; i < y; i++)
             {
-                for (int l = 0; l < x; )
+                for (int l = 0; l < x;l++ )
                 {
 
                     Console.SetCursorPosition(l, i);
