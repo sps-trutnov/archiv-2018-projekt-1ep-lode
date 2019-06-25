@@ -59,70 +59,91 @@ namespace Lode
                         {
                             rotace = 0;
                         }
+                        if(rotace == 2 && sour.Y == 10)
+                        {
+                            rotace = 1;
+                        }
+                        else if(rotace == 1 && sour.Y == 10)
+                        {
+                            rotace = 0;
+                        }
+                       
+
                     break;
                 }
 
                 Console.CursorVisible = false;
 
                 nakresliPole();
-                vykresliLod(typLode,rotace);
+                vykresliLod(typLode);
+                otocLod(rotace);
 
 
             }
-            void vykresliLod(int typ,int _rotace)
+            void vykresliLod(int typ)
             {
                 if (typ == (int)TypLode.Clun)
                 {
-                    switch (_rotace)
-                    {
 
-                        case 0:
-                            Console.SetCursorPosition(sour.X, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X - 1, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X + 1, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y - 1);
-                            Console.Write('X');
-                        break;
-                        case 1:
-                            Console.SetCursorPosition(sour.X, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y - 1);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y + 1);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X + 1, sour.Y);
-                            Console.Write('X');
-                       break;
-                       case 2:
-                            Console.SetCursorPosition(sour.X, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X - 1, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X + 1, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y + 1);
-                            Console.Write('X');
-                        break;
-                        case 3:
-                            Console.SetCursorPosition(sour.X, sour.Y);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y - 1);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y + 1);
-                            Console.Write('X');
-                            Console.SetCursorPosition(sour.X - 1, sour.Y);
-                            Console.Write('X');
-                         break;
-
-
-                    }
 
 
                 }
                
+            }
+
+            void otocLod(int rot)
+            {
+                switch (rot)
+                {
+
+                    case 0:
+                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.Write('X');
+                        break;
+                    case 1:
+                        
+                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.Write('X');
+                        break;
+                    case 2:
+                       
+                        
+                            Console.SetCursorPosition(sour.X, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X - 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.Write('X');
+                        
+                     break;
+                        
+                    case 3:
+           
+                            Console.SetCursorPosition(sour.X, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y - 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X - 1, sour.Y);
+                            Console.Write('X');
+                        
+                        break;
+                }
             }
             void nakresliPole()
             {
