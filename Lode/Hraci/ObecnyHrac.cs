@@ -82,7 +82,7 @@ namespace Lode
 
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
         {
-            Console.WriteLine(vysledek);
+            HerniPoleSoupere[tah.X, tah.Y] = vysledek;
         }
         public int VymenitSiTokenSeSouperem(int vlastniToken)
         {
