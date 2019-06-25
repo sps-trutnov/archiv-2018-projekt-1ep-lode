@@ -14,7 +14,36 @@ namespace Lode
 
         public Lod(TypLode typ)
         {
-            throw new NotImplementedException();
+            Policka = new List<Souradnice>();
+
+            if (Typ == TypLode.Clun)
+            {
+                Policka.Add(new Souradnice { X = 0, Y = 0 });
+                Policka.Add(new Souradnice { X = 1, Y = 0 });
+            }
+            else if (Typ == TypLode.Torpedovka)
+            {
+                Policka.Add(new Souradnice { X = 0, Y = 0 });
+                Policka.Add(new Souradnice { X = 1, Y = 0 });
+                Policka.Add(new Souradnice { X = -1, Y = 0 });
+                Policka.Add(new Souradnice { X = 0, Y = 1 });
+            }
+            else if (Typ == TypLode.Kriznik)
+            {
+                Policka.Add(new Souradnice { X = 0, Y = 0 });
+                Policka.Add(new Souradnice { X = 1, Y = 0 });
+                Policka.Add(new Souradnice { X = 2, Y = 0 });
+                Policka.Add(new Souradnice { X = 3, Y = 0 });
+            }
+            else if (Typ == TypLode.Letadlovka)
+            {
+                Policka.Add(new Souradnice { X = 0, Y = 0 });
+                Policka.Add(new Souradnice { X = 1, Y = 0 });
+                Policka.Add(new Souradnice { X = 2, Y = 0 });
+                Policka.Add(new Souradnice { X = 3, Y = 0 });
+                Policka.Add(new Souradnice { X = 1, Y = 1 });
+                Policka.Add(new Souradnice { X = 2, Y = 1 });
+            }
         }
 
         public bool BlokujePolicko(Souradnice souradnice)

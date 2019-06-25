@@ -14,5 +14,6 @@
         void ZobrazitNadpis(string nadpis);
         void ZobrazitStavHry(StavPolicka[,] vlastniHerniPole, StavPolicka[,] souperovoHerniPole);
         void ZobrazitZamerovac(Souradnice souradnice, Souradnice rozsahZobrazeni, StavPolicka zpusobZobrazeni);
+        void ZobrazitMenu(Hra ktereHry);
     }
 }
