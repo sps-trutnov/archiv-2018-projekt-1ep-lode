@@ -9,7 +9,6 @@ namespace Lode
         readonly private static string[] _jmenaAI = new string[] { "Andy", "Boris", "Dora", "Keira", "Victor" };
 
         public string Jmeno { get; private set; }
-        public object StavPolicka { get; private set; }
 
         public PocitacovyHrac() : base(new IPAddress(new byte[] { 127, 0, 0, 1 }))
         {
@@ -25,10 +24,33 @@ namespace Lode
             Random y = new Random();
             int souradniceY = y.Next(0, HerniPoleSoupere.GetLength(1));
 
-            while (HerniPoleSoupere[souradniceX,souradniceY] != StavPolicka.Neznamo)
+            while (HerniPoleSoupere[souradniceX, souradniceY] != StavPolicka.Neznamo)
             {
                 souradniceX = x.Next(0, HerniPoleSoupere.GetLength(0));
                 souradniceY = y.Next(0, HerniPoleSoupere.GetLength(1));
+            }
+
+            if (HerniPoleSoupere[souradniceX, souradniceY] == StavPolicka.Zasah)
+            {
+                Random zasahy = new Random();
+                int souradniceStran = zasahy.Next(0, 4);
+                if (souradniceStran == 0)
+                {
+                    souradniceY = souradniceY + 1;
+                }
+                else if (souradniceStran == 1)
+                {
+                    souradniceX = souradniceX + 1;
+                }
+                else if (souradniceStran == 2)
+                {
+                    souradniceY = souradniceY - 1;
+                }
+                else if (souradniceStran == 3)
+                {
+                    souradniceX = souradniceX - 1;
+                }
+
             }
 
             Console.WriteLine(souradniceX);
@@ -46,7 +68,7 @@ namespace Lode
             int souradniceX = x.Next(1, 10);
             System.Threading.Thread.Sleep(1000);
             Random y = new Random();
-            int souradniceY = y.Next(1, 10)
+            int souradniceY = y.Next(1, 10);
 
             TypLode MojeLod = TypLode.Torpedovka;
             NatoceniLode Nulovy_Stupen = NatoceniLode.Stupnu0;
