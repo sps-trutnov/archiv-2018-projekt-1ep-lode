@@ -5,7 +5,7 @@ namespace Lode
     class Program
     {
         static bool jeNaTahu = true;
-        static int typLode = 1;
+        static int typLode = 2;
         static int rotace = 0;
 
         static int[] herniPoleX = new int[10];
@@ -161,7 +161,15 @@ namespace Lode
                     case 0:
                         Console.SetCursorPosition(sour.X - 1, sour.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X - 2, sour.Y);
+                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X + 2, sour.Y);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.Write('X');
+                        Console.SetCursorPosition(sour.X + 1, sour.Y - 1);
                         Console.Write('X');
                         break;
                     case 1:
