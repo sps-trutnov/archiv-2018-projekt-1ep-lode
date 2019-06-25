@@ -8,7 +8,11 @@ namespace Lode
         {
             
             bool jeNaTahu = true;
+<<<<<<< Updated upstream
             int typLode = 2;
+=======
+            int typLode = 1;
+>>>>>>> Stashed changes
             int rotace = 0;
             
             int[] herniPoleX = new int[10];
@@ -19,6 +23,7 @@ namespace Lode
             //new Hra(new TextoveRozhrani()).SpustitHru();
             while (jeNaTahu)
             {
+<<<<<<< Updated upstream
                 switch (Console.ReadKey(true).KeyChar)
                 {
                     
@@ -72,15 +77,23 @@ namespace Lode
                     break;
                 }
 
+=======
+>>>>>>> Stashed changes
                 Console.CursorVisible = false;
-
+                pohybLode(typLode,rotace);
                 nakresliPole();
+<<<<<<< Updated upstream
                 vykresliLod(typLode,rotace);
 
             }
 
-            void vykresliLod(int typ,int rot)
+=======
+                vykresliLod(typLode,rotace); 
+            }
 
+
+>>>>>>> Stashed changes
+            void vykresliLod(int typ,int rot)
             {
                 if (typ == (int)TypLode.Torpedovka)
                 {
@@ -213,6 +226,7 @@ namespace Lode
                         case 0:
                             Console.SetCursorPosition(sour.X - 1, sour.Y);
                             Console.Write('X');
+<<<<<<< Updated upstream
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X + 1, sour.Y);
@@ -222,6 +236,9 @@ namespace Lode
                             Console.SetCursorPosition(sour.X, sour.Y - 1);
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X + 1, sour.Y - 1);
+=======
+                            Console.SetCursorPosition(sour.X - 2, sour.Y);
+>>>>>>> Stashed changes
                             Console.Write('X');
                         break;
                         case 1:
@@ -270,6 +287,134 @@ namespace Lode
                 }
             }
 
+<<<<<<< Updated upstream
+=======
+           
+            
+
+           
+            
+            void pohybLode(int typ,int rot)
+            {
+                if (typ == (int)TypLode.Torpedovka)
+
+                    if (rot == 0)
+                    {
+                        switch (Console.ReadKey(true).KeyChar)
+                        {
+
+                            case 'd':
+                                if (sour.X <= herniPoleX.Length - 3)
+                                {
+                                    sour.X++;
+                                    Console.Clear();
+                                }
+                                break;
+
+                            case 's':
+                                if (sour.Y <= herniPoleY.Length - 2)
+                                {
+                                    sour.Y++;
+                                    Console.Clear();
+                                }
+                                break;
+
+                            case 'w':
+
+                                if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                                {
+                                    sour.Y--;
+                                    Console.Clear();
+                                }
+                                break;
+
+                            case 'a':
+                                if (sour.X > 1 || sour.X == herniPoleX.Length - 2)
+                                {
+                                    sour.X--;
+                                    Console.Clear();
+                                }
+                                break;
+
+                            case 'e':
+                                rotace++;
+                                if (rotace >= 4)
+                                {
+                                    rotace = 0;
+                                }
+                                if (rotace == 2 && sour.Y + 1 == 10)
+                                {
+                                    rotace = 1;
+                                }
+                                else if (rotace == 1 && sour.Y + 1 == 10)
+                                {
+                                    rotace = 0;
+                                }
+                                break;
+                        }
+                    }
+
+                if (rot == 1)
+                {
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+
+                        case 'd':
+                            if (sour.X <= herniPoleX.Length - 3)
+                            {
+                                sour.X++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 's':
+                            if (sour.Y <= herniPoleY.Length - 3)
+                            {
+                                sour.Y++;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'w':
+
+                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            {
+                                sour.Y--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'a':
+                            if (sour.X > 1 || sour.X == herniPoleX.Length)
+                            {
+                                sour.X--;
+                                Console.Clear();
+                            }
+                            break;
+
+                        case 'e':
+                            rotace++;
+                            if (rotace >= 4)
+                            {
+                                rotace = 0;
+                            }
+                            if (rotace == 2 && sour.Y + 1 == 10)
+                            {
+                                rotace = 1;
+                            }
+                            else if (rotace == 1 && sour.Y + 1 == 10)
+                            {
+                                rotace = 0;
+                            }
+                            break;
+                    }
+                }
+            }
+           
+            
+
+           
+>>>>>>> Stashed changes
             void nakresliPole()
             {
                 for (int i = 0; i < herniPoleY.Length; i++)
