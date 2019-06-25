@@ -10,50 +10,57 @@ namespace Lode
     {
         public void Credits()
         {
-            Console.WriteLine("###########################################################################################################");
-            Console.WriteLine("                                      SPŠ TRUTNOV");
-            Console.WriteLine("                                  #################");
+            Console.Clear();
+            Console.WriteLine("##########################################################################################################");
+            Console.WriteLine("                                            SPŠ TRUTNOV");
+            Console.WriteLine("                                         #################");
             Console.WriteLine();
-            Console.WriteLine("                                        SENSEI");
-            Console.WriteLine("                                     ############");
+            Console.WriteLine("                                             SENSEI");
+            Console.WriteLine("                                          ############");
             Console.WriteLine();
-            Console.WriteLine("                                     ŠENKÝŘ JAKUB")
+            Console.WriteLine("                                          ŠENKÝŘ JAKUB");
             Console.WriteLine();
-            Console.WriteLine("                                      TÝM 1 - A.I.");
-            Console.WriteLine("                                     ##############");
+            Console.WriteLine("                                           TÝM 1 - A.I.");
+            Console.WriteLine("                                         ################");
             Console.WriteLine();
-            Console.WriteLine("                                       POVR FILIP");
-            Console.WriteLine("                                    ŠTĚPÁNEK DOMINIK");
-            Console.WriteLine("                                     ŽATECKÝ DUŠAN");
+            Console.WriteLine("                                            POVR FILIP");
+            Console.WriteLine("                                        ŠTĚPÁNEK DOMINIK");
+            Console.WriteLine("                                         ŽATECKÝ DUŠAN");
             Console.WriteLine();
-            Console.WriteLine("                                 TÝM 2 - PROPOJENÍ HRÁČŮ");
-            Console.Writeline("                               ###########################");
-            Console.Writeline();
-            Console.Writeline("                                      BINAR DAVID");
-            Console.Writeline("                                   MLEJNEK STANISLAV");
-            Console.Writeline("                                     PCHÁLEK JAN");
-            Console.Writeline();
-            Console.Writeline("                                 TÝM 3 - PROVEDENÍ TAHŮ");
-            Console.Writeline("                               ##########################")
-            Console.Writeline();
-            Console.Writeline("                                       PETRŮ JAN");
-            Console.Writeline("                                       RODR MICHAL");
-            Console.Writeline("                                      ŠPRINC JAN");
-            Console.Writeline();
-            Console.Writeline("                                TÝM 4 - ROZMÍSTENÍ LODÍ")
-            Console.Writeline("                              ###########################");
-            Console.Writeline();
-            Console.Writeline("                                     POLIAK TADEÁŠ");
-            Console.Writeline("                                      SYNEK MARTIN");
-            Console.Writeline("                                     ŠPRINGER DAVID");
-            Console.Writeline();
-            Console.Writeline("                                    TÝM 5 - DESIGN");
-            Console.Writeline("                                  ##################")
-            Console.Writeline();
-            Console.Writeline("                                    PETRŽELA ONDŘEJ");
-            Console.Writeline("                                     PLÍHAL MARTIN");
-            Console.Writeline("                                      PRESL MARTIN");
-            Console.WriteLine("###########################################################################################################");
+            Console.WriteLine("                                      TÝM 2 - PROPOJENÍ HRÁČŮ");
+            Console.WriteLine("                                    ###########################");
+            Console.WriteLine();
+            Console.WriteLine("                                          BINAR DAVID");
+            Console.WriteLine("                                        MLEJNEK STANISLAV");
+            Console.WriteLine("                                        PCHÁLEK JAN");
+            Console.WriteLine();
+            Console.WriteLine("                                     TÝM 3 - PROVEDENÍ TAHŮ");
+            Console.WriteLine("                                   ##########################");
+            Console.WriteLine();
+            Console.WriteLine("                                          PETRŮ JAN");
+            Console.WriteLine("                                           RODR MICHAL");
+            Console.WriteLine("                                         ŠPRINC JAN");
+            Console.WriteLine();
+            Console.WriteLine("                                    TÝM 4 - ROZMÍSTENÍ LODÍ");
+            Console.WriteLine("                                  ###########################");
+            Console.WriteLine();
+            Console.WriteLine("                                         POLIAK TADEÁŠ");
+            Console.WriteLine("                                          SYNEK MARTIN");
+            Console.WriteLine("                                       ŠPRINGER DAVID");
+            Console.WriteLine();
+            Console.WriteLine("                                        TÝM 5 - DESIGN");
+            Console.WriteLine("                                      ##################");
+            Console.WriteLine();
+            Console.WriteLine("                                       PETRŽELA ONDŘEJ");
+            Console.WriteLine("                                         PLÍHAL MARTIN");
+            Console.WriteLine("                                          ̶PRESL MARTIN");
+            Console.WriteLine();
+            Console.WriteLine("                     (C) Ikonu vytvořil Freepik z webu www.flaticon.com");
+            Console.WriteLine("##########################################################################################################");
+            Console.WriteLine();
+            Console.WriteLine("Pro vrácení zpět stiskni libovolné tlačítko.");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }

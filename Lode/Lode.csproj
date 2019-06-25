@@ -83,6 +83,7 @@
     <Compile Include="Hraci\LidskyHrac.cs" />
     <Compile Include="Lode\Lod.cs" />
     <Compile Include="Hraci\PocitacovyHrac.cs" />
+    <Compile Include="Menu\About.cs" />
     <Compile Include="Menu\Meňuňu.cs" />
     <Compile Include="Menu\NastaveniHry.cs" />
     <Compile Include="Program.cs" />

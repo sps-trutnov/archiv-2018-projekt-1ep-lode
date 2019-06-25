@@ -12,7 +12,8 @@ namespace Lode
         
         {
             Menu = new Meňuňu();
-            Console.SetWindowSize(120, 35);
+            Console.WindowHeight = 45;
+            Console.WindowWidth = 120;
         }
 
         public void PockatNaUkonceniHry()
