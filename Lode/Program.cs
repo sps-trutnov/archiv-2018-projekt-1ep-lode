@@ -309,7 +309,7 @@ namespace Lode
                         break;
 
                     case 'a':
-                        if (sour.X > 1 || sour.X == herniPoleX.Length)
+                        if (sour.X > 0 || sour.X ==herniPoleX.Length)
                         {
                             sour.X--;
                             Console.Clear();
