@@ -40,6 +40,7 @@ namespace Lode
 
                     case 'w':
                         if (sour.Y > 1 || sour.Y == 10 - 2 && typLode == (int)TypLode.Torpedovka )
+                        if (sour.Y > 1 || sour.Y == 10 - 2 && typLode == (int)TypLode.Torpedovka )
                         if (sour.Y > 1 || sour.Y == 10 - 2 && typLode == (int)TypLode.Torpedovka)
                         {
                             sour.Y--;
@@ -79,10 +80,13 @@ namespace Lode
                 vykresliLod(typLode,rotace);
                 
                 vykresliLod(typLode,rotace);
+                
+                vykresliLod(typLode,rotace);
 
 
 
             }
+            void vykresliLod(int typ,int rot)
             void vykresliLod(int typ,int rot)
             void vykresliLod(int typ, int rot)
             {
@@ -91,6 +95,8 @@ namespace Lode
                     switch (rot)
                     {
 
+                    switch (rot)
+                    {
                     switch (rot)
                     {
                         case 0:
@@ -146,6 +152,17 @@ namespace Lode
                             Console.Write('X');
                             break;
                         case 1:
+
+                            Console.SetCursorPosition(sour.X, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y - 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 1, sour.Y);
+                            Console.Write('X');
+                            break;
+                        case 2:
 
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
@@ -192,6 +209,11 @@ namespace Lode
 
                         case 3:
 
+
+                            break;
+
+                        case 3:
+
                         break;
                     }
                 }
@@ -230,6 +252,10 @@ namespace Lode
                             break;
                     }
 
+
+                            break;
+                    }
+
                             Console.SetCursorPosition(sour.X - 2, sour.Y);
                             Console.Write('X');
                         break;
@@ -247,6 +273,9 @@ namespace Lode
                 }
                
             }
+
+           
+            
 
            
             
