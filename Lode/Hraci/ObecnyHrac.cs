@@ -27,7 +27,7 @@ namespace Lode
 
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-            
+
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();
@@ -67,11 +67,22 @@ namespace Lode
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {
-            throw new NotImplementedException();
+            if (HerniPole[tah.X, tah.Y] == StavPolicka.Lod)
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.Zasah;
+                return StavPolicka.Zasah;
+            }
+            else 
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.Mimo;
+                return StavPolicka.Mimo;
+            }
+
         }
+
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(vysledek);
         }
         public int VymenitSiTokenSeSouperem(int vlastniToken)
         {
@@ -82,6 +93,11 @@ namespace Lode
             throw new NotImplementedException();
         }
         public StavPolicka ZjistitVysledekTahuOdSoupere(Souradnice tah)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ExistujeLod()
         {
             throw new NotImplementedException();
         }
