@@ -54,6 +54,7 @@ namespace Lode
                             Console.Clear();
                         }
                     break;
+
                     case 'e':
                         rotace++;
                         if (rotace >= 4)
@@ -68,8 +69,6 @@ namespace Lode
                         {
                             rotace = 0;
                         }
-                       
-
                     break;
                 }
 
@@ -78,10 +77,8 @@ namespace Lode
                 nakresliPole();
                 vykresliLod(typLode,rotace);
 
-
-
-
             }
+
             void vykresliLod(int typ,int rot)
 
             {
@@ -99,7 +96,7 @@ namespace Lode
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X, sour.Y - 1);
                             Console.Write('X');
-                            break;
+                        break;
                         case 1:
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
@@ -109,7 +106,7 @@ namespace Lode
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X + 1, sour.Y);
                             Console.Write('X');
-                            break;
+                        break;
                         case 2:
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
@@ -119,7 +116,7 @@ namespace Lode
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X, sour.Y + 1);
                             Console.Write('X');
-                            break;
+                        break;
                         case 3:
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
@@ -129,11 +126,8 @@ namespace Lode
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X - 1, sour.Y);
                             Console.Write('X');
-                            break;
+                        break;
                     }
-
-              
-
                 }
                else if (typ == (int)TypLode.Clun)
                 {
@@ -163,12 +157,7 @@ namespace Lode
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X, sour.Y - 1);
                             Console.Write('X');
-
-                          break;
-
-             
-
-       
+                        break;
                     }
                 }
                else if (typ == (int)TypLode.Kriznik)
@@ -202,13 +191,6 @@ namespace Lode
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X - 1, sour.Y);
                             Console.Write('X');
-
-                      
-                    
-
-
-                
-
                             Console.SetCursorPosition(sour.X - 2, sour.Y);
                             Console.Write('X');
                         break;
@@ -224,19 +206,8 @@ namespace Lode
                         break;
                     }
                 }
-               
             }
 
-           
-            
-
-           
-            
-
-           
-            
-
-           
             void nakresliPole()
             {
                 for (int i = 0; i < herniPoleY.Length; i++)
