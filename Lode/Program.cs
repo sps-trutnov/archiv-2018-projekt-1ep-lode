@@ -266,7 +266,7 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length)
+                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
                             {
                                 rotace--;
                             }
@@ -418,15 +418,15 @@ namespace Lode
 
                     case 'e':
                         rotace++;
-                        if (rotace >= 4)
-                        {
-                            rotace = 0;
-                        }
+
                         if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
                         {
                             rotace--;
                         }
-
+                        if (rotace >= 4)
+                        {
+                            rotace = 0;
+                        }
                         break;
                 }
             }
