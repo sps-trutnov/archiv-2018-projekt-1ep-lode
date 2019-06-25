@@ -8,7 +8,7 @@ namespace Lode
         {
             
             bool jeNaTahu = true;
-            int typLode = 0;
+            int typLode = 2;
             int rotace = 0;
             
             int[] herniPoleX = new int[10];
@@ -149,13 +149,13 @@ namespace Lode
                         case 2:
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
-                            Console.SetCursorPosition(sour.X - 1, sour.Y);
+                            Console.SetCursorPosition(sour.X + 1, sour.Y);
                             Console.Write('X');
                         break;
                         case 3:
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y - 1);
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
                             Console.Write('X');
                         break;
                     }
@@ -185,23 +185,85 @@ namespace Lode
                             Console.Write('X');
                         break;
                         case 2:
-                            Console.SetCursorPosition(sour.X + 1, sour.Y);
+                            Console.SetCursorPosition(sour.X - 1, sour.Y);
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
-                            Console.SetCursorPosition(sour.X - 1, sour.Y);
+                            Console.SetCursorPosition(sour.X + 1, sour.Y);
                             Console.Write('X');
-                            Console.SetCursorPosition(sour.X - 2, sour.Y);
+                            Console.SetCursorPosition(sour.X + 2, sour.Y);
                             Console.Write('X');
                         break;
                         case 3:
-                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.SetCursorPosition(sour.X, sour.Y - 1);
                             Console.Write('X');
                             Console.SetCursorPosition(sour.X, sour.Y);
                             Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 2);
+                            Console.Write('X');
+                        break;
+                    }
+                }
+               else if (typ ==(int)TypLode.Letadlovka)
+                {
+                    switch (rot)
+                    {
+                        case 0:
+                            Console.SetCursorPosition(sour.X - 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 2, sour.Y);
+                            Console.Write('X');
                             Console.SetCursorPosition(sour.X, sour.Y - 1);
                             Console.Write('X');
-                            Console.SetCursorPosition(sour.X, sour.Y - 2);
+                            Console.SetCursorPosition(sour.X + 1, sour.Y - 1);
+                            Console.Write('X');
+                        break;
+                        case 1:
+                            Console.SetCursorPosition(sour.X, sour.Y - 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 2);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 1, sour.Y + 1);
+                            Console.Write('X');
+                        break;
+                        case 2:
+                            Console.SetCursorPosition(sour.X - 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 2, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X + 1, sour.Y + 1);
+                            Console.Write('X');
+                        break;
+                        case 3:
+                            Console.SetCursorPosition(sour.X, sour.Y - 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 1);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X, sour.Y + 2);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X - 1, sour.Y);
+                            Console.Write('X');
+                            Console.SetCursorPosition(sour.X - 1, sour.Y + 1);
                             Console.Write('X');
                         break;
                     }
