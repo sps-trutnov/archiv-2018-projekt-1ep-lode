@@ -1,10 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿using System;
 
 =======
 using System;
 using System.Threading;
 >>>>>>> tym_4
+=======
+﻿using System;
+
+>>>>>>> master
 namespace Lode
 {
     class Program

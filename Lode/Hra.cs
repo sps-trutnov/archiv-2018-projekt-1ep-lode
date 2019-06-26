@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Threading;
 
@@ -8,6 +8,7 @@ namespace Lode
     {
         delegate void HerniAlgoritmus(object hrac);
 
+<<<<<<< HEAD
 
 
         IRozhrani Rozhrani { get; set; }
@@ -16,9 +17,17 @@ namespace Lode
 
         public ObecnyHrac Hrac { get; set; }
         ObecnyHrac Souper { get; set; }
+=======
+        private IRozhrani Rozhrani { get; set; }
+        private IPAddress MistniIP { get; set; }
+        private Thread VlaknoProAI { get; set; }
 
-        Souradnice CilTahu { get; set; }
-        StavPolicka VysledekTahu { get; set; }
+        private ObecnyHrac Hrac { get; set; }
+        private ObecnyHrac Souper { get; set; }
+>>>>>>> master
+
+        private Souradnice CilTahu { get; set; }
+        private StavPolicka VysledekTahu { get; set; }
 
         public Hra(IRozhrani rozhrani)
         {
@@ -36,6 +45,7 @@ namespace Lode
             Hrac = new LidskyHrac(MistniIP);
         }
 
+<<<<<<< HEAD
         public void SpustitHru()
         {
             Rozhrani.ZobrazitMenu(this);
@@ -49,6 +59,9 @@ namespace Lode
         }
 
         public bool BudeSeHratProtiPocitaci()
+=======
+        private bool BudeSeHratProtiPocitaci()
+>>>>>>> master
         {
             throw new NotImplementedException();
         }
@@ -93,9 +106,15 @@ namespace Lode
             if (((TextoveRozhrani)Rozhrani).Menu.HraProtiPocitaci)
             {
                 Souper = new PocitacovyHrac();
+<<<<<<< HEAD
                 
                 Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
                 Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
+=======
+
+                Souper.NastavitAdresuSoupere(Hrac);
+                Hrac.NastavitAdresuSoupere(Souper);
+>>>>>>> master
 
                 VlaknoProAI = OddelitDoSamostatnehoVlakna(HratHru);
                 VlaknoProAI.Start(Souper);
@@ -104,7 +123,7 @@ namespace Lode
             {
                 OznamitMistniAdresu();
 
-                Hrac.NastavitAdresuSoupere(ZjistitAdresuSoupere());
+                Hrac.NastavitAdresuSoupere(ZjistitAdresuLidskehoSoupere());
             }
         }
         private Thread OddelitDoSamostatnehoVlakna(HerniAlgoritmus algoritmus)
@@ -136,9 +155,19 @@ namespace Lode
 
             Environment.Exit(0);
         }
-        private IPAddress ZjistitAdresuSoupere()
+        private IPAddress ZjistitAdresuLidskehoSoupere()
         {
             throw new NotImplementedException();
+        }
+
+        public void SpustitHru()
+        {
+            NastavitHrace();
+            HratHru(Hrac);
+            SkoncitHru();
+
+            VyhlasitVysledky();
+            VypnoutHru();
         }
     }
 }

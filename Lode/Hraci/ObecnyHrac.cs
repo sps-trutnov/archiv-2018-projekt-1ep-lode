@@ -7,26 +7,25 @@ namespace Lode
 {
     abstract class ObecnyHrac
     {
-        protected Random _nahoda;
+        protected Random Nahoda { get; set; }
 
-        public IRozhrani Rozhrani { get; protected set; }
+        private IPAddress VlastniAdresa { get; set; }
+        private IPAddress AdresaSoupere { get; set; }
+        private short PrijimaciPort { get; set; } = 10001;
+        private Socket VysilaciKomunikacniKanal { get; set; }
+        private Socket PrijimaciKomunikacniKanal { get; set; }
 
-        public IPAddress VlastniAdresa { get; protected set; }
-        public IPAddress AdresaSoupere { get; protected set; }
-
-        protected short PrijimaciPort { get; set; } = 10001;
-
-        protected Socket VysilaciKomunikacniKanal { get; set; }
-        protected Socket PrijimaciKomunikacniKanal { get; set; }
-
-        protected bool ZahajujeKomunikaci;
+        private bool ZahajujeKomunikaci { get; set; }
 
         public StavPolicka[,] HerniPole { get; protected set; }
         public StavPolicka[,] HerniPoleSoupere { get; protected set; }
         public List<Lod> Lode { get; protected set; }
 
+        protected IRozhrani Rozhrani { get; set; }
+
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
+<<<<<<< HEAD
             Lode = new List<Lod>();
             Lode.Add(new Lod(TypLode.Clun));
             Lode.Add(new Lod(TypLode.Clun));
@@ -35,15 +34,36 @@ namespace Lode
             Lode.Add(new Lod(TypLode.Torpedovka));
             Lode.Add(new Lod(TypLode.Letadlovka));
             Lode.Add(new Lod(TypLode.Kriznik));
+=======
+
+>>>>>>> master
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();
         public abstract void RozmistitLode();
 
-        public int GenerovatToken()
+        private int GenerovatToken()
         {
             throw new NotImplementedException();
         }
+        private int VymenitSiTokenSeSouperem(int vlastniToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void NaplnitHerniPoleHodnotou(StavPolicka hodnota)
+        {
+            throw new NotImplementedException();
+        }
+        protected void NaplnitHerniPoleSoupereHodnotou(StavPolicka hodnota)
+        {
+            throw new NotImplementedException();
+        }
+        protected void UmistitLodeDoHernihoPole()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool JePorazenym()
         {
             throw new NotImplementedException();
@@ -52,7 +72,11 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        public void NastavitAdresuSoupere(IPAddress adresaSoupere)
+        public void NastavitAdresuSoupere(IPAddress adresa)
+        {
+            throw new NotImplementedException();
+        }
+        public void NastavitAdresuSoupere(ObecnyHrac souper)
         {
             throw new NotImplementedException();
         }
@@ -90,10 +114,6 @@ namespace Lode
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
         {
             Console.WriteLine(vysledek);
-        }
-        public int VymenitSiTokenSeSouperem(int vlastniToken)
-        {
-            throw new NotImplementedException();
         }
         public Souradnice ZjistitTahSoupere()
         {

@@ -17,6 +17,7 @@ namespace Lode
 
         public override Souradnice RozhodnoutVlastniTah()
         {
+<<<<<<< HEAD
             Random nahoda = new Random();
 
             int souradniceX = nahoda.Next(0, HerniPoleSoupere.GetLength(0));
@@ -65,6 +66,17 @@ namespace Lode
             }
 
             return new Souradnice() { X = souradniceX, Y = souradniceY };
+=======
+            Random x = new Random();
+            int souradniceX = x.Next(1, 10);
+
+            System.Threading.Thread.Sleep(1000);
+
+            Random y = new Random();
+            int souradniceY = y.Next(1, 10);
+
+            return new Souradnice(souradniceX, souradniceY);
+>>>>>>> master
         }
         public override void RozmistitLode()
         {

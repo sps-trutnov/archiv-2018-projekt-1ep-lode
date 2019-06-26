@@ -5,12 +5,11 @@ namespace Lode
 {
     class Lod
     {
-        private int _zasahy = 0;
-
-        public List<Souradnice> Policka { get; private set; }
-        public NatoceniLode Natoceni { get; set; }
-        public Souradnice Souradnice { get; set; }
-        public TypLode Typ { get; private set; }
+        private List<Souradnice> Policka { get; set; }
+        private NatoceniLode Natoceni { get; set; }
+        private Souradnice Souradnice { get; set; }
+        private TypLode Typ { get; set; }
+        private int Zasahy { get; set; }
 
         public Lod(TypLode typ)
         {
@@ -47,7 +46,11 @@ namespace Lode
             }
         }
 
-        public bool BlokujePolicko(Souradnice souradnice)
+        private bool BlokujePolicko(Souradnice souradnice)
+        {
+            throw new NotImplementedException();
+        }
+        private bool BlokujePolicko(int x, int y)
         {
             throw new NotImplementedException();
         }
@@ -63,7 +66,7 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        public void Posunout(int dx, int dy, Souradnice rozsahPohybu)
+        public void Posunout(int dx, int dy, Souradnice povolenyRozsahPohybu)
         {
             throw new NotImplementedException();
         }
