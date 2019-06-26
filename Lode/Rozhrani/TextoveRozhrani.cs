@@ -69,28 +69,30 @@ namespace Lode
 
                     if (policko == StavPolicka.Voda)
                     {
-                        Console.WriteLine("~");
+                        Console.Write("~");
                     }
                     else if (policko == StavPolicka.Lod)
                     {
-                        Console.WriteLine("#");
+                        Console.Write("#");
                     }
                     else if (policko == StavPolicka.Zasah)
                     {
-                        Console.WriteLine("X");
+                        Console.Write("X");
                     }
                     else if (policko == StavPolicka.Potopena)
                     {
-                        Console.WriteLine("0");
+                        Console.Write("0");
                     }
                     else if (policko == StavPolicka.Neznamo)
                     {
-                        Console.WriteLine(":");
+                        Console.Write(":");
                     }
                     else if (policko == StavPolicka.Mimo)
                     {
-                        Console.WriteLine("~");
+                        Console.Write("~");
                     }
+                    Console.WriteLine();
+                    //Udělej ze sebe řádek prosím :)
                 }
             }
         }
