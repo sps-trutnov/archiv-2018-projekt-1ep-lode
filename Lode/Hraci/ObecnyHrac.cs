@@ -8,6 +8,12 @@ namespace Lode
 {
     abstract class ObecnyHrac
     {
+        int FinalToken1 = new Int32();
+        int FinalToken2 = new Int32();
+        int FinalDataX = new Int32();
+        int FinalDataY= new Int32();
+        int startIndex = 0;
+        Souradnice DataSouradnice;
         protected Random _nahoda;
 
         public IRozhrani Rozhrani { get; protected set; }
@@ -23,36 +29,53 @@ namespace Lode
         public StavPolicka[,] HerniPole { get; protected set; }
         public StavPolicka[,] HerniPoleSoupere { get; protected set; }
         public List<Lod> Lode { get; protected set; }
-        IPAddress ipAddress = new IPAddress(new byte[] { 192, 168, 216, 207 });
-        IPEndPoint IpPort = new IPEndPoint(ipAddress, 11000);
 
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-
+            VlastniAdresa = vlastniAdresa;
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();
         public abstract void RozmistitLode();
-
+        
         public int GenerovatToken()
         {
-            Random rnd = new Random();
-            int token = rnd.Next(1, 2);
-            return token;
-
+            if (MojeAdresaJeVetsi(VlastniAdresa.ToString(), AdresaSoupere.ToString()))
+            {
+                Random rnd = new Random();
+                int token1 = rnd.Next(1, 2);
+                return token1;
+            }
+            else
+            {
+                Random rnd = new Random();
+                int token2 = rnd.Next(1, 2);
+                return token2;
+            }
 
         }
         public bool JePorazenym()
         {
             throw new NotImplementedException();
         }
+
+        /*public int ConvertnutIpNaString(VlastniAdresa, AdresaSoupere)
+        {
+            int MeinAdresa = Convert.ToInt32(VlastniAdresa);
+            int JehoAdresa = Convert.ToInt32(AdresaSoupere);
+            return MeinAdresa;
+            return JehoAdresa;
+
+        }
+        */
         public bool MaPravoPrvnihoTahu()
         {
-            int token = GenerovatToken();
-            VymenitSiTokenSeSouperem(token);
-            if (ipAddress > AdresaSoupere)
+            GenerovatToken();
+            //VRÁTÍ TOKEN1 A TOKEN2
+            
+            VymenitSiTokenSeSouperem(FinalToken1,FinalToken2);
             {
-                if (zasilka1 > zasilka2)
+                if (FinalToken1 > FinalToken2)
 
                     return true;
 
@@ -66,7 +89,6 @@ namespace Lode
 
             AdresaSoupere = adresaSoupere;
         }
-        int Hosting = 2;
         public bool MojeAdresaJeVetsi(string mojeAdresa, string jehoAdresa)
         {
             bool sesHost = false;
@@ -179,37 +201,32 @@ namespace Lode
         {
             bool zacinam = MojeAdresaJeVetsi(VlastniAdresa.ToString(), AdresaSoupere.ToString());
 
-
+            Socket VysilaciKomunikacniKanal = new Socket(VlastniAdresa.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            Socket PrijimaciKomunikacniKanal = new Socket(VlastniAdresa.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             if (zacinam)
             {
-                Socket Posta = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                ///ČÁST1
+                PrijimaciKomunikacniKanal.Bind(new IPEndPoint(VlastniAdresa, PrijimaciPort  ));
+                PrijimaciKomunikacniKanal.Listen(10);
+                PrijimaciKomunikacniKanal = PrijimaciKomunikacniKanal.Accept();
 
 
+                ///ČÁST2
+                VysilaciKomunikacniKanal.Connect(new IPEndPoint(AdresaSoupere, PrijimaciPort));
 
-                Posta.Connect(IpPort);
-
-                Console.WriteLine("Socket connected to {0}");
-                Posta.RemoteEndPoint.ToString();
-
-                byte[] msg = Encoding.UTF8.GetBytes("tady máte zásilku");
 
             }
             else
             {
-                IPHostEntry host = Dns.GetHostEntry("localhost");
-                IPAddress ipAddress = host.AddressList[0];
-                IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+                ///ČÁST1    
+                VysilaciKomunikacniKanal.Connect(new IPEndPoint(AdresaSoupere, PrijimaciPort));
 
-
-
-                Socket klient = VysilaciKomunikacniKanal;
-                //Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-                klient.Connect(localEndPoint);
-
-                Console.WriteLine("Waiting for a connection...");
-
+                ///ČÁST2
+                PrijimaciKomunikacniKanal.Bind(new IPEndPoint(VlastniAdresa, PrijimaciPort));
+                PrijimaciKomunikacniKanal.Listen(10);
+                PrijimaciKomunikacniKanal = PrijimaciKomunikacniKanal.Accept();
             }
+            Console.WriteLine("IP " + VlastniAdresa.ToString() + " připojena");
         }
         public bool NemuzeProvestDalsiTah()
         {
@@ -217,11 +234,15 @@ namespace Lode
         }
         public void OznamitVysledekTahuSouperi(StavPolicka vysledek)
         {
-            throw new NotImplementedException();
+            Socket postak = VysilaciKomunikacniKanal;
+            int data = (int)vysledek;
+            byte[] Pet = BitConverter.GetBytes(data);
+            postak.Send(Pet);
+
         }
         public void PripojitRozhrani(IRozhrani rozhrani)
         {
-            throw new NotImplementedException();
+            Rozhrani = rozhrani;
         }
         public StavPolicka ProvestTahSoupere(Souradnice tah)
         {
@@ -231,46 +252,81 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        public int VymenitSiTokenSeSouperem(int token)
+        public int VymenitSiTokenSeSouperem(int token1, int token2)
         {
 
-            if (ipAddress > AdresaSoupere())
+            if(MojeAdresaJeVetsi(VlastniAdresa.ToString(), AdresaSoupere.ToString()))
             {
-                byte[] zasilka1 = BitConverter.GetBytes(token);
+                byte[] zasilka = BitConverter.GetBytes(token1);
                 Socket postak = VysilaciKomunikacniKanal;
-                postak.Send(zasilka1);
-                postak.Close();
-                postak.Shutdown(SocketShutdown.Both);
-                postak.Receive(zasilka2);
-
+                postak.Send(zasilka);
+                postak = PrijimaciKomunikacniKanal;
+                postak.Receive(zasilka);
+                FinalToken1 = Convert.ToInt32(zasilka);
+                return FinalToken1;
 
 
             }
             else
             {
-                byte[] zasilka2 = BitConverter.GetBytes(token);
+                byte[] zasilka = BitConverter.GetBytes(token2);
                 Socket postak = VysilaciKomunikacniKanal;
-                postak.Send(zasilka2);
-                postak.Close();
-                postak.Shutdown(SocketShutdown.Both);
-                postak.Receive(zasilka1);
+                postak.Send(zasilka);
+                postak = PrijimaciKomunikacniKanal;
+                postak.Receive(zasilka);
+                FinalToken2 = Convert.ToInt32(zasilka);
+                return FinalToken2;
             }
         }
         public Souradnice ZjistitTahSoupere()
         {
+            /*
             byte[] dataX = BitConverter.GetBytes(tah.X);
             byte[] dataY = BitConverter.GetBytes(tah.Y);
+            Socket postak = VysilaciKomunikacniKanal;
             postak.Send(dataX);
             postak.Send(dataY);
             postak.Close();
             postak.Shutdown(SocketShutdown.Both);
-
-        }
-        public StavPolicka ZjistitVysledekTahuOdSoupere(Souradnice tah)
-        {
+            */
+            Socket postak = PrijimaciKomunikacniKanal;
+            byte[] dataX = new byte[100];
+            byte[] dataY = new byte[100];
             postak.Receive(dataX);
             postak.Receive(dataY);
+            FinalDataX = BitConverter.ToInt32(dataX, startIndex);
+            FinalDataY = BitConverter.ToInt32(dataY, startIndex);
+            return DataSouradnice = new Souradnice { X = FinalDataX, Y = FinalDataY };
+           
 
+            /*FinalDataX = Convert.ToInt32(dataX);
+             FinalDataY = Convert.ToInt32(dataY);
+             return FinalDataX;
+             return FinalDataY;
+             */
+        }
+        public StavPolicka ZjistitVysledekTahuOdSoupere(Souradnice DataSouradnice)
+        {
+            
+            BitConverter.GetBytes(DataSouradnice.X);
+            BitConverter.GetBytes(DataSouradnice.Y);
+            byte[] SouradniceX = new byte[100];
+            byte[] SouradniceY = new byte[100];
+
+            Socket postak = VysilaciKomunikacniKanal;
+
+            postak.Send(SouradniceX);
+            postak.Send(SouradniceY);
+
+            postak = PrijimaciKomunikacniKanal;
+
+            byte[] jakToDopadlo = new byte[100];
+            postak.Receive(jakToDopadlo);
+
+            int vysledekJakoInt = BitConverter.ToInt32(jakToDopadlo, startIndex);
+            StavPolicka vysledekJakoStavPolicka = (StavPolicka)vysledekJakoInt;
+
+            return vysledekJakoStavPolicka;
         }
     }
 }
