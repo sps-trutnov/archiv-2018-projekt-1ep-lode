@@ -8,23 +8,13 @@ namespace Lode
     {
         delegate void HerniAlgoritmus(object hrac);
 
-<<<<<<< HEAD
-
-
-        IRozhrani Rozhrani { get; set; }
-        IPAddress MistniIP { get; set; }
-        Thread VlaknoProAI { get; set; }
-
-        public ObecnyHrac Hrac { get; set; }
-        ObecnyHrac Souper { get; set; }
-=======
         private IRozhrani Rozhrani { get; set; }
         private IPAddress MistniIP { get; set; }
         private Thread VlaknoProAI { get; set; }
 
         private ObecnyHrac Hrac { get; set; }
         private ObecnyHrac Souper { get; set; }
->>>>>>> master
+
 
         private Souradnice CilTahu { get; set; }
         private StavPolicka VysledekTahu { get; set; }
@@ -45,26 +35,12 @@ namespace Lode
             Hrac = new LidskyHrac(MistniIP);
         }
 
-<<<<<<< HEAD
-        public void SpustitHru()
-        {
-            Rozhrani.ZobrazitMenu(this);
-
-            NastavitHrace();
-            HratHru(Hrac);
-            SkoncitHru();
-
-            VyhlasitVysledky();
-            VypnoutHru();
-        }
-
-        public bool BudeSeHratProtiPocitaci()
-=======
         private bool BudeSeHratProtiPocitaci()
->>>>>>> master
+
         {
             throw new NotImplementedException();
         }
+
         private bool HraSkoncila()
         {
             throw new NotImplementedException();
@@ -106,15 +82,15 @@ namespace Lode
             if (((TextoveRozhrani)Rozhrani).Menu.HraProtiPocitaci)
             {
                 Souper = new PocitacovyHrac();
-<<<<<<< HEAD
+
                 
                 Souper.NastavitAdresuSoupere(Hrac.VlastniAdresa);
                 Hrac.NastavitAdresuSoupere(Souper.VlastniAdresa);
-=======
+
 
                 Souper.NastavitAdresuSoupere(Hrac);
                 Hrac.NastavitAdresuSoupere(Souper);
->>>>>>> master
+
 
                 VlaknoProAI = OddelitDoSamostatnehoVlakna(HratHru);
                 VlaknoProAI.Start(Souper);

@@ -9,8 +9,9 @@ namespace Lode
     {
         protected Random Nahoda { get; set; }
 
-        private IPAddress VlastniAdresa { get; set; }
-        private IPAddress AdresaSoupere { get; set; }
+        public IPAddress VlastniAdresa { get; private set; }
+        public IPAddress AdresaSoupere { get; private set; }
+
         private short PrijimaciPort { get; set; } = 10001;
         private Socket VysilaciKomunikacniKanal { get; set; }
         private Socket PrijimaciKomunikacniKanal { get; set; }
@@ -25,7 +26,7 @@ namespace Lode
 
         public ObecnyHrac(IPAddress vlastniAdresa)
         {
-<<<<<<< HEAD
+
             Lode = new List<Lod>();
             Lode.Add(new Lod(TypLode.Clun));
             Lode.Add(new Lod(TypLode.Clun));
@@ -34,9 +35,7 @@ namespace Lode
             Lode.Add(new Lod(TypLode.Torpedovka));
             Lode.Add(new Lod(TypLode.Letadlovka));
             Lode.Add(new Lod(TypLode.Kriznik));
-=======
 
->>>>>>> master
         }
 
         public abstract Souradnice RozhodnoutVlastniTah();

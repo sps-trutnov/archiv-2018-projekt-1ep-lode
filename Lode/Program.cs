@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-﻿using System;
-
-=======
 using System;
 using System.Threading;
->>>>>>> tym_4
-=======
-﻿using System;
 
->>>>>>> master
 namespace Lode
 {
     class Program
@@ -24,7 +15,6 @@ namespace Lode
 
         static void Main(string[] args)
         {
-<<<<<<< HEAD
             //new Hra().SpustitHru();
             // p.RozhodnoutVlastniTah();
 
@@ -34,18 +24,7 @@ namespace Lode
 
             PocitacovyHrac ai = new PocitacovyHrac();
             ai.RozmistitLode();
-=======
-            sour.X = 2;
-            sour.Y = 2;
 
-            //new Hra(new TextoveRozhrani()).SpustitHru();
-            while (jeNaTahu)
-            {
-                Console.CursorVisible = false;
-                pohybLode(typLode, rotace);
-                nakresliPole(herniPoleX.Length,herniPoleY.Length);
-                vykresliLod(typLode, rotace);
-            }
 
         }
 
@@ -678,7 +657,6 @@ namespace Lode
                     Console.Write("*");
                 }
             }
->>>>>>> tym_4
         }
     }
 }

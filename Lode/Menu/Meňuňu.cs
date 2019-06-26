@@ -48,11 +48,11 @@ namespace Lode
                 if (odpoved.ToUpper() == "HRÁT PROTI PC")
                 {
                     HraProtiPocitaci = true;
-                    hraSeKterouSePracuje.BudeSeHratProtiPocitaci();
+                   // hraSeKterouSePracuje.BudeSeHratProtiPocitaci();
                 }
                 else if (odpoved.ToUpper() == "MULTIPLAYER")
                 {
-                    hraSeKterouSePracuje.HratHru(hraSeKterouSePracuje.Hrac);
+                   // hraSeKterouSePracuje.HratHru(hraSeKterouSePracuje.Hrac);
                 }
                 else if (odpoved.ToUpper() == "CREDITS")
                 {

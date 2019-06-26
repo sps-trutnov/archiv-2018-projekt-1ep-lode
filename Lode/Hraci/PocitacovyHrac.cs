@@ -17,7 +17,6 @@ namespace Lode
 
         public override Souradnice RozhodnoutVlastniTah()
         {
-<<<<<<< HEAD
             Random nahoda = new Random();
 
             int souradniceX = nahoda.Next(0, HerniPoleSoupere.GetLength(0));
@@ -66,45 +65,41 @@ namespace Lode
             }
 
             return new Souradnice() { X = souradniceX, Y = souradniceY };
-=======
-            Random x = new Random();
-            int souradniceX = x.Next(1, 10);
 
-            System.Threading.Thread.Sleep(1000);
 
-            Random y = new Random();
-            int souradniceY = y.Next(1, 10);
-
-            return new Souradnice(souradniceX, souradniceY);
->>>>>>> master
         }
+        private bool ObsahujeDuplicity(List<Souradnice> policka)
+        {
+            // TODO
+        }
+
         public override void RozmistitLode()
         {
+            Random nahoda = new Random((int)DateTime.Now.Ticks);
 
+            List<Souradnice> polickaVsechLodi;
 
-
-            this.HerniPole = new StavPolicka[10, 10];
-
-            Random rozmisteniCentra = new Random();
-            int souradniceX = rozmisteniCentra.Next(0, HerniPole.GetLength(0));
-            int souradniceY = rozmisteniCentra.Next(0, HerniPole.GetLength(1));
-
-            Random natoceniLode = new Random();
-            
-             
-
-    
-
-
-                if (HerniPole[souradniceX, souradniceY] == StavPolicka.Lod)
+            do
             {
-                RozmistitLode();
+                polickaVsechLodi = new List<Souradnice>();
 
-            }
+                foreach (Lod l in Lode)
+                {
+                    int x = nahoda.Next(10);
+                    int y = nahoda.Next(10);
 
+                    NatoceniLode natoceni = (NatoceniLode)nahoda.Next(4);
 
+                    l.Premistit(new Souradnice(x, y), natoceni);
 
+                    foreach (Souradnice p in l.Policka)
+                        polickaVsechLodi.Add(p);
+                }
 
+            } while (ObsahujeDuplicity(polickaVsechLodi));
+
+            // umistit lode do herniho pole
+            // TODO
 
             Console.ReadLine();
         }
