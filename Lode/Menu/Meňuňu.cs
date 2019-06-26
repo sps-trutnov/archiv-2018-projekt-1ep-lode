@@ -41,7 +41,7 @@ namespace Lode
                 Console.WriteLine("                  KONEC");
                 Console.WriteLine(" ");
                 Console.WriteLine("CO CHCETE UDĚLAT?");
-                string odpoved = Console.ReadLine();
+                string odpoved = Console.ReadLine().Trim();
 
                 HraProtiPocitaci = false;
 

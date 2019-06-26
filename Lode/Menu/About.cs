@@ -55,8 +55,6 @@ namespace Lode
         "                                                                                                          ",
         "                     (C) Ikonu vytvořil Freepik z webu www.flaticon.com                                   ",
         "##########################################################################################################",
-        "                                                                                                          ",
-        "Pro vrácení zpět stiskni libovolné tlačítko.                                                              ",
             };
 
         public void Credits()
@@ -72,32 +70,43 @@ namespace Lode
                 Console.CursorTop = vrsekVypisu;
                 Console.CursorLeft = 0;
 
-                for(int i = 0; i < kolikRadkuVypsat; i++)
+                for (int i = 0; i < kolikRadkuVypsat; i++)
                     Console.WriteLine(rolovaciText[i]);
 
                 Console.ReadKey();
 
                 vrsekVypisu -= 1;
-                Console.CursorLeft = 0;
                 kolikRadkuVypsat += 1;
             }
+
+            int kolikRadkuSeUzVypsalo = kolikRadkuVypsat;
 
             // faze 2 - prujezd
-            while (kolikRadkuVypsat <46)
+            while (rolovaciText.Length - kolikRadkuSeUzVypsalo > 0)
             {
-                vrsekVypisu = 0;
-                Console.CursorTop = vrsekVypisu;
+                Console.CursorTop = 0;
                 Console.CursorLeft = 0;
 
-                for (int i = 35; i < kolikRadkuVypsat; i++)
+                for (int i = kolikRadkuSeUzVypsalo - kolikRadkuVypsat; i < kolikRadkuSeUzVypsalo; i++)
                     Console.WriteLine(rolovaciText[i]);
-                Console.ReadLine();
+                Console.ReadKey();
 
-                vrsekVypisu -= 1;
-                kolikRadkuVypsat += 1;
+                kolikRadkuSeUzVypsalo += 1;
             }
             // faze 3 - dojezd
+            while (kolikRadkuVypsat > 0)
+            {
+                Console.Clear();
 
+                Console.CursorTop = 0;
+                Console.CursorLeft = 0;
+
+                for (int i = kolikRadkuSeUzVypsalo - kolikRadkuVypsat; i < kolikRadkuSeUzVypsalo; i++)
+                    Console.WriteLine(rolovaciText[i]);
+                Console.ReadKey();
+
+                kolikRadkuVypsat -= 1;
+            }
         }
     }
 }
