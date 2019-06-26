@@ -23,242 +23,242 @@ namespace Lode
                 Console.CursorVisible = false;
 
 
-                pohybLode(typLode, rotace);
+                pohybLode(TypLode.Clun, nat,sour);
                 nakresliPole(herniPoleX.Length, herniPoleY.Length);
 
-                vykresliLod(typLode, nat);
+                vykresliLod(TypLode.Clun, nat, sour);
             }
 
         }
 
-        static void vykresliLod(int typ, NatoceniLode natoceni)
+        static void vykresliLod(TypLode typ, NatoceniLode natoceni, Souradnice souradnice)
         {
-            if (typ == (int)TypLode.Torpedovka)
+            if (typ == TypLode.Torpedovka)
             {
 
                 switch ((int)natoceni)
                 {
                     case 0:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
                         break;
                     case 1:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
                         break;
                     case 2:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
                         break;
                     case 3:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
                         break;
                 }
             }
-            else if (typ == (int)TypLode.Clun)
+            else if (typ == TypLode.Clun)
             {
                 switch ((int)natoceni)
                 {
 
                     case 0:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
                         break;
                     case 1:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
                         break;
                     case 2:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
                         break;
                     case 3:
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
                         break;
                 }
             }
-            else if (typ == (int)TypLode.Kriznik)
+            else if (typ == TypLode.Kriznik)
             {
                 switch ((int)natoceni)
                 {
                     case 0:
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 2, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
                         Console.Write('X');
                         break;
                     case 1:
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 2);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
                         Console.Write('X');
                         break;
                     case 2:
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 2, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
                         Console.Write('X');
                         break;
                     case 3:
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 2);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
                         Console.Write('X');
                         break;
                 }
             }
-            else if (typ == (int)TypLode.Letadlovka)
+            else if (typ == TypLode.Letadlovka)
             {
                 switch ((int)natoceni)
                 {
                     case 0:
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 2, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y - 1);
                         Console.Write('X');
                         break;
                     case 1:
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 2);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y + 1);
                         Console.Write('X');
                         break;
                     case 2:
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 2, sour.Y);
+                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X + 1, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y + 1);
                         Console.Write('X');
                         break;
                     case 3:
-                        Console.SetCursorPosition(sour.X, sour.Y - 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X, sour.Y + 2);
+                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X - 1, sour.Y);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
                         Console.Write('X');
-                        Console.SetCursorPosition(sour.X - 1, sour.Y + 1);
+                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y + 1);
                         Console.Write('X');
                         break;
                 }
             }
         }
 
-        static void pohybLode(int typ, int rot)
+        static void pohybLode(TypLode typ, NatoceniLode rot, Souradnice souradnice)
         {
-            if (typ == (int)TypLode.Torpedovka)
+            if (typ == TypLode.Torpedovka)
             {
-                if (rot == 0)
+                if (rot == NatoceniLode.Stupnu0)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 3)
+                            if (souradnice.X <= herniPoleX.Length - 3)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 2)
+                            if (souradnice.Y <= herniPoleY.Length - 2)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 1 || sour.X == herniPoleX.Length - 2)
+                            if (souradnice.X > 1 || souradnice.X == herniPoleX.Length - 2)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
@@ -269,7 +269,7 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            if (souradnice.Y == 0 || souradnice.Y + 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
                             {
                                 rotace--;
                             }
@@ -277,40 +277,40 @@ namespace Lode
                     }
                 }
 
-                if (rot == 1)
+                if (rot == NatoceniLode.Stupnu90)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 3)
+                            if (souradnice.X <= herniPoleX.Length - 3)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 3)
+                            if (souradnice.Y <= herniPoleY.Length - 3)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 0 || sour.X == herniPoleX.Length)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
@@ -321,7 +321,7 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
                             {
                                 rotace--;
                             }
@@ -329,40 +329,40 @@ namespace Lode
                             break;
                     }
                 }
-                if (rot == 2)
+                if (rot == NatoceniLode.Stupnu180)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 3)
+                            if (souradnice.X <= herniPoleX.Length - 3)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 3)
+                            if (souradnice.Y <= herniPoleY.Length - 3)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 2)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 2)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 1 || sour.X == herniPoleX.Length)
+                            if (souradnice.X > 1 || souradnice.X == herniPoleX.Length)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
@@ -373,7 +373,7 @@ namespace Lode
                             {
                                 rotace = 0;
                             }
-                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length)
+                            if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
                             {
                                 rotace--;
                             }
@@ -381,40 +381,40 @@ namespace Lode
                             break;
                     }
                 }
-                if (rot == 3)
+                if (rot == NatoceniLode.Stupnu270)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 2)
+                            if (souradnice.X <= herniPoleX.Length - 2)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 3)
+                            if (souradnice.Y <= herniPoleY.Length - 3)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 1 || sour.Y == herniPoleY.Length - 2)
+                            if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 1 || sour.X == herniPoleX.Length)
+                            if (souradnice.X > 1 || souradnice.X == herniPoleX.Length)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
@@ -422,7 +422,7 @@ namespace Lode
                         case 'e':
                             rotace++;
 
-                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
+                            if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length - 1)
                             {
                                 rotace--;
                             }
@@ -435,47 +435,47 @@ namespace Lode
                 }
             }
 
-            if (typ == (int)TypLode.Clun)
+            if (typ == TypLode.Clun)
             {
-                if (rot == 0)
+                if (rot == NatoceniLode.Stupnu0)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 3)
+                            if (souradnice.X <= herniPoleX.Length - 3)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 2)
+                            if (souradnice.Y <= herniPoleY.Length - 2)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 1)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 0 || sour.X == herniPoleX.Length - 1)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
                             {
                                 nat++;
                                 if (nat > NatoceniLode.Stupnu270)
@@ -488,140 +488,152 @@ namespace Lode
                     }
                 }
 
-                if (rot == 1)
+                if (rot == NatoceniLode.Stupnu90)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 2)
+                            if (souradnice.X  < herniPoleX.Length - 1)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 3)
+                            if (souradnice.Y <= herniPoleY.Length - 3)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 1)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 0 || sour.X == herniPoleX.Length)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
                             {
                                 nat++;
+                                if (nat > NatoceniLode.Stupnu270)
+                                {
+                                    nat = NatoceniLode.Stupnu0;
+                                }
                             }
                             break;
 
 
                     }
                 }
-                if (rot == 2)
+                if (rot == NatoceniLode.Stupnu180)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 3)
+                            if (souradnice.X <= herniPoleX.Length - 3)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 2)
+                            if (souradnice.Y <= herniPoleY.Length - 2)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 1)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 0 || sour.X == herniPoleX.Length - 1)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
                             {
                                 nat++;
+                                if (nat > NatoceniLode.Stupnu270)
+                                {
+                                    nat = NatoceniLode.Stupnu0;
+                                }
                             }
                             break;
 
                     }
                 }
-                if (rot == 3)
+                if (rot == NatoceniLode.Stupnu270)
                 {
                     switch (Console.ReadKey(true).KeyChar)
                     {
 
                         case 'd':
-                            if (sour.X <= herniPoleX.Length - 2)
+                            if (souradnice.X <= herniPoleX.Length - 2)
                             {
-                                sour.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (sour.Y <= herniPoleY.Length - 3)
+                            if (souradnice.Y <= herniPoleY.Length - 3)
                             {
-                                sour.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 2)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 2)
                             {
-                                sour.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (sour.X > 0 || sour.X == herniPoleX.Length)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
                             {
-                                sour.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
                             {
                                 nat++;
+                                if (nat > NatoceniLode.Stupnu270)
+                                {
+                                    nat = NatoceniLode.Stupnu0;
+                                }
                             }
                             break;
 
@@ -654,10 +666,11 @@ namespace Lode
                 if (uhel == NatoceniLode.Stupnu0)
                 {
 
-                    if(souradnice.X  >= 0 || souradnice.Y + 1 <= herniPoleY.Length || souradnice.X <= herniPoleX.Length || souradnice.Y > 0)
+                    if(souradnice.X  >= 0 && souradnice.Y  < herniPoleY.Length - 1 && souradnice.X < herniPoleX.Length && souradnice.Y > 0)
                     {
                         return true;
-                    }else
+                    }
+                    else
                     {
                         return false;
                     }
@@ -666,7 +679,7 @@ namespace Lode
                 if (uhel == NatoceniLode.Stupnu90)
                 {
 
-                    if (souradnice.X >= 0 || souradnice.Y  <= herniPoleY.Length || souradnice.X + 1 <= herniPoleX.Length || souradnice.Y > 0)
+                    if (souradnice.X >= 0 && souradnice.Y  <= herniPoleY.Length && souradnice.X + 1 <= herniPoleX.Length - 1 && souradnice.Y > 0)
                     {
                         return true;
                     }
@@ -678,7 +691,7 @@ namespace Lode
                 if (uhel == NatoceniLode.Stupnu180)
                 {
 
-                    if (souradnice.X >= 0 || souradnice.Y + 1 <= herniPoleY.Length || souradnice.X <= herniPoleX.Length || souradnice.Y > 0)
+                    if (souradnice.X >= 0 && souradnice.Y < herniPoleY.Length - 1 && souradnice.X < herniPoleX.Length && souradnice.Y > 0)
                     {
                         return true;
                     }
@@ -692,7 +705,7 @@ namespace Lode
                 if (uhel == NatoceniLode.Stupnu270)
                 {
 
-                    if (souradnice.X >= 0 || souradnice.Y <= herniPoleY.Length || souradnice.X + 1 <= herniPoleX.Length || souradnice.Y > 0)
+                    if (souradnice.X >= 0 && souradnice.Y <= herniPoleY.Length && souradnice.X + 1 <= herniPoleX.Length - 1 && souradnice.Y > 0)
                     {
                         return true;
                     }
