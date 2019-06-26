@@ -8,7 +8,7 @@ namespace Lode
         public List<Souradnice> Policka { get; private set; }
         private NatoceniLode Natoceni { get; set; }
         private Souradnice Souradnice { get; set; }
-        private TypLode Typ { get; set; }
+        public TypLode Typ { get; set; }
         private int Zasahy { get; set; }
 
         public Lod(TypLode typ)
@@ -73,29 +73,29 @@ namespace Lode
         }
         public void Premistit(Souradnice souradnice, NatoceniLode natoceni)
         {
-            Console.WriteLine("Před:");
+
+            //Console.WriteLine("Před:");
 
 
 
 
             foreach (Souradnice p in Policka)
             {
-                Console.WriteLine(p.X + " " + p.Y);
+              //  Console.WriteLine(p.X + " " + p.Y);
             }
 
-            Console.WriteLine("Po:" );
+            //Console.WriteLine("Po:" );
 
             foreach (Souradnice p in Policka)
             {
                 p.X = p.X + souradnice.X;
                 p.Y = p.Y + souradnice.Y;
-                Console.WriteLine(p.X + " " + p.Y);
+              //  Console.WriteLine(p.X + " " + p.Y);
             }
 
 
 
 
-            Console.ReadKey(true);
         }
         public void Zasahnout()
         {

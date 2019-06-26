@@ -70,14 +70,37 @@ namespace Lode
         }
         private bool ObsahujeDuplicity(List<Souradnice> policka)
         {
-            // TODO
+            int i = 0;
+
+            foreach (Souradnice p in policka)
+            {
+                foreach (Souradnice o in policka)
+                    if (o.X == p.X && o.Y == p.Y)
+                    {
+                        i = i + 1;
+
+
+                    }
+
+                if (i > 1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public override void RozmistitLode()
         {
+
+
+
             Random nahoda = new Random((int)DateTime.Now.Ticks);
 
             List<Souradnice> polickaVsechLodi;
+
+            int jeti = 1;
 
             do
             {
@@ -90,16 +113,26 @@ namespace Lode
 
                     NatoceniLode natoceni = (NatoceniLode)nahoda.Next(4);
 
-                    l.Premistit(new Souradnice(x, y), natoceni);
+                    Lod k = new Lod(l.Typ);
 
-                    foreach (Souradnice p in l.Policka)
+                    k.Premistit(new Souradnice(x, y), natoceni);
+
+                    foreach (Souradnice p in k.Policka)
                         polickaVsechLodi.Add(p);
-                }
 
+                }
+                Console.WriteLine(jeti++ + ". pokus...");
             } while (ObsahujeDuplicity(polickaVsechLodi));
+
+            Console.WriteLine("Úspěch!");
+
+            foreach (Souradnice p in polickaVsechLodi)
+                Console.WriteLine(p.X + " " + p.Y);
 
             // umistit lode do herniho pole
             // TODO
+
+
 
             Console.ReadLine();
         }
