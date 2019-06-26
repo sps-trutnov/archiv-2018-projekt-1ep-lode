@@ -48,9 +48,9 @@ namespace Lode
 
         public bool BudeSeHratProtiPocitaci()
         {
-            throw new NotImplementedException();
+             throw new NotImplementedException();
         }
-        private bool HraSkoncila()
+        public bool HraSkoncila()
         {
             throw new NotImplementedException();
         }

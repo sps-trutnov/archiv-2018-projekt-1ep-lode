@@ -15,7 +15,7 @@ namespace Lode
         "                                                                                                          ",
         "                                             SENSEI                                                       ",
         "                                          ############                                                    ",
-        "                                                                                                          ",
+        "                                                ▧                                                         ",
         "                                          ŠENKÝŘ JAKUB                                                    ",
         "                                                                                                          ",
         "                                           TÝM 1 - A.I.                                                   ",

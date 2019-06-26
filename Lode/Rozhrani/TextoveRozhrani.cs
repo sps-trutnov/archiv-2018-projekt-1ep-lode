@@ -9,7 +9,7 @@ namespace Lode
         public Meňuňu Menu { get; private set; }
 
         public TextoveRozhrani()
-        
+
         {
             Menu = new Meňuňu();
             Console.WindowHeight = 45;
@@ -58,7 +58,41 @@ namespace Lode
         }
         public void ZobrazitStavHry(StavPolicka[,] vlastniHerniPole, StavPolicka[,] souperovoHerniPole)
         {
-            throw new NotImplementedException();
+            int sirkaPole = vlastniHerniPole.GetLength(0);
+            int vyskaPole = vlastniHerniPole.GetLength(1);
+
+            for (int y = 0; y < vyskaPole; y++)
+            {
+                for (int x = 0; x < sirkaPole; x++)
+                {
+                    StavPolicka policko = vlastniHerniPole[x, y];
+
+                    if (policko == StavPolicka.Voda)
+                    {
+                        Console.WriteLine("~");
+                    }
+                    else if (policko == StavPolicka.Lod)
+                    {
+                        Console.WriteLine("#");
+                    }
+                    else if (policko == StavPolicka.Zasah)
+                    {
+                        Console.WriteLine("X");
+                    }
+                    else if (policko == StavPolicka.Potopena)
+                    {
+                        Console.WriteLine("0");
+                    }
+                    else if (policko == StavPolicka.Neznamo)
+                    {
+                        Console.WriteLine(":");
+                    }
+                    else if (policko == StavPolicka.Mimo)
+                    {
+                        Console.WriteLine("~");
+                    }
+                }
+            }
         }
         public void ZobrazitZamerovac(Souradnice souradnice, Souradnice rozsahZobrazeni, StavPolicka zpusobZobrazeni)
         {
