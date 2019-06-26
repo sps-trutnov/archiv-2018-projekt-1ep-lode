@@ -7,7 +7,7 @@ namespace Lode
         static bool jeNaTahu = true;
         static int typLode = 0;
         static int rotace = 0;
-
+        static NatoceniLode nat = new NatoceniLode();
         static int[] herniPoleX = new int[10];
         static int[] herniPoleY = new int[10];
         static Souradnice sour = new Souradnice();
@@ -21,19 +21,22 @@ namespace Lode
             while (jeNaTahu)
             {
                 Console.CursorVisible = false;
+
+
                 pohybLode(typLode, rotace);
-                nakresliPole(herniPoleX.Length,herniPoleY.Length);
-                vykresliLod(typLode, rotace);
+                nakresliPole(herniPoleX.Length, herniPoleY.Length);
+
+                vykresliLod(typLode, nat);
             }
 
         }
 
-        static void vykresliLod(int typ, int rot)
+        static void vykresliLod(int typ, NatoceniLode natoceni)
         {
             if (typ == (int)TypLode.Torpedovka)
             {
 
-                switch (rot)
+                switch ((int)natoceni)
                 {
                     case 0:
                         Console.SetCursorPosition(sour.X, sour.Y);
@@ -79,7 +82,7 @@ namespace Lode
             }
             else if (typ == (int)TypLode.Clun)
             {
-                switch (rot)
+                switch ((int)natoceni)
                 {
 
                     case 0:
@@ -110,7 +113,7 @@ namespace Lode
             }
             else if (typ == (int)TypLode.Kriznik)
             {
-                switch (rot)
+                switch ((int)natoceni)
                 {
                     case 0:
                         Console.SetCursorPosition(sour.X - 1, sour.Y);
@@ -156,7 +159,7 @@ namespace Lode
             }
             else if (typ == (int)TypLode.Letadlovka)
             {
-                switch (rot)
+                switch ((int)natoceni)
                 {
                     case 0:
                         Console.SetCursorPosition(sour.X - 1, sour.Y);
@@ -457,7 +460,7 @@ namespace Lode
 
                         case 'w':
 
-                            if (sour.Y > 0 || sour.Y == herniPoleY.Length -1)
+                            if (sour.Y > 0 || sour.Y == herniPoleY.Length - 1)
                             {
                                 sour.Y--;
                                 Console.Clear();
@@ -471,18 +474,17 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-
                         case 'e':
-                            rotace++;
-                            if (rotace >= 4)
+                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
                             {
-                                rotace = 0;
-                            }
-                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length )
-                            {
-                                rotace--;
+                                nat++;
+                                if (nat > NatoceniLode.Stupnu270)
+                                {
+                                    nat = NatoceniLode.Stupnu0;
+                                }
                             }
                             break;
+
                     }
                 }
 
@@ -523,19 +525,14 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-
                         case 'e':
-                            rotace++;
-                            if (rotace >= 4)
+                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
                             {
-                                rotace = 0;
+                                nat++;
                             }
-                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
-                            {
-                                rotace--;
-                            }
-
                             break;
+
+
                     }
                 }
                 if (rot == 2)
@@ -575,18 +572,13 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-
                         case 'e':
-                            rotace++;
-                            if (rotace >= 4)
+                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
                             {
-                                rotace = 0;
-                            }
-                            if (sour.Y == 0 || sour.Y + 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
-                            {
-                                rotace--;
+                                nat++;
                             }
                             break;
+
                     }
                 }
                 if (rot == 3)
@@ -626,37 +618,91 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-
                         case 'e':
-                            rotace++;
-
-                            if (sour.Y == 0 || sour.Y - 1 == herniPoleY.Length || sour.X == 0 || sour.X == herniPoleX.Length - 1)
+                            if (muzeSeOtocit(sour, nat, TypLode.Clun))
                             {
-                                rotace--;
-                            }
-                            if (rotace >= 4)
-                            {
-                                rotace = 0;
+                                nat++;
                             }
                             break;
+
                     }
                 }
             }
 
 
-        }
+        } 
 
         static void nakresliPole(int x, int y)
         {
             for (int i = 0; i < y; i++)
             {
-                for (int l = 0; l < x;l++ )
+                for (int l = 0; l < x; l++)
                 {
 
                     Console.SetCursorPosition(l, i);
                     Console.Write("*");
                 }
             }
+        }
+
+        
+
+       static bool muzeSeOtocit(Souradnice souradnice, NatoceniLode uhel, TypLode lod)
+        {
+            if (lod == TypLode.Clun)
+            {
+                if (uhel == NatoceniLode.Stupnu0)
+                {
+
+                    if(souradnice.X  >= 0 || souradnice.Y + 1 <= herniPoleY.Length || souradnice.X <= herniPoleX.Length || souradnice.Y > 0)
+                    {
+                        return true;
+                    }else
+                    {
+                        return false;
+                    }
+                }
+
+                if (uhel == NatoceniLode.Stupnu90)
+                {
+
+                    if (souradnice.X >= 0 || souradnice.Y  <= herniPoleY.Length || souradnice.X + 1 <= herniPoleX.Length || souradnice.Y > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                if (uhel == NatoceniLode.Stupnu180)
+                {
+
+                    if (souradnice.X >= 0 || souradnice.Y + 1 <= herniPoleY.Length || souradnice.X <= herniPoleX.Length || souradnice.Y > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+                if (uhel == NatoceniLode.Stupnu270)
+                {
+
+                    if (souradnice.X >= 0 || souradnice.Y <= herniPoleY.Length || souradnice.X + 1 <= herniPoleX.Length || souradnice.Y > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
