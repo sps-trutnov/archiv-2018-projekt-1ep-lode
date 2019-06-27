@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 namespace Lode
 {
     class Program
     {
         static bool jeNaTahu = true;
-        static int typLode = 0;
+        //static int typLode = 0;
+        static List<Souradnice> Policka { get;  set;}
+
         static int rotace = 0;
         static NatoceniLode nat = new NatoceniLode();
         static int[] herniPoleX = new int[10];
@@ -14,6 +17,11 @@ namespace Lode
 
         static void Main(string[] args)
         {
+            Lod lod = new Lod(TypLode.Clun);
+            LidskyHrac hrac = new LidskyHrac(new System.Net.IPAddress(new byte[] { 192,168,216,201}));
+
+            
+
             sour.X = 2;
             sour.Y = 2;
 
@@ -22,627 +30,470 @@ namespace Lode
             {
                 Console.CursorVisible = false;
 
-
-                pohybLode(TypLode.Clun, nat,sour);
+                pohybLode(lod);
                 nakresliPole(herniPoleX.Length, herniPoleY.Length);
-
-                vykresliLod(TypLode.Clun, nat, sour);
+                vejdeSe(herniPoleX.Length, herniPoleY.Length, lod);
+                vykresliLod(lod);
+                
+            }
+            
+        }
+        
+        static void vykresliLod(Lod lod)
+        {
+            foreach (Souradnice s in lod.Policka)
+            {
+                Console.SetCursorPosition(s.X , s.Y );
+                Console.Write('X');
+                
             }
 
+           
         }
 
-        static void vykresliLod(TypLode typ, NatoceniLode natoceni, Souradnice souradnice)
+        static void pohybLode(Lod lod)
         {
-            if (typ == TypLode.Torpedovka)
+            foreach (Souradnice s in lod.Policka)
             {
-
-                switch ((int)natoceni)
+                switch (Console.ReadKey(true).KeyChar)
                 {
-                    case 0:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
+                    case 'd':
+
+                        s.X++;
                         break;
-                    case 1:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        break;
-                    case 2:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        break;
-                    case 3:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
+
+                    case 'a':
+
+                        s.X--;
                         break;
                 }
             }
-            else if (typ == TypLode.Clun)
-            {
-                switch ((int)natoceni)
-                {
 
-                    case 0:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        break;
-                    case 1:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        break;
-                    case 2:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        break;
-                    case 3:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        break;
-                }
-            }
-            else if (typ == TypLode.Kriznik)
-            {
-                switch ((int)natoceni)
-                {
-                    case 0:
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
-                        Console.Write('X');
-                        break;
-                    case 1:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
-                        Console.Write('X');
-                        break;
-                    case 2:
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
-                        Console.Write('X');
-                        break;
-                    case 3:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
-                        Console.Write('X');
-                        break;
-                }
-            }
-            else if (typ == TypLode.Letadlovka)
-            {
-                switch ((int)natoceni)
-                {
-                    case 0:
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y - 1);
-                        Console.Write('X');
-                        break;
-                    case 1:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y + 1);
-                        Console.Write('X');
-                        break;
-                    case 2:
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 2, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X + 1, souradnice.Y + 1);
-                        Console.Write('X');
-                        break;
-                    case 3:
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y - 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 1);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X, souradnice.Y + 2);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y);
-                        Console.Write('X');
-                        Console.SetCursorPosition(souradnice.X - 1, souradnice.Y + 1);
-                        Console.Write('X');
-                        break;
-                }
-            }
-        }
+            /* if (typ == TypLode.Torpedovka)
+             {
+                 if (rot == NatoceniLode.Stupnu0)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-        static void pohybLode(TypLode typ, NatoceniLode rot, Souradnice souradnice)
-        {
-            if (typ == TypLode.Torpedovka)
-            {
-                if (rot == NatoceniLode.Stupnu0)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                         case 'd':
+                             if (souradnice.X <= herniPoleX.Length - 3)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'd':
-                            if (souradnice.X <= herniPoleX.Length - 3)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 2)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'w':
 
-                        case 'w':
+                             if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                            if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 1 || souradnice.X == herniPoleX.Length - 2)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'a':
-                            if (souradnice.X > 1 || souradnice.X == herniPoleX.Length - 2)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'e':
+                             rotace++;
+                             if (rotace >= 4)
+                             {
+                                 rotace = 0;
+                             }
+                             if (souradnice.Y == 0 || souradnice.Y + 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
+                             {
+                                 rotace--;
+                             }
+                             break;
+                     }
+                 }
 
-                        case 'e':
-                            rotace++;
-                            if (rotace >= 4)
-                            {
-                                rotace = 0;
-                            }
-                            if (souradnice.Y == 0 || souradnice.Y + 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
-                            {
-                                rotace--;
-                            }
-                            break;
-                    }
-                }
+                 if (rot == NatoceniLode.Stupnu90)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-                if (rot == NatoceniLode.Stupnu90)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                         case 'd':
+                             if (souradnice.X <= herniPoleX.Length - 3)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'd':
-                            if (souradnice.X <= herniPoleX.Length - 3)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 3)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 3)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'w':
 
-                        case 'w':
+                             if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                            if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'a':
-                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'e':
+                             rotace++;
+                             if (rotace >= 4)
+                             {
+                                 rotace = 0;
+                             }
+                             if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
+                             {
+                                 rotace--;
+                             }
 
-                        case 'e':
-                            rotace++;
-                            if (rotace >= 4)
-                            {
-                                rotace = 0;
-                            }
-                            if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
-                            {
-                                rotace--;
-                            }
+                             break;
+                     }
+                 }
+                 if (rot == NatoceniLode.Stupnu180)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-                            break;
-                    }
-                }
-                if (rot == NatoceniLode.Stupnu180)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                         case 'd':
+                             if (souradnice.X <= herniPoleX.Length - 3)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'd':
-                            if (souradnice.X <= herniPoleX.Length - 3)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 3)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 3)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'w':
 
-                        case 'w':
+                             if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 2)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 1 || souradnice.X == herniPoleX.Length)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'a':
-                            if (souradnice.X > 1 || souradnice.X == herniPoleX.Length)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'e':
+                             rotace++;
+                             if (rotace >= 4)
+                             {
+                                 rotace = 0;
+                             }
+                             if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
+                             {
+                                 rotace--;
+                             }
 
-                        case 'e':
-                            rotace++;
-                            if (rotace >= 4)
-                            {
-                                rotace = 0;
-                            }
-                            if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length)
-                            {
-                                rotace--;
-                            }
+                             break;
+                     }
+                 }
+                 if (rot == NatoceniLode.Stupnu270)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-                            break;
-                    }
-                }
-                if (rot == NatoceniLode.Stupnu270)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                         case 'd':
+                             if (souradnice.X <= herniPoleX.Length - 2)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'd':
-                            if (souradnice.X <= herniPoleX.Length - 2)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 3)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 3)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'w':
 
-                        case 'w':
+                             if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                            if (souradnice.Y > 1 || souradnice.Y == herniPoleY.Length - 2)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 1 || souradnice.X == herniPoleX.Length)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'a':
-                            if (souradnice.X > 1 || souradnice.X == herniPoleX.Length)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'e':
+                             rotace++;
 
-                        case 'e':
-                            rotace++;
+                             if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length - 1)
+                             {
+                                 rotace--;
+                             }
+                             if (rotace >= 4)
+                             {
+                                 rotace = 0;
+                             }
+                             break;
+                     }
+                 }
+             }
 
-                            if (souradnice.Y == 0 || souradnice.Y - 1 == herniPoleY.Length || souradnice.X == 0 || souradnice.X == herniPoleX.Length - 1)
-                            {
-                                rotace--;
-                            }
-                            if (rotace >= 4)
-                            {
-                                rotace = 0;
-                            }
-                            break;
-                    }
-                }
-            }
+             if (typ == TypLode.Clun)
+             {
+                 if (rot == NatoceniLode.Stupnu0)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-            if (typ == TypLode.Clun)
-            {
-                if (rot == NatoceniLode.Stupnu0)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                         case 'd':
+                             if (souradnice.X <= herniPoleX.Length - 3)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'd':
-                            if (souradnice.X <= herniPoleX.Length - 3)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 2)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'w':
 
-                        case 'w':
+                             if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
+                         case 'e':
+                             if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
+                             {
+                                 nat++;
+                                 if (nat > NatoceniLode.Stupnu270)
+                                 {
+                                     nat = NatoceniLode.Stupnu0;
+                                 }
+                             }
+                             break;
 
-                        case 'a':
-                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
-                            {
-                                nat++;
-                                if (nat > NatoceniLode.Stupnu270)
-                                {
-                                    nat = NatoceniLode.Stupnu0;
-                                }
-                            }
-                            break;
+                     }
+                 }
 
-                    }
-                }
+                 if (rot == NatoceniLode.Stupnu90)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-                if (rot == NatoceniLode.Stupnu90)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                         case 'd':
+                             if (souradnice.X  < herniPoleX.Length - 1)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'd':
-                            if (souradnice.X  < herniPoleX.Length - 1)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 3)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 3)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'w':
 
-                        case 'w':
+                             if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
-
-                        case 'a':
-                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
-                            {
-                                nat++;
-                                if (nat > NatoceniLode.Stupnu270)
-                                {
-                                    nat = NatoceniLode.Stupnu0;
-                                }
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
+                         case 'e':
+                             if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
+                             {
+                                 nat++;
+                                 if (nat > NatoceniLode.Stupnu270)
+                                 {
+                                     nat = NatoceniLode.Stupnu0;
+                                 }
+                             }
+                             break;
 
 
-                    }
-                }
-                if (rot == NatoceniLode.Stupnu180)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                     }
+                 }
+                 if (rot == NatoceniLode.Stupnu180)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-                        case 'd':
-                            if (souradnice.X <= herniPoleX.Length - 3)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'd':
+                             if (souradnice.X <= herniPoleX.Length - 3)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 2)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'w':
+                         case 'w':
 
-                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
+                             if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'a':
-                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
-                            {
-                                nat++;
-                                if (nat > NatoceniLode.Stupnu270)
-                                {
-                                    nat = NatoceniLode.Stupnu0;
-                                }
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
+                         case 'e':
+                             if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
+                             {
+                                 nat++;
+                                 if (nat > NatoceniLode.Stupnu270)
+                                 {
+                                     nat = NatoceniLode.Stupnu0;
+                                 }
+                             }
+                             break;
 
-                    }
-                }
-                if (rot == NatoceniLode.Stupnu270)
-                {
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
+                     }
+                 }
+                 if (rot == NatoceniLode.Stupnu270)
+                 {
+                     switch (Console.ReadKey(true).KeyChar)
+                     {
 
-                        case 'd':
-                            if (souradnice.X <= herniPoleX.Length - 2)
-                            {
-                                souradnice.X++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 'd':
+                             if (souradnice.X <= herniPoleX.Length - 2)
+                             {
+                                 souradnice.X++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 's':
-                            if (souradnice.Y <= herniPoleY.Length - 3)
-                            {
-                                souradnice.Y++;
-                                Console.Clear();
-                            }
-                            break;
+                         case 's':
+                             if (souradnice.Y <= herniPoleY.Length - 3)
+                             {
+                                 souradnice.Y++;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'w':
+                         case 'w':
 
-                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 2)
-                            {
-                                souradnice.Y--;
-                                Console.Clear();
-                            }
-                            break;
+                             if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 2)
+                             {
+                                 souradnice.Y--;
+                                 Console.Clear();
+                             }
+                             break;
 
-                        case 'a':
-                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
-                            {
-                                souradnice.X--;
-                                Console.Clear();
-                            }
-                            break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
-                            {
-                                nat++;
-                                if (nat > NatoceniLode.Stupnu270)
-                                {
-                                    nat = NatoceniLode.Stupnu0;
-                                }
-                            }
-                            break;
+                         case 'a':
+                             if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
+                             {
+                                 souradnice.X--;
+                                 Console.Clear();
+                             }
+                             break;
+                         case 'e':
+                             if (muzeSeOtocit(souradnice, nat, TypLode.Clun))
+                             {
+                                 nat++;
+                                 if (nat > NatoceniLode.Stupnu270)
+                                 {
+                                     nat = NatoceniLode.Stupnu0;
+                                 }
+                             }
+                             break;
 
-                    }
-                }
-            }
+                     }
+                 }
+             }*/
 
 
         } 
+
+        static void umistitLod(Souradnice souradnice, NatoceniLode natoceni, TypLode typ)
+        {
+            
+        }
 
         static void nakresliPole(int x, int y)
         {
@@ -716,6 +567,19 @@ namespace Lode
                 }
             }
             return false;
+        }
+
+        static bool vejdeSe(int X,int Y, Lod lod)
+        {
+            foreach (Souradnice s in lod.Policka)
+            {
+                if (s.X <= X || s.X >= 0 || s.Y <= Y || s.Y >= 0)
+                {
+                    return true;
+                }
+            }
+
+           return false;
         }
     }
 }

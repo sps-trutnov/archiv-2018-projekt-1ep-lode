@@ -5,7 +5,7 @@ namespace Lode
 {
     class Lod
     {
-        private int _zasahy = 0;
+        //private int _zasahy = 0;
         static int[] herniPoleX = new int[10];
         static int[] herniPoleY = new int[10];
         public List<Souradnice> Policka { get; private set; }
@@ -15,7 +15,37 @@ namespace Lode
 
         public Lod(TypLode typ)
         {
-            Typ = typ; 
+            Typ = typ;
+
+            Policka = new List<Souradnice>();
+
+            switch(Typ)
+            {
+                case TypLode.Clun:
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = 1, Y = 0 });
+                break;
+                case TypLode.Torpedovka:
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = -1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0, Y = 1 });
+                break;
+                case TypLode.Letadlovka:
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = -1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 2, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0, Y = 1 });
+                    Policka.Add(new Souradnice { X = 1, Y = 1 });
+                    break;
+                case TypLode.Kriznik:
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = -1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 2, Y = 0 });
+                    break;
+            }
         }
 
         public bool BlokujePolicko(Souradnice souradnice, NatoceniLode uhel)
