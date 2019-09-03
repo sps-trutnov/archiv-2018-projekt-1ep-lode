@@ -108,35 +108,45 @@ namespace Lode
 
             foreach (Lod l in Lode)
             {
-                int x = nahoda.Next(10);
-                int y = nahoda.Next(10);
 
-                NatoceniLode natoceni = (NatoceniLode)nahoda.Next(4);
+                List<Souradnice> testovanaPolicka = new List<Souradnice>();
+
                 do
                 {
-                    Lod k = new Lod(l.Typ);
+                    testovanaPolicka.Clear();
+                    testovanaPolicka.AddRange(polickaVsechLodi);
 
-                    k.Premistit(new Souradnice(x, y), natoceni);
+                    int x = nahoda.Next(10);
+                    int y = nahoda.Next(10);
 
-                    foreach (Souradnice p in k.Policka)
-                        polickaVsechLodi.Add(p);
-                    Console.WriteLine(jeti++ + ". pokus...");
-                } while (ObsahujeDuplicity(polickaVsechLodi));
+                    NatoceniLode natoceni = (NatoceniLode)nahoda.Next(4);
+
+                    l.Premistit(new Souradnice(x, y), natoceni);
+
+                    foreach (Souradnice p in l.Policka)
+                        testovanaPolicka.Add(p);
+
+
+                    //Console.WriteLine(testovanaPolicka.Count + " policek...");
+                } while (ObsahujeDuplicity(testovanaPolicka));
+
+                foreach (Souradnice p in l.Policka)
+                    polickaVsechLodi.Add(p);
 
                 Console.WriteLine("Loď umístěna!");
-                Console.ReadLine();
+                //Console.ReadLine();
             }
 
             Console.WriteLine("Úspěch!");
 
-            foreach (Souradnice p in polickaVsechLodi)
-                Console.WriteLine(p.X + " " + p.Y);
+            //foreach (Souradnice p in polickaVsechLodi)
+            //    Console.WriteLine(p.X + " " + p.Y);
 
             // umistit lode do herniho pole
             // TODO
 
 
-
+            Console.WriteLine("Hotovo");
             Console.ReadLine();
         }
     }
