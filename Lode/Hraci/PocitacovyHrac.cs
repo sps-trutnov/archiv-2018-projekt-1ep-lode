@@ -81,12 +81,13 @@ namespace Lode
 
 
                     }
-
-                if (i > 1)
-                {
-                    return true;
-                }
             }
+
+            if (i > policka.Count)
+            {
+                return true;
+            }
+
 
             return false;
         }
@@ -102,27 +103,29 @@ namespace Lode
 
             int jeti = 1;
 
-            do
+
+            polickaVsechLodi = new List<Souradnice>();
+
+            foreach (Lod l in Lode)
             {
-                polickaVsechLodi = new List<Souradnice>();
+                int x = nahoda.Next(10);
+                int y = nahoda.Next(10);
 
-                foreach (Lod l in Lode)
+                NatoceniLode natoceni = (NatoceniLode)nahoda.Next(4);
+                do
                 {
-                    int x = nahoda.Next(10);
-                    int y = nahoda.Next(10);
-
-                    NatoceniLode natoceni = (NatoceniLode)nahoda.Next(4);
-
                     Lod k = new Lod(l.Typ);
 
                     k.Premistit(new Souradnice(x, y), natoceni);
 
                     foreach (Souradnice p in k.Policka)
                         polickaVsechLodi.Add(p);
+                    Console.WriteLine(jeti++ + ". pokus...");
+                } while (ObsahujeDuplicity(polickaVsechLodi));
 
-                }
-                Console.WriteLine(jeti++ + ". pokus...");
-            } while (ObsahujeDuplicity(polickaVsechLodi));
+                Console.WriteLine("Loď umístěna!");
+                Console.ReadLine();
+            }
 
             Console.WriteLine("Úspěch!");
 
