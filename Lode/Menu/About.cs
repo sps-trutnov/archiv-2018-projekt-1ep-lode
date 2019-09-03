@@ -105,7 +105,7 @@ namespace Lode
                     Console.WriteLine(rolovaciText[i]);
                 Thread.Sleep(400);
 
-                kolikRadkuVypsat -= 1;
+                kolikRadkuVypsat -=3;
             }
         }
     }
