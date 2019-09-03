@@ -10,7 +10,7 @@ namespace Lode
         static int[] herniPoleY = new int[10];
         public List<Souradnice> Policka { get; private set; }
         public NatoceniLode Natoceni { get; set; }
-        public Souradnice Souradnice { get; set; }
+        public Souradnice Souradnice = new Souradnice();
         public TypLode Typ { get; private set; }
 
         public Lod(TypLode typ)
@@ -22,28 +22,62 @@ namespace Lode
             switch(Typ)
             {
                 case TypLode.Clun:
-                    Policka.Add(new Souradnice { X = 0, Y = 0 });
-                    Policka.Add(new Souradnice { X = 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
                 break;
                 case TypLode.Torpedovka:
-                    Policka.Add(new Souradnice { X = 0, Y = 0 });
-                    Policka.Add(new Souradnice { X = -1, Y = 0 });
-                    Policka.Add(new Souradnice { X = 1, Y = 0 });
-                    Policka.Add(new Souradnice { X = 0, Y = 1 });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y + 1 });
                 break;
                 case TypLode.Letadlovka:
-                    Policka.Add(new Souradnice { X = 0, Y = 0 });
-                    Policka.Add(new Souradnice { X = -1, Y = 0 });
-                    Policka.Add(new Souradnice { X = 1, Y = 0 });
-                    Policka.Add(new Souradnice { X = 2, Y = 0 });
-                    Policka.Add(new Souradnice { X = 0, Y = 1 });
-                    Policka.Add(new Souradnice { X = 1, Y = 1 });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 2, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y + 1 });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y + 1 });
                     break;
                 case TypLode.Kriznik:
-                    Policka.Add(new Souradnice { X = 0, Y = 0 });
-                    Policka.Add(new Souradnice { X = -1, Y = 0 });
-                    Policka.Add(new Souradnice { X = 1, Y = 0 });
-                    Policka.Add(new Souradnice { X = 2, Y = 0 });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 2, Y = Souradnice.Y });
+                    break;
+            }
+        }
+        
+        public void Update()
+        {
+
+            Policka = new List<Souradnice>();
+
+            switch (Typ)
+            {
+                case TypLode.Clun:
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    break;
+                case TypLode.Torpedovka:
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y + 1 });
+                    break;
+                case TypLode.Letadlovka:
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 2, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y + 1 });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y + 1 });
+                    break;
+                case TypLode.Kriznik:
+                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = Souradnice.X + 2, Y = Souradnice.Y });
                     break;
             }
         }
@@ -62,9 +96,9 @@ namespace Lode
         } 
         public void Otocit(NatoceniLode uhel)
         {
-            throw new NotImplementedException();
+        
         }
-        public void Posunout(int dx, int dy, Souradnice rozsahPohybu,NatoceniLode uhelNatoceni)
+        public void Posunout(int dx, int dy, Souradnice souradnice,NatoceniLode uhelNatoceni)
         {
             if(Typ == TypLode.Clun)
             {
@@ -74,39 +108,39 @@ namespace Lode
                     {
 
                         case 'd':
-                            if (rozsahPohybu.X <= herniPoleX.Length - 3)
+                            if (souradnice.X <= herniPoleX.Length - 3)
                             {
-                                rozsahPohybu.X++;
+                                Souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (rozsahPohybu.Y <= herniPoleY.Length - 2)
+                            if (souradnice.Y <= herniPoleY.Length - 2)
                             {
-                                rozsahPohybu.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (rozsahPohybu.Y > 0 || rozsahPohybu.Y == herniPoleY.Length - 1)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
                             {
-                                rozsahPohybu.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (rozsahPohybu.X > 0 || rozsahPohybu.X == herniPoleX.Length - 1)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
                             {
-                                rozsahPohybu.X--;
+                                Souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(rozsahPohybu, Natoceni, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
                             {
                                 Natoceni++;
                                 if (Natoceni > NatoceniLode.Stupnu270)
@@ -125,39 +159,39 @@ namespace Lode
                     {
 
                         case 'd':
-                            if (rozsahPohybu.X <= herniPoleX.Length - 2)
+                            if (souradnice.X <= herniPoleX.Length - 2)
                             {
-                                rozsahPohybu.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (rozsahPohybu.Y <= herniPoleY.Length - 3)
+                            if (souradnice.Y <= herniPoleY.Length - 3)
                             {
-                                rozsahPohybu.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (rozsahPohybu.Y > 0 || rozsahPohybu.Y == herniPoleY.Length - 1)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
                             {
-                                rozsahPohybu.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (rozsahPohybu.X > 0 || rozsahPohybu.X == herniPoleX.Length)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
                             {
-                                rozsahPohybu.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(rozsahPohybu, Natoceni, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
                             {
                                 Natoceni++;
                             }
@@ -172,39 +206,39 @@ namespace Lode
                     {
 
                         case 'd':
-                            if (rozsahPohybu.X <= herniPoleX.Length - 3)
+                            if (souradnice.X <= herniPoleX.Length - 3)
                             {
-                                rozsahPohybu.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (rozsahPohybu.Y <= herniPoleY.Length - 2)
+                            if (souradnice.Y <= herniPoleY.Length - 2)
                             {
-                                rozsahPohybu.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (rozsahPohybu.Y > 0 || rozsahPohybu.Y == herniPoleY.Length - 1)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 1)
                             {
-                                rozsahPohybu.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (rozsahPohybu.X > 0 || rozsahPohybu.X == herniPoleX.Length - 1)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length - 1)
                             {
-                                rozsahPohybu.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(rozsahPohybu, Natoceni, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
                             {
                                 Natoceni++;
                             }
@@ -218,39 +252,39 @@ namespace Lode
                     {
 
                         case 'd':
-                            if (rozsahPohybu.X <= herniPoleX.Length - 2)
+                            if (souradnice.X <= herniPoleX.Length - 2)
                             {
-                                rozsahPohybu.X++;
+                                souradnice.X++;
                                 Console.Clear();
                             }
                             break;
 
                         case 's':
-                            if (rozsahPohybu.Y <= herniPoleY.Length - 3)
+                            if (souradnice.Y <= herniPoleY.Length - 3)
                             {
-                                rozsahPohybu.Y++;
+                                souradnice.Y++;
                                 Console.Clear();
                             }
                             break;
 
                         case 'w':
 
-                            if (rozsahPohybu.Y > 0 || rozsahPohybu.Y == herniPoleY.Length - 2)
+                            if (souradnice.Y > 0 || souradnice.Y == herniPoleY.Length - 2)
                             {
-                                rozsahPohybu.Y--;
+                                souradnice.Y--;
                                 Console.Clear();
                             }
                             break;
 
                         case 'a':
-                            if (rozsahPohybu.X > 0 || rozsahPohybu.X == herniPoleX.Length)
+                            if (souradnice.X > 0 || souradnice.X == herniPoleX.Length)
                             {
-                                rozsahPohybu.X--;
+                                souradnice.X--;
                                 Console.Clear();
                             }
                             break;
                         case 'e':
-                            if (muzeSeOtocit(rozsahPohybu, Natoceni, TypLode.Clun))
+                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
                             {
                                 Natoceni++;
                             }
@@ -322,9 +356,11 @@ namespace Lode
         }
 
 
-        public void Premistit(Souradnice souradnice, NatoceniLode natoceni)
+        public void Premistit(Souradnice souradnice)//, NatoceniLode natoceni)
         {
-
+           
+         
+            
         }
         public void Zasahnout()
         {

@@ -24,15 +24,16 @@ namespace Lode
 
             sour.X = 2;
             sour.Y = 2;
+           
 
             //new Hra(new TextoveRozhrani()).SpustitHru();
             while (jeNaTahu)
             {
                 Console.CursorVisible = false;
-
-                pohybLode(lod);
+                lod.Posunout(0, 0, lod.Souradnice, NatoceniLode.Stupnu0);
                 nakresliPole(herniPoleX.Length, herniPoleY.Length);
                 vejdeSe(herniPoleX.Length, herniPoleY.Length, lod);
+                lod.Update();
                 vykresliLod(lod);
                 
             }
@@ -51,23 +52,22 @@ namespace Lode
            
         }
 
-        static void pohybLode(Lod lod)
+        static void pohybLode(Souradnice souradnice)
         {
-            foreach (Souradnice s in lod.Policka)
-            {
+           
                 switch (Console.ReadKey(true).KeyChar)
                 {
                     case 'd':
 
-                        s.X++;
+                    souradnice.X++;
                         break;
 
                     case 'a':
 
-                        s.X--;
+                    souradnice.X--;
                         break;
                 }
-            }
+            
 
             /* if (typ == TypLode.Torpedovka)
              {
