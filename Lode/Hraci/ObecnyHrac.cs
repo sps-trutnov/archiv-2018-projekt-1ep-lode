@@ -65,7 +65,7 @@ namespace Lode
         {
             throw new NotImplementedException();
         }
-        public StavPolicka ProvestTahSoupere(Souradnice tah)
+        public StavPolicka ProvestTahSoupere(Souradnice tah) 
         {
             if (HerniPole[tah.X, tah.Y] == StavPolicka.Lod)
             {
