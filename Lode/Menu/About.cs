@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Threading;
 namespace Lode
 {
     class About
@@ -15,7 +15,7 @@ namespace Lode
         "                                                                                                          ",
         "                                             SENSEI                                                       ",
         "                                          ############                                                    ",
-        "                                                ▧                                                         ",
+        "                                                                                                          ",
         "                                          ŠENKÝŘ JAKUB                                                    ",
         "                                                                                                          ",
         "                                           TÝM 1 - A.I.                                                   ",
@@ -51,7 +51,7 @@ namespace Lode
         "                                                                                                          ",
         "                                       PETRŽELA ONDŘEJ                                                    ",
         "                                         PLÍHAL MARTIN                                                    ",
-        "                                          PRESL MARTIN                                                    ",
+        "                                          PRESL MARTIN?                                                   ",
         "                                                                                                          ",
         "                     (C) Ikonu vytvořil Freepik z webu www.flaticon.com                                   ",
         "##########################################################################################################",
@@ -64,7 +64,7 @@ namespace Lode
             int kolikRadkuVypsat = 1;
             int vrsekVypisu = 35;
 
-            // faze 1 - najizdeni
+            // faze 1 - rozjezd
             while (vrsekVypisu > 0)
             {
                 Console.CursorTop = vrsekVypisu;
@@ -73,7 +73,7 @@ namespace Lode
                 for (int i = 0; i < kolikRadkuVypsat; i++)
                     Console.WriteLine(rolovaciText[i]);
 
-                Console.ReadKey();
+                Thread.Sleep(400);
 
                 vrsekVypisu -= 1;
                 kolikRadkuVypsat += 1;
@@ -89,7 +89,7 @@ namespace Lode
 
                 for (int i = kolikRadkuSeUzVypsalo - kolikRadkuVypsat; i < kolikRadkuSeUzVypsalo; i++)
                     Console.WriteLine(rolovaciText[i]);
-                Console.ReadKey();
+                Thread.Sleep(400);
 
                 kolikRadkuSeUzVypsalo += 1;
             }
@@ -103,7 +103,7 @@ namespace Lode
 
                 for (int i = kolikRadkuSeUzVypsalo - kolikRadkuVypsat; i < kolikRadkuSeUzVypsalo; i++)
                     Console.WriteLine(rolovaciText[i]);
-                Console.ReadKey();
+                Thread.Sleep(400);
 
                 kolikRadkuVypsat -= 1;
             }
