@@ -10,7 +10,7 @@ namespace Lode
         private List<Souradnice> Policka { get; set; }
         private NatoceniLode Natoceni { get; set; }
         private Souradnice Souradnice { get; set; }
-        private TypLode Typ { get; set; }
+        public TypLode Typ { get; set; }
         private int Zasahy { get; set; }
 
         public Lod(TypLode typ)
@@ -100,7 +100,7 @@ namespace Lode
         } 
         public void Otocit(NatoceniLode uhel)
         {
-        
+            throw new NotImplementedException();
         }
         public void Posunout(int dx, int dy, Souradnice souradnice,NatoceniLode uhelNatoceni)
         {

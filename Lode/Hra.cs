@@ -15,6 +15,7 @@ namespace Lode
         public ObecnyHrac Hrac { get; set; }
         private ObecnyHrac Souper { get; set; }
 
+
         private Souradnice CilTahu { get; set; }
         private StavPolicka VysledekTahu { get; set; }
 
@@ -82,6 +83,11 @@ namespace Lode
 
                 Souper.NastavitAdresuSoupere(Hrac);
                 Hrac.NastavitAdresuSoupere(Souper);
+
+
+                Souper.NastavitAdresuSoupere(Hrac);
+                Hrac.NastavitAdresuSoupere(Souper);
+
 
                 VlaknoProAI = OddelitDoSamostatnehoVlakna(HratHru);
                 VlaknoProAI.Start(Souper);
