@@ -44,7 +44,7 @@ namespace Lode
         }
         public void ZobrazitHlaseni(string hlaseni, bool potvrditPrecteni = false)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(hlaseni);
         }
         public void ZobrazitLod(Lod lod, Souradnice rozsahZobrazeni, StavPolicka zpusobZobrazeni)
         {

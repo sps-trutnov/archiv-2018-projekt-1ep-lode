@@ -13,8 +13,6 @@ namespace Lode
         int FinalDataX = new Int32();
         int FinalDataY= new Int32();
         int startIndex = 0;
-        Souradnice DataSouradnice;
-        protected Random _nahoda;
 
         private IPAddress VlastniAdresa { get; set; }
         private IPAddress AdresaSoupere { get; set; }
@@ -106,6 +104,10 @@ namespace Lode
         {
             AdresaSoupere = adresa;
         }
+        public void NastavitAdresuSoupere(ObecnyHrac souper)
+        {
+            AdresaSoupere = souper.VlastniAdresa;
+        }
         public bool MojeAdresaJeVetsi(string mojeAdresa, string jehoAdresa)
         {
             bool sesHost = false;
@@ -117,20 +119,24 @@ namespace Lode
             int value1_2 = Int32.Parse(tokens[1]);
             int value1_3 = Int32.Parse(tokens[2]);
             int value1_4 = Int32.Parse(tokens[3]);
+            /*
             Console.WriteLine(value1_1);
             Console.WriteLine(value1_2);
             Console.WriteLine(value1_3);
             Console.WriteLine(value1_4);
+            */
             string ip2 = jehoAdresa;
             string[] tokens2 = ip2.Split('.');
             int value2_1 = Int32.Parse(tokens2[0]);
             int value2_2 = Int32.Parse(tokens2[1]);
             int value2_3 = Int32.Parse(tokens2[2]);
             int value2_4 = Int32.Parse(tokens2[3]);
+            /*
             Console.WriteLine(value2_1);
             Console.WriteLine(value2_2);
             Console.WriteLine(value2_3);
             Console.WriteLine(value2_4);
+            */
             if (value1_1 == value2_1)
             {
                 jedemDal = true;
@@ -313,7 +319,7 @@ namespace Lode
             postak.Receive(dataY);
             FinalDataX = BitConverter.ToInt32(dataX, startIndex);
             FinalDataY = BitConverter.ToInt32(dataY, startIndex);
-            return DataSouradnice = new Souradnice { X = FinalDataX, Y = FinalDataY };
+            return new Souradnice { X = FinalDataX, Y = FinalDataY };
            
 
             /*FinalDataX = Convert.ToInt32(dataX);
