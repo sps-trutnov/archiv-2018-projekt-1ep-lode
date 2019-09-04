@@ -12,7 +12,7 @@ namespace Lode
         private IPAddress MistniIP { get; set; }
         private Thread VlaknoProAI { get; set; }
 
-        private ObecnyHrac Hrac { get; set; }
+        public ObecnyHrac Hrac { get; set; }
         private ObecnyHrac Souper { get; set; }
 
         private Souradnice CilTahu { get; set; }
@@ -34,15 +34,27 @@ namespace Lode
             Hrac = new LidskyHrac(MistniIP);
         }
 
-        private bool BudeSeHratProtiPocitaci()
+        public void SpustitHru()
+        {
+            Rozhrani.ZobrazitMenu(this);
+
+            NastavitHrace();
+            HratHru(Hrac);
+            SkoncitHru();
+
+            VyhlasitVysledky();
+            VypnoutHru();
+        }
+
+        public bool BudeSeHratProtiPocitaci()
+        {
+             throw new NotImplementedException();
+        }
+        public bool HraSkoncila()
         {
             throw new NotImplementedException();
         }
-        private bool HraSkoncila()
-        {
-            throw new NotImplementedException();
-        }
-        private void HratHru(object hrajiciHrac)
+        public void HratHru(object hrajiciHrac)
         {
             ObecnyHrac hrac = (ObecnyHrac)hrajiciHrac;
 
@@ -76,7 +88,7 @@ namespace Lode
         }
         private void NastavitHrace()
         {
-            if (BudeSeHratProtiPocitaci())
+            if (((TextoveRozhrani)Rozhrani).Menu.HraProtiPocitaci)
             {
                 Souper = new PocitacovyHrac();
 
