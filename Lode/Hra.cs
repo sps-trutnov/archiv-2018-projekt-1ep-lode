@@ -40,7 +40,7 @@ namespace Lode
         }
         public bool HraSkoncila()
         {
-            throw new NotImplementedException();
+            return true;
         }
         public void HratHru(object hrajiciHrac)
         {
