@@ -267,13 +267,24 @@ namespace Lode
         {
             Rozhrani = rozhrani;
         }
-        public StavPolicka ProvestTahSoupere(Souradnice tah)
+        public StavPolicka ProvestTahSoupere(Souradnice tah) 
         {
-            throw new NotImplementedException();
+            if (HerniPole[tah.X, tah.Y] == StavPolicka.Lod)
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.Zasah;
+                return StavPolicka.Zasah;
+            }
+            else 
+            {
+                HerniPole[tah.X, tah.Y] = StavPolicka.Mimo;
+                return StavPolicka.Mimo;
+            }
+
         }
+
         public void ProvestVlastniTah(Souradnice tah, StavPolicka vysledek)
         {
-            throw new NotImplementedException();
+            HerniPoleSoupere[tah.X, tah.Y] = vysledek;
         }
         public int VymenitSiTokenSeSouperem(int token1, int token2)
         {
@@ -350,6 +361,11 @@ namespace Lode
             StavPolicka vysledekJakoStavPolicka = (StavPolicka)vysledekJakoInt;
 
             return vysledekJakoStavPolicka;
+        }
+
+        public bool ExistujeLod()
+        {
+            throw new NotImplementedException();
         }
     }
 }

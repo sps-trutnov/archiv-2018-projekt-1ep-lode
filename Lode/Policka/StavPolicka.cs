@@ -3,12 +3,12 @@
     enum StavPolicka
     {
         Neznamo,
-        Voda,
+        Voda, 
         Lod,
         Mimo,
         Zasah,
         Potopena,
         StrelbaPovolena,
-        StrelbaZakazana,
+        StrelbaZakazana, 
     }
 }
