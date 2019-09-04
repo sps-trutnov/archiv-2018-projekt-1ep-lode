@@ -7,7 +7,7 @@ namespace Lode
     {
         static int[] herniPoleX = new int[10];
         static int[] herniPoleY = new int[10];
-        private List<Souradnice> Policka { get; set; }
+        public List<Souradnice> Policka { get; private set; }
         private NatoceniLode Natoceni { get; set; }
         private Souradnice Souradnice { get; set; }
         public TypLode Typ { get; set; }
@@ -22,28 +22,28 @@ namespace Lode
             switch(Typ)
             {
                 case TypLode.Clun:
-                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 + 1, Y = 0 });
                 break;
                 case TypLode.Torpedovka:
-                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y + 1 });
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 - 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 + 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0, Y = 0 + 1 });
                 break;
                 case TypLode.Letadlovka:
-                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X + 2, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y + 1 });
-                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y + 1 });
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 - 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 + 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 + 2, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0, Y = 0 + 1 });
+                    Policka.Add(new Souradnice { X = 0 + 1, Y = 0 + 1 });
                     break;
                 case TypLode.Kriznik:
-                    Policka.Add(new Souradnice { X = Souradnice.X, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X - 1, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X + 1, Y = Souradnice.Y });
-                    Policka.Add(new Souradnice { X = Souradnice.X + 2, Y = Souradnice.Y });
+                    Policka.Add(new Souradnice { X = 0, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 - 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 + 1, Y = 0 });
+                    Policka.Add(new Souradnice { X = 0 + 2, Y = 0 });
                     break;
             }
         }
@@ -360,7 +360,7 @@ namespace Lode
         }
 
 
-        public void Premistit(Souradnice souradnice)//, NatoceniLode natoceni)
+        public void Premistit(Souradnice souradnice, NatoceniLode natoceni)
         {
            
          
