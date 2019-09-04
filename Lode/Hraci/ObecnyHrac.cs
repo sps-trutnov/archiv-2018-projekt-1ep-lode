@@ -63,11 +63,11 @@ namespace Lode
         }
         public void NastavitAdresuSoupere(IPAddress adresa)
         {
-            throw new NotImplementedException();
+            AdresaSoupere = adresa;
         }
         public void NastavitAdresuSoupere(ObecnyHrac souper)
         {
-            throw new NotImplementedException();
+            AdresaSoupere = souper.VlastniAdresa;
         }
         public void NavazatSpojeniSeSouperem()
         {

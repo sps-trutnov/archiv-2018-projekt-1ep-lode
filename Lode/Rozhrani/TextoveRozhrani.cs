@@ -6,12 +6,12 @@ namespace Lode
     {
         private Souradnice ReferencePoslednihoZobrazenehoHernihoPole { get; set; } = new Souradnice();
 
-        public Meňuňu Menu { get; private set; }
+        public UvodniMenu Menu { get; private set; }
 
         public TextoveRozhrani()
 
         {
-            Menu = new Meňuňu();
+            Menu = new UvodniMenu();
             Console.WindowHeight = 45;
             Console.WindowWidth = 120;
         }
@@ -101,7 +101,7 @@ namespace Lode
 
         public void ZobrazitMenu(Hra ktereHry)
         {
-            Menu.UvodniMenu(ktereHry);
+            Menu.Zobrazit(ktereHry);
         }
     }
 }

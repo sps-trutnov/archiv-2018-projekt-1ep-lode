@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lode
 {
-    class Meňuňu
+    class UvodniMenu
     {
         public bool HraProtiPocitaci { get; private set; }
 
-        public void UvodniMenu(Hra hraSeKterouSePracuje)
+        public void Zobrazit(Hra hraSeKterouSePracuje)
         {
-            while (true)
+            bool opakovatMenu = true;
+
+            while (opakovatMenu)
             {
                 Console.Clear();
                 Console.SetWindowSize(120, 35);
@@ -43,16 +41,16 @@ namespace Lode
                 Console.WriteLine("CO CHCETE UDĚLAT?");
                 string odpoved = Console.ReadLine().Trim();
 
-                HraProtiPocitaci = false;
 
                 if (odpoved.ToUpper() == "HRÁT PROTI PC")
                 {
                     HraProtiPocitaci = true;
-                    hraSeKterouSePracuje.BudeSeHratProtiPocitaci();
+                    opakovatMenu = false;
                 }
                 else if (odpoved.ToUpper() == "MULTIPLAYER")
                 {
-                    hraSeKterouSePracuje.HratHru(hraSeKterouSePracuje.Hrac);
+                    HraProtiPocitaci = false;
+                    opakovatMenu = false;
                 }
                 else if (odpoved.ToUpper() == "CREDITS")
                 {

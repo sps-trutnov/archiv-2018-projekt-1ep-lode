@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lode
 {
@@ -29,7 +26,7 @@ namespace Lode
 
             for (int i = 0; i < seznamBarev.Count; i++)
             {
-                Console.WriteLine("Volba" + i + ":" + seznamBarev[i]);
+                Console.WriteLine(seznamBarev[i]);
                 Console.WriteLine();
             }
 

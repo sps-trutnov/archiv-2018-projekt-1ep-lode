@@ -34,18 +34,6 @@ namespace Lode
             Hrac = new LidskyHrac(MistniIP);
         }
 
-        public void SpustitHru()
-        {
-            Rozhrani.ZobrazitMenu(this);
-
-            NastavitHrace();
-            HratHru(Hrac);
-            SkoncitHru();
-
-            VyhlasitVysledky();
-            VypnoutHru();
-        }
-
         public bool BudeSeHratProtiPocitaci()
         {
              throw new NotImplementedException();
@@ -141,6 +129,8 @@ namespace Lode
 
         public void SpustitHru()
         {
+            Rozhrani.ZobrazitMenu(this);
+
             NastavitHrace();
             HratHru(Hrac);
             SkoncitHru();
