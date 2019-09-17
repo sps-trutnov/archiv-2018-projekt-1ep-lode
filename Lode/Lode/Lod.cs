@@ -84,7 +84,18 @@ namespace Lode
 
         public bool BlokujePolicko(Souradnice souradnice, NatoceniLode uhel)
         {
-            throw new NotImplementedException();
+            foreach (var policko in Policka)
+            {
+                if(policko.X >= herniPoleX.Length || policko.X <= 0 || policko.Y >= herniPoleY.Length || policko.Y <= 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
         }
         private bool BlokujePolicko(int x, int y)
         {
@@ -96,11 +107,32 @@ namespace Lode
         }
         public bool JeUmistenaSpravne(Souradnice rozmerHernihoPole, List<Lod> ostatniLode)
         {
+            foreach (var lod in ostatniLode)
+            {
+                foreach (var policka in lod.Policka)
+                {
+                    foreach (var lokalniPolicka in Policka)
+                    {
+                        if(lokalniPolicka == policka)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+         
             throw new NotImplementedException();
         } 
         public void Otocit(NatoceniLode uhel)
-        {
-            throw new NotImplementedException();
+        {          
+           if (Console.ReadKey(true).KeyChar == 'e')
+           {
+                uhel++;
+           }
         }
         public void Posunout(int dx, int dy, Souradnice souradnice,NatoceniLode uhelNatoceni)
         {
@@ -143,16 +175,7 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
-                            {
-                                Natoceni++;
-                                if (Natoceni > NatoceniLode.Stupnu270)
-                                {
-                                    Natoceni = NatoceniLode.Stupnu0;
-                                }
-                            }
-                            break;
+                       
 
                     }
                 }
@@ -194,12 +217,7 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
-                            {
-                                Natoceni++;
-                            }
-                            break;
+        
 
 
                     }
@@ -241,13 +259,7 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
-                            {
-                                Natoceni++;
-                            }
-                            break;
-
+       
                     }
                 }
                 if (uhelNatoceni == NatoceniLode.Stupnu270)
@@ -287,13 +299,7 @@ namespace Lode
                                 Console.Clear();
                             }
                             break;
-                        case 'e':
-                            if (muzeSeOtocit(souradnice, Natoceni, TypLode.Clun))
-                            {
-                                Natoceni++;
-                            }
-                            break;
-
+       
                     }
                 }
             
