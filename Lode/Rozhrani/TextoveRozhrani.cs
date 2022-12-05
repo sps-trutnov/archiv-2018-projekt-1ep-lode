@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Lode
+﻿namespace Lode
 {
     class TextoveRozhrani : IRozhrani
     {
