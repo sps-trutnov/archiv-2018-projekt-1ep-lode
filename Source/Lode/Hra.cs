@@ -120,7 +120,7 @@ namespace Lode
         private void VypnoutHru()
         {
             Rozhrani.SmazatObrazovku();
-            Rozhrani.ZobrazitHlaseni("(C) Ikonu vytvořil Freepik z webu www.flaticon.com");
+            Rozhrani.ZobrazitHlaseni("(c) Ikonu vytvořil Freepik z webu www.flaticon.com");
             Rozhrani.ZobrazitHlaseni();
             Rozhrani.ZobrazitHlaseni("Pro ukončení stiskni libovolnou klávesu ...", true);
 
